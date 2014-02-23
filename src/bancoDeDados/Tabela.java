@@ -5,7 +5,7 @@ public class Tabela
 	private String nomeTabela;
 	private String sql;
 	
-	Tabela(String nomeTabela , String sql )
+	public Tabela(String nomeTabela , String sql )
 	{
 		this.nomeTabela = nomeTabela;
 		this.sql = sql;
