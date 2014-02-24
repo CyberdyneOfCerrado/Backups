@@ -10,7 +10,13 @@ public class HistoricoBackups extends Historico{
 	};
 	
 	public Backup salvar( Backup backup ){
-		backup.primaryKey = super.salvar(backup);
-		return 	backup;
+		// Primeira posicão é da id do Backup
+		// Segunda posição é  a id da RegraBackup;
+		
+		int primaryKeyBackup = backup.primaryKey = super.salvar(backup);
+		int primaryKeyRegra = super.salvar(backup.getRegra(),primaryKeyBackup);
+		backup.getRegra().primaryKey = primaryKeyRegra;
+		
+		return backup;
 	};
 }

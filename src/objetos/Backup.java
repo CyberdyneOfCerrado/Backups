@@ -14,8 +14,7 @@ public class Backup {
 	public String nomeBackup;
 	public Date dataInicio;
 	public HistoricoVersoes hv;
-
-	//RegraBackup regra = new RegraBackup(primaryKey, nomeBackup, nomeBackup);
+	RegraBackup regra;
 		
 	public Backup(String nomeBackup, Date dataInicio){
 		this.primaryKey = 0;
@@ -23,11 +22,27 @@ public class Backup {
 		this.dataInicio = dataInicio;
 		hv = new HistoricoVersoes();
 	}
+	
+	public Backup(String nomeBackup, Date dataInicio, RegraBackup regra ){
+		this.primaryKey = 0;
+		this.nomeBackup = nomeBackup;
+		this.dataInicio = dataInicio;
+		this.regra = regra;
+		hv = new HistoricoVersoes();
+	}
 	/*
 	public IteratorVersoes getVersao(){
 		return historicoVersao;
 	}*/
 	
+	public RegraBackup getRegra() {
+		return regra;
+	}
+
+	public void setRegra(RegraBackup regra) {
+		this.regra = regra;
+	}
+
 	public Date getDataInicio(){
 		System.out.println(dataInicio.toString());
 		return dataInicio;

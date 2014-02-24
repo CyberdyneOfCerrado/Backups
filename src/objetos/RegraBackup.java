@@ -5,9 +5,9 @@ package objetos;
 public class RegraBackup {
 	
 	
-	int primaryKey;
-	String destino;
-	String origem;
+	public int primaryKey;
+	public String destino;
+	public String origem;
 	//HistoricoDias historicoDias;
 	
 	public RegraBackup(int primaryKey, String destino, String origem){
