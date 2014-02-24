@@ -1,7 +1,8 @@
 package historicos;
 
+import java.util.ArrayList;
+
 import bancoDeDados.BancoDeDados;
-import iteradores.Iterador;
 
 public class Historico {
 	private BancoDeDados bd;
@@ -10,7 +11,7 @@ public class Historico {
 		bd = BancoDeDados.obterInstancia();
 	};
 	
-	public Iterador obter ( String sql ){ // terminar este método
+	public ArrayList<Object> obter ( String sql ){ // terminar este método
 		return bd.resgatar(sql);
 	};
 	

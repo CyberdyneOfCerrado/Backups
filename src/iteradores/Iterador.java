@@ -10,7 +10,7 @@ public class Iterador implements Iterator<Object>
 	public Iterador(ArrayList<Object> colecao)
 	{
 		this.colecao = colecao;
-		controle = -1 ;
+		controle = 0 ;
 	}
 	
 	public Iterador(){
@@ -25,13 +25,18 @@ public class Iterador implements Iterator<Object>
 	@Override
 	public Object next() 
 	{
-		return colecao.get(++controle);
+		return colecao.get(controle++);
 	}
 
 	@Override
 	public void remove() 
 	{
 		colecao.remove(controle);
+	}
+	
+	public void zerar()
+	{
+		controle = 0;
 	}
 
 }

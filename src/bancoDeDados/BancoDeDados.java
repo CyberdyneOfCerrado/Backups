@@ -4,6 +4,7 @@ import iteradores.Iterador;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import bancoDeDados.BancoEmbarcado;
 import bancoDeDados.ReflexaoSql;
@@ -72,8 +73,7 @@ public class BancoDeDados
 		return id;
 	};
 	
-	public Iterador resgatar(String sql){
-		re.resgataObjeto(be.executarSelect(sql));
-		return null;
+	public ArrayList<Object> resgatar(String sql){
+		return re.resgataObjeto(be.executarSelect(sql));
 	}
 }

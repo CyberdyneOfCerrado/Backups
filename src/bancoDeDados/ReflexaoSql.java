@@ -117,7 +117,7 @@ public class ReflexaoSql {
 		return sql.substring(0,sql.length()-4)+")";
 	};
 	
-	public Object resgataObjeto ( ResultSet result ){
+	public ArrayList<Object> resgataObjeto ( ResultSet result ){
 		ArrayList<Object> arl = new ArrayList<>();
 		try {
 			while (result.next()) { 
@@ -144,6 +144,6 @@ public class ReflexaoSql {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		};
-		return null;
+		return arl;
 	};
 }
