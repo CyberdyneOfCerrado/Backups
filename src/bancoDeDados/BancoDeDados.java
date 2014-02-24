@@ -1,5 +1,7 @@
 package bancoDeDados;
 
+import iteradores.Iterador;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -63,4 +65,9 @@ public class BancoDeDados
 		}
 		return id;
 	};
+	
+	public Iterador resgatar(String sql){
+		re.resgataObjeto(be.executarSelect(sql));
+		return null;
+	}
 }

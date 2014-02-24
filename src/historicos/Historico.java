@@ -11,7 +11,7 @@ public class Historico {
 	};
 	
 	public Iterador obter ( String sql ){ // terminar este método
-		return null;
+		return bd.resgatar(sql);
 	};
 	
 	public int  salvar ( Object ob ){

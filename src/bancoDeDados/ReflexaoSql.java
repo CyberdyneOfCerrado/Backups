@@ -2,6 +2,9 @@ package bancoDeDados;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Type;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class ReflexaoSql {
 	
@@ -108,5 +111,34 @@ public class ReflexaoSql {
 			}
 		}
 		return sql.substring(0,sql.length()-4)+")";
+	};
+	
+	public Object resgataObjeto ( ResultSet result ){
+		ArrayList<Object> arl = new ArrayList<>();
+		
+		try {
+			while (result.next()) { 
+					switch(result.getMetaData().getTableName(1)){
+					case"BACKUP":
+						System.err.println("BACKUP");
+						break;
+					case"REGRABACKUP":
+						System.err.println("REGRABACKUP");
+						break;
+					case"VERSAO":
+						System.err.println("VERSAO");
+						break;
+					case"ARTEFATO":
+						System.err.println("ARTEFATO");
+						break;
+					case"DIAS":
+						System.err.println("DIAS");
+						break;
+					}
+				}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		};
+		return null;
 	};
 }
