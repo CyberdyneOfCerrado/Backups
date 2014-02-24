@@ -14,7 +14,7 @@ public class Principal {
 	public static void main (String [] args ){
 		HistoricoBackups hb = new HistoricoBackups();
 		hb.obterHistorico();
-		//Backup b = new Backup("Meus codigos",new Date(), new RegraBackup("Aqui","Ali2"));
+		//Backup b = new Backup("Meus codigos",new Date().toString(), new RegraBackup("Aqui","Ali2"));
 		//b = hb.salvar(b);
 		//System.out.println("Minha primaryKey Backup : " + b.primaryKey +" PrimaryKey Regra : " + b.getRegra().primaryKey);
 		

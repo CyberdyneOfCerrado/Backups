@@ -21,6 +21,7 @@ public class BancoDeDados
 	final Tabela artefato    = new Tabela("ARTEFATO","CREATE TABLE ARTEFATO(PRIMARYKEY INT NOT NULL GENERATED ALWAYS AS IDENTITY(START WITH 1, INCREMENT BY 1),ULTIMAMODIFICACAO VARCHAR(31) ,FK INT NOT NULL,PRIMARY KEY (PRIMARYKEY),CONSTRAINT fk_ARTEFATO_VERSAO1 FOREIGN KEY (FK) REFERENCES VERSAO(PRIMARYKEY))");
 	final Tabela dias        = new Tabela("DIAS","CREATE TABLE DIAS ( PRIMARYKEY INT NOT NULL GENERATED ALWAYS AS IDENTITY(START WITH 1, INCREMENT BY 1),DIA VARCHAR(20) ,HORAS CHAR(5) ,DESLIGAR VARCHAR(6),FK INT NOT NULL,PRIMARY KEY (PRIMARYKEY),CONSTRAINT fk_DIAS_REGRABACKUP FOREIGN KEY (FK) REFERENCES REGRABACKUP (PRIMARYKEY))");
 	//Fim definição.
+	static BancoDeDados bd = null;
 	
 	BancoEmbarcado be;
 	ReflexaoSql    re;
@@ -32,6 +33,11 @@ public class BancoDeDados
 			e.printStackTrace();
 		}
 		re = new ReflexaoSql();
+	};
+	
+	public static BancoDeDados obterInstancia (){
+		if(bd == null) return bd = new BancoDeDados();
+		return bd;
 	};
 	
 	public int salvar( Object ob ){

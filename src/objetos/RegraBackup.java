@@ -19,6 +19,12 @@ public class RegraBackup {
 		historicoDias = new HistoricoDias();
 	}
 	
+	public RegraBackup(int primaryKey, String destino, String origem){
+		this.primaryKey = primaryKey;
+		this.destino = destino;
+		this.origem = origem;
+		historicoDias = new HistoricoDias();
+	}
 	/*
 	public IteradorDias getDias(){
 		return historicoDias;

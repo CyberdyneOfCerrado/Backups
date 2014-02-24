@@ -7,7 +7,7 @@ public class Historico {
 	private BancoDeDados bd;
 	
 	public Historico(){
-		bd = new BancoDeDados();
+		bd = BancoDeDados.obterInstancia();
 	};
 	
 	public Iterador obter ( String sql ){ // terminar este método

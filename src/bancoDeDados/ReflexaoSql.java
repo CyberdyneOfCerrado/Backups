@@ -5,6 +5,10 @@ import java.lang.reflect.Type;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
+
+import objetos.Backup;
+import objetos.RegraBackup;
 
 public class ReflexaoSql {
 	
@@ -115,15 +119,16 @@ public class ReflexaoSql {
 	
 	public Object resgataObjeto ( ResultSet result ){
 		ArrayList<Object> arl = new ArrayList<>();
-		
 		try {
 			while (result.next()) { 
 					switch(result.getMetaData().getTableName(1)){
 					case"BACKUP":
 						System.err.println("BACKUP");
+						arl.add( new Backup(result.getInt(1),result.getString(2),result.getString(3)));
 						break;
 					case"REGRABACKUP":
 						System.err.println("REGRABACKUP");
+						arl.add( new RegraBackup(result.getInt(1), result.getString(2), result.getString(3)));
 						break;
 					case"VERSAO":
 						System.err.println("VERSAO");

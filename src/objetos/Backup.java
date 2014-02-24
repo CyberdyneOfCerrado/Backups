@@ -2,34 +2,36 @@ package objetos;
 
 import historicos.HistoricoVersoes;
 
-import java.util.Date;
-
-
-
-
 
 public class Backup {
 
 	public int primaryKey;
 	public String nomeBackup;
-	public Date dataInicio;
+	public String dataInicio;
 	public HistoricoVersoes hv;
 	RegraBackup regra;
 		
-	public Backup(String nomeBackup, Date dataInicio){
+	public Backup(String nomeBackup, String dataInicio){
 		this.primaryKey = 0;
 		this.nomeBackup = nomeBackup;
 		this.dataInicio = dataInicio;
 		hv = new HistoricoVersoes();
-	}
+	};
 	
-	public Backup(String nomeBackup, Date dataInicio, RegraBackup regra ){
+	public Backup(int primaryKey, String nomeBackup, String dataInicio){
+		this.primaryKey = primaryKey;
+		this.nomeBackup = nomeBackup;
+		this.dataInicio = dataInicio;
+		hv = new HistoricoVersoes();
+	};
+	
+	public Backup(String nomeBackup, String dataInicio, RegraBackup regra ){
 		this.primaryKey = 0;
 		this.nomeBackup = nomeBackup;
 		this.dataInicio = dataInicio;
 		this.regra = regra;
 		hv = new HistoricoVersoes();
-	}
+	};
 	/*
 	public IteratorVersoes getVersao(){
 		return historicoVersao;
@@ -43,7 +45,7 @@ public class Backup {
 		this.regra = regra;
 	}
 
-	public Date getDataInicio(){
+	public String getDataInicio(){
 		System.out.println(dataInicio.toString());
 		return dataInicio;
 	}
