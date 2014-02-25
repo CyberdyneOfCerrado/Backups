@@ -5,7 +5,6 @@ import java.lang.reflect.Type;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 
 import objetos.Backup;
 import objetos.RegraBackup;
