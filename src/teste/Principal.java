@@ -15,8 +15,8 @@ import historicos.HistoricoBackups;
 public class Principal {
 	public static void main (String [] args ){
 		HistoricoBackups hb = new HistoricoBackups();
-		for( int i = 0 ; i < 10000 ; i ++){
-			Backup b = new Backup("Meus codigos",new Date().toString(), new RegraBackup("Aqui","Ali2"));
+		for( int i = 0 ; i < 100 ; i ++){
+			Backup b = new Backup("Meus codigos",new Date().toString(), new RegraBackup("Aqui"+i,"Ali2"));
 			b = hb.salvar(b);
 			System.out.println("Minha primaryKey Backup : " + b.primaryKey +" PrimaryKey Regra : " + b.getRegra().primaryKey);
 			
@@ -31,7 +31,7 @@ public class Principal {
 		while(ib.hasNext()){
 			Backup br = ib.next();
 			
-			System.out.println(" Nome Back up _> " + br.getNomeBackup() +"Alguns dados da regra _> " + br.getRegra().getDestino());
+			System.out.println(" Nome Back up _> " + br.getNomeBackup() +"Primarykey ; "+br.primaryKey+" Alguns dados da regra _> " + br.getRegra().getDestino());
 		}
 	}
 }
