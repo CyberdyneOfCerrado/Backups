@@ -6,8 +6,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import enuns.DiasSemana;
+import enuns.Status;
+import objetos.Artefato;
 import objetos.Backup;
+import objetos.Dias;
 import objetos.RegraBackup;
+import objetos.Versao;
 
 public class ReflexaoSql {
 	
@@ -131,12 +136,50 @@ public class ReflexaoSql {
 						break;
 					case"VERSAO":
 						System.err.println("VERSAO");
+						Status s = null;
+						switch( result.getString(3)){
+						case"SUCESSO":
+							s = Status.SUCESSO;
+							break;
+						case"FALHA":
+							s = Status.FALHA;
+							break;
+						}
+						arl.add( new Versao(result.getInt(1),result.getString(2),s));
 						break;
 					case"ARTEFATO":
 						System.err.println("ARTEFATO");
+						arl.add( new Artefato(result.getString(1)));
 						break;
 					case"DIAS":
 						System.err.println("DIAS");
+						DiasSemana d = null;
+						switch( result.getString(2)){
+						case "DOMINGO": 
+							d = DiasSemana.DOMINGO;
+							break;
+						case"QUARTA":
+							d = DiasSemana.QUARTA;
+							break;
+						case"QUINTA":
+							d = DiasSemana.QUINTA;
+							break;
+						case"SABADO":
+							d = DiasSemana.SABADO;
+							break;
+						case"SEGUNDA":
+							d = DiasSemana.SEGUNDA;
+							break;
+						case"SEXTA":
+							d = DiasSemana.SEXTA;
+							break;
+						case"TERCA":
+							d = DiasSemana.TERCA;
+							break;
+						}
+						boolean temp = result.getString(4).equals("true");
+						
+						arl.add( new Dias(result.getInt(1),d,result.getString(3),temp));
 						break;
 					}
 				}

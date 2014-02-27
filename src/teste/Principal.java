@@ -26,9 +26,9 @@ public class Principal {
 			
 			for( int x = 0 ; x < 7 ; x++ ) b.getRegra().salvarDia(new Dias(DiasSemana.DOMINGO, new Date().toString().substring(17,19),true));
 			
-			Versao v = b.salvarVersao(new Versao(new Date(),Status.SUCESSO));
+			Versao v = b.salvarVersao(new Versao(new Date().toString(),Status.SUCESSO));
 			System.out.println("Minha id " + v.primaryKey);
-			Artefato a = v.salvarArtefato(new Artefato(new Date()));
+			Artefato a = v.salvarArtefato(new Artefato(new Date().toString()));
 			System.out.println("Minha id " + a.primaryKey);
 		}
 		

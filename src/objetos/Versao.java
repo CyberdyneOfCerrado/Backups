@@ -9,13 +9,20 @@ import enuns.Status;
 public class Versao {
 	
 	public int primaryKey;
-	public Date dataInicio;
+	public String dataInicio;
 	public Status status;
 	HistoricoArtefatos ha;
 	
-	public Versao(Date dataInicio, Status status){
+	public Versao(String dataInicio, Status status){
 		this.primaryKey = 0;
 		this.dataInicio = dataInicio;
+		this.status = status;
+		ha = new HistoricoArtefatos();
+	}
+	
+	public Versao(int primaryKey ,String string, Status status){
+		this.primaryKey = primaryKey;
+		this.dataInicio = string;
 		this.status = status;
 		ha = new HistoricoArtefatos();
 	}
@@ -25,7 +32,7 @@ public class Versao {
 		return artefatos;
 	}*/
 	
-	public Date getDataInicio(){
+	public String getDataInicio(){
 		System.out.println(dataInicio.toString());
 		return dataInicio;
 	}

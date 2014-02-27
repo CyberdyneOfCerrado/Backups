@@ -1,18 +1,16 @@
 package objetos;
 
-import java.util.Date;
-
 public class Artefato {
 	
 	public int primaryKey;
-	public Date ultimaModificacao;
+	public String ultimaModificacao;
 	
-	public Artefato(Date ultimaModificacao){
+	public Artefato(String ultimaModificacao){
 		this.primaryKey = 0;
 		this.ultimaModificacao = ultimaModificacao;
 	}
 	
-	public Date getUltimaModificacao(){
+	public String getUltimaModificacao(){
 		System.out.println(ultimaModificacao.toString());
 		return ultimaModificacao;
 	}
