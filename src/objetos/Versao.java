@@ -2,7 +2,6 @@ package objetos;
 
 import historicos.HistoricoArtefatos;
 
-import java.util.Date;
 
 import enuns.Status;
 

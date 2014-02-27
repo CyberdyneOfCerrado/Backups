@@ -7,10 +7,12 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 
 /**
@@ -28,7 +30,10 @@ public class Inicio {
         private JLabel tile2;
         private JLabel tile3;
         private JLabel tile4;
-        private boolean ex=false;
+        private TJtextField cnome;
+        private JScrollPane scroll;
+        private TJtextField cbac;
+    	private boolean novo=false;
         Inicio(JPanel fundo){
             this.fundo=fundo;
         }
@@ -61,7 +66,7 @@ public class Inicio {
             textoTile4=new TJlabel("Buscar arquivos duplicados",0,0,0,0);
             textoTile4.setFont(new Font("Microsoft Yi Baiti",Font.PLAIN,31));
             textoTile4.setForeground(Color.BLACK);            
-            Runnable text = new Movimento(39,25,799,114,t1,fundo);
+            Runnable text = new Movimento(50,25,799,114,t1,fundo);
             new Thread(text).start();
             Runnable rt1 = new Movimento(118,148,80,80,tile1,fundo);
             new Thread(rt1).start();
@@ -79,13 +84,10 @@ public class Inicio {
             new Thread(rt4).start();
             Runnable rtt4 = new Movimento(203,426,799,41,textoTile4,fundo);
             new Thread(rtt4).start();         
-            ex=true;
         }
-        public void hide(boolean e)
+        public void hideInicio()
         {
-            if(e==true)
-            {
-                    Runnable text = new Recolher(39,25,799,114,t1,fundo);
+                    Runnable text = new Recolher(50,25,799,114,t1,fundo);
                     new Thread(text).start();
                     Runnable rt1 = new Recolher(118,148,80,80,tile1,fundo);
                     new Thread(rt1).start();
@@ -103,15 +105,13 @@ public class Inicio {
                     new Thread(rt4).start();
                     Runnable rtt4 = new Recolher(203,426,799,41,textoTile4,fundo);
                     new Thread(rtt4).start();                   
-                    e=false;
-            }
         }
-//listeners da tela de inicio
+        //listeners da tela de inicio
         class Novo implements MouseListener{
 
         @Override
         public void mouseClicked(MouseEvent e) {
-            hide(ex);
+        	hideInicio();
             Cadastro();
         }
         @Override
@@ -126,18 +126,92 @@ public class Inicio {
 // tela de cadastro
         public void Cadastro()
         {
-            t1=new TJlabel("Novo backup",0,0,0,0);
+        	ImageIcon v1 = new ImageIcon(getClass().getResource("/GUI/Imagens/back.png"));
+            tile1=new JLabel(v1);
+            tile1.addMouseListener(new BackInicio());
+            Runnable voltar= new Movimento(50,6,22,22,tile1,fundo);
+            new Thread(voltar).start();
+        	t1=new TJlabel("Novo backup",0,0,0,0);
             t1.setFont(new Font("CordiaUPC",Font.PLAIN,83));
             t1.setForeground(Color.BLACK);
-            Runnable text = new Movimento(39,25,799,114,t1,fundo);
+            textoTile1=new TJlabel("Nome",0,0,0,0);
+            textoTile1.setFont(new Font("Microsoft Yi Baiti",Font.PLAIN,31));
+            textoTile1.setForeground(Color.BLACK);
+            Runnable nome = new Movimento(50,140,100,38,textoTile1,fundo);
+            new Thread(nome).start();
+            cnome = new TJtextField(0,0,0,0);           
+            Runnable anome = new Movimento(50,179,620,38,cnome,fundo);
+            new Thread(anome).start();
+            textoTile2=new TJlabel("Diretorio do Arquivo",0,0,0,0);
+            textoTile2.setFont(new Font("Microsoft Yi Baiti",Font.PLAIN,31));
+            textoTile2.setForeground(Color.BLACK);
+            Runnable dic = new Movimento(50,217,700,38,textoTile2,fundo);
+            new Thread(dic).start();
+            TJtextArea cdic = new TJtextArea(0,0,0,0);
+            cdic.setLineWrap(true);
+            cdic.setWrapStyleWord(true);
+            cdic.setFont(new Font("Consolas",Font.PLAIN,20));
+            cdic.setForeground(Color.BLACK);
+            cnome.setEditable(false);
+            scroll = new JScrollPane(cdic);
+            scroll.getVerticalScrollBar().addAdjustmentListener(new Tscroll(novo));
+            scroll.setOpaque(false);//
+            scroll.getViewport().setOpaque(false);//             
+            Runnable adic = new Movimento(50,256,620,76,scroll,fundo);
+            new Thread(adic).start();
+            textoTile3=new TJlabel("Diretorio do backup",0,0,0,0);
+            textoTile3.setFont(new Font("Microsoft Yi Baiti",Font.PLAIN,31));
+            textoTile3.setForeground(Color.BLACK);
+            Runnable bac = new Movimento(50,333,700,38,textoTile3,fundo);
+            new Thread(bac).start();
+            cbac = new TJtextField(0,0,0,0);
+            Runnable abac = new Movimento(50,372,620,38,cbac,fundo);
+            new Thread(abac).start();             
+          //setBounds (horizontal,vertical,largura,altura);
+            Runnable text = new Movimento(50,25,799,114,t1,fundo);
             new Thread(text).start();
         }
-        public void escondeCadastro()
-        {
-                    Runnable text = new Recolher(39,25,799,114,t1,fundo);
-                    new Thread(text).start();
+        public void hideCadastro(){
+            Runnable voltar= new Recolher(50,6,22,22,tile1,fundo);
+            new Thread(voltar).start();
+            Runnable text = new Recolher(50,25,799,114,t1,fundo);
+            new Thread(text).start();
+            Runnable nome = new Recolher(50,140,100,38,textoTile1,fundo);
+            new Thread(nome).start();
+            Runnable anome = new Recolher(50,179,620,38,cnome,fundo);
+            new Thread(anome).start();
+            Runnable dic = new Recolher(50,217,700,38,textoTile2,fundo);
+            new Thread(dic).start();
+            Runnable adic = new Recolher(50,256,620,76,scroll,fundo);
+            new Thread(adic).start();
+            Runnable bac = new Recolher(50,333,700,38,textoTile3,fundo);
+            new Thread(bac).start();
+            Runnable abac = new Recolher(50,372,620,38,cbac,fundo);
+            new Thread(abac).start(); 
+
         }
-//tela de listar backups
+        //listeners Cadastro
+        class BackInicio implements MouseListener{
+
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				hideCadastro();
+				show();	
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent arg0) {}
+
+			@Override
+			public void mouseExited(MouseEvent arg0) {}
+
+			@Override
+			public void mousePressed(MouseEvent arg0) {}
+
+			@Override
+			public void mouseReleased(MouseEvent arg0) {}
+        	
+        }
 //Minhas classes de movimento
         class Movimento implements Runnable{
             int x,y,alt,larg;
@@ -145,6 +219,9 @@ public class Inicio {
             JLabel l=null;
             JPanel j;
             JPanel p=null;
+            TJtextField t=null;
+            TJtextArea a=null;
+            JScrollPane r=null;
            public Movimento(int x,int y,int larg,int alt,JLabel l,JPanel j){
                 this.x=x;
                 this.y=y;
@@ -169,17 +246,41 @@ public class Inicio {
                 this.larg=larg;
                 this.p=p;
             }
+           public Movimento(int x,int y,int larg,int alt,TJtextField t,JPanel j){
+               this.x=x;
+               this.y=y;
+               this.j=j;
+               this.alt=alt;
+               this.larg=larg;
+               this.t=t;
+           }
+           public Movimento(int x,int y,int larg,int alt,TJtextArea a,JPanel j){
+               this.x=x;
+               this.y=y;
+               this.j=j;
+               this.alt=alt;
+               this.larg=larg;
+               this.a=a;
+           }
+           public Movimento(int x,int y,int larg,int alt,JScrollPane r,JPanel j){
+               this.x=x;
+               this.y=y;
+               this.j=j;
+               this.alt=alt;
+               this.larg=larg;
+               this.r=r;
+           }            
             @Override
             public void run() {
                 int temp=800;
-                while(temp>x)
+                while(temp>=x)
                 {
                     try {
                         Thread.sleep(10);
                     } catch (InterruptedException ex) {
                         Logger.getLogger(Movimento.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    System.out.println(temp);
+                    System.err.println(temp);
                     if(b!=null)
                     {
                         b.setBounds(temp, y, larg, alt);
@@ -198,6 +299,24 @@ public class Inicio {
                         temp-=50;
                         j.add(p);
                     }
+                     if(t!=null)
+                    {
+                        t.setBounds(temp, y, larg, alt);
+                        temp-=50;
+                        j.add(t);
+                    }
+                     if(a!=null)
+                    {
+                        a.setBounds(temp, y, larg, alt);
+                        temp-=50;
+                        j.add(a);
+                    }
+                     if(r!=null)
+                    {
+                        r.setBounds(temp, y, larg, alt);
+                        temp-=50;
+                        j.add(r);
+                    }  
                 }
                 j.repaint();
                 Thread.interrupted();
@@ -210,6 +329,9 @@ public class Inicio {
             JLabel l=null;
             JPanel j;
             JPanel p=null;
+            TJtextField t=null;
+            TJtextArea a=null;
+            JScrollPane r=null;
            public Recolher(int x,int y,int larg,int alt,JLabel l,JPanel j){
                 this.x=x;
                 this.y=y;
@@ -234,10 +356,34 @@ public class Inicio {
                 this.larg=larg;
                 this.p=p;
             }
+           public Recolher(int x,int y,int larg,int alt,TJtextField t,JPanel j){
+               this.x=x;
+               this.y=y;
+               this.j=j;
+               this.alt=alt;
+               this.larg=larg;
+               this.t=t;
+           }
+           public Recolher(int x,int y,int larg,int alt,TJtextArea a,JPanel j){
+               this.x=x;
+               this.y=y;
+               this.j=j;
+               this.alt=alt;
+               this.larg=larg;
+               this.a=a;
+           } 
+           public Recolher(int x,int y,int larg,int alt,JScrollPane r,JPanel j){
+               this.x=x;
+               this.y=y;
+               this.j=j;
+               this.alt=alt;
+               this.larg=larg;
+               this.r=r;
+           }             
             @Override
             public void run() {
                 int temp=x;
-                while(temp>-768)
+                while(temp>=-768)
                 {
                     try {
                         Thread.sleep(10);
@@ -263,6 +409,24 @@ public class Inicio {
                         temp-=50;
                         j.add(p);
                     }
+                     if(t!=null)
+                    {
+                        t.setBounds(temp, y, larg, alt);
+                        temp-=50;
+                        j.add(t);
+                    }
+                     if(a!=null)
+                    {
+                        a.setBounds(temp, y, larg, alt);
+                        temp-=50;
+                        j.add(a);
+                    }
+                     if(r!=null)
+                    {
+                        r.setBounds(temp, y, larg, alt);
+                        temp-=50;
+                        j.add(r);
+                    }                       
                 }
                 j.repaint();
                 Thread.interrupted();

@@ -4,6 +4,7 @@ package teste;
 
 import java.util.Date;
 
+import GUI.SingleGuiMain;
 import enuns.DiasSemana;
 import enuns.Status;
 import objetos.Artefato;
@@ -18,6 +19,7 @@ import historicos.HistoricoBackups;
 
 public class Principal {
 	public static void main (String [] args ){
+		new SingleGuiMain();
 		HistoricoBackups hb = new HistoricoBackups();
 		for( int i = 0 ; i < 100 ; i ++){
 			Backup b = new Backup("Meus codigos",new Date().toString(), new RegraBackup("Aqui"+i,"Ali2"));

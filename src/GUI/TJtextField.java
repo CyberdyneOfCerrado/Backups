@@ -28,7 +28,7 @@ public class TJtextField extends JTextField {
 		this.alp=alp;
 		setOpaque(false); 
 		setBorder(new CompoundBorder(new EmptyBorder(0, 0, 0, 0), 
-		new LineBorder(Color.LIGHT_GRAY))); 
+		new LineBorder(Color.BLACK))); 
 	}
 @Override protected void paintComponent(Graphics g) {
 	g.setColor(new Color(r, g1, b, alp));
