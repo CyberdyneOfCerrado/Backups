@@ -9,6 +9,13 @@ public class Dias {
 	public String horas;
 	public boolean desligar;
 	
+	public Dias(DiasSemana dia, String horas, boolean desligar){
+		this.primaryKey = 0;
+		this.dia = dia;
+		this.horas = horas;
+		this.desligar = desligar;		
+	}
+	
 	public Dias(int primaryKey, DiasSemana dia, String horas, boolean desligar){
 		this.primaryKey = primaryKey;
 		this.dia = dia;
