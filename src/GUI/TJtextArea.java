@@ -20,9 +20,7 @@ public class TJtextArea extends JTextArea {
 		this.b=b;
 		this.g1=g1;
 		this.alp=alp;
-		setOpaque(false); 
-		setBorder(new CompoundBorder(new EmptyBorder(0, 0, 0, 0), 
-		new LineBorder(Color.BLACK))); 
+		setOpaque(false);
 	}
 @Override protected void paintComponent(Graphics g) {
 	g.setColor(new Color(r, g1, b, alp));
