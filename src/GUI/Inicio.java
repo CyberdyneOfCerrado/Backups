@@ -13,6 +13,10 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 
 
 /**
@@ -21,6 +25,7 @@ import javax.swing.JScrollPane;
  */
 public class Inicio {
         private JPanel fundo;
+        private JTextArea cdic;
         private JLabel t1;
         private JLabel textoTile1;
         private JLabel textoTile2;
@@ -33,7 +38,7 @@ public class Inicio {
         private TJtextField cnome;
         private JScrollPane scroll;
         private TJtextField cbac;
-    	private boolean novo=false;
+    	private boolean novo=true;
         Inicio(JPanel fundo){
             this.fundo=fundo;
         }
@@ -139,7 +144,10 @@ public class Inicio {
             textoTile1.setForeground(Color.BLACK);
             Runnable nome = new Movimento(50,140,100,38,textoTile1,fundo);
             new Thread(nome).start();
-            cnome = new TJtextField(0,0,0,0);           
+            cnome = new TJtextField(0,0,0,0);
+            cnome.setEditable(true);
+            cnome.setFont(new Font("Microsoft Yi Baiti",Font.PLAIN,20));
+            cnome.setForeground(Color.BLACK);
             Runnable anome = new Movimento(50,179,620,38,cnome,fundo);
             new Thread(anome).start();
             textoTile2=new TJlabel("Diretorio do Arquivo",0,0,0,0);
@@ -147,13 +155,13 @@ public class Inicio {
             textoTile2.setForeground(Color.BLACK);
             Runnable dic = new Movimento(50,217,700,38,textoTile2,fundo);
             new Thread(dic).start();
-            TJtextArea cdic = new TJtextArea(0,0,0,0);
-            cdic.setLineWrap(true);
-            cdic.setWrapStyleWord(true);
-            cdic.setFont(new Font("Consolas",Font.PLAIN,20));
+            cdic = new TJtextArea(0,0,0,0);
+            cdic.setLineWrap(true);//QUEBRA DE LINHA
+            cdic.setWrapStyleWord(true);//desliza a palavra para baixo caso haja quebra
+            cdic.setFont(new Font("Microsoft Yi Baiti",Font.PLAIN,20));
             cdic.setForeground(Color.BLACK);
-            cnome.setEditable(false);
             scroll = new JScrollPane(cdic);
+            scroll.setBorder(new CompoundBorder(new EmptyBorder(0, 0, 0, 0),new LineBorder(Color.BLACK))); 
             scroll.getVerticalScrollBar().addAdjustmentListener(new Tscroll(novo));
             scroll.setOpaque(false);//
             scroll.getViewport().setOpaque(false);//             
@@ -165,6 +173,9 @@ public class Inicio {
             Runnable bac = new Movimento(50,333,700,38,textoTile3,fundo);
             new Thread(bac).start();
             cbac = new TJtextField(0,0,0,0);
+            cbac.setFont(new Font("Microsoft Yi Baiti",Font.PLAIN,20));
+            cbac.setForeground(Color.BLACK);
+            cbac.setEditable(true);
             Runnable abac = new Movimento(50,372,620,38,cbac,fundo);
             new Thread(abac).start();             
           //setBounds (horizontal,vertical,largura,altura);
@@ -190,7 +201,7 @@ public class Inicio {
             new Thread(abac).start(); 
 
         }
-        //listeners Cadastro
+        //listeners Cadastro        
         class BackInicio implements MouseListener{
 
 			@Override

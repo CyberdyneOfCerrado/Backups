@@ -1,7 +1,5 @@
 package bancoDeDados;
 
-import iteradores.Iterador;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;

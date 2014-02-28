@@ -20,7 +20,7 @@ import historicos.HistoricoBackups;
 public class Principal {
 	public static void main (String [] args ){
 		new SingleGuiMain();
-		HistoricoBackups hb = new HistoricoBackups();
+		/*HistoricoBackups hb = new HistoricoBackups();
 		for( int i = 0 ; i < 100 ; i ++){
 			Backup b = new Backup("Meus codigos",new Date().toString(), new RegraBackup("Aqui"+i,"Ali2"));
 			b = hb.salvar(b);
@@ -40,6 +40,6 @@ public class Principal {
 			Backup br = ib.next();
 			
 			System.out.println(" Nome Back up _> " + br.getNomeBackup() +"Primarykey ; "+br.primaryKey+" Alguns dados da regra _> " + br.getRegra().getDestino());
-		}
+		}*/
 	}
 }
