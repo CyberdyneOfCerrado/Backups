@@ -53,6 +53,8 @@ public class GuiMain extends JFrame {
         private JLabel tlv;
         private TJlabel tp1;
         private TJlabel tl1,tl2,tl3;
+    private TJbutton Search;
+    private TJbutton Searchs;
     GuiMain()
     {
         setUndecorated(true);
@@ -202,7 +204,7 @@ public class GuiMain extends JFrame {
             cnome.setEditable(true);
             cnome.setFont(new Font("Microsoft Yi Baiti",Font.PLAIN,20));
             cnome.setForeground(Color.BLACK);
-            Runnable anome = new Movimento(50,179,620,38,cnome,fundo);
+            Runnable anome = new Movimento(50,179,650,38,cnome,fundo);
             new Thread(anome).start();
             //diretorio Backup
             tl3=new TJlabel("Diretorio do backup",0,0,0,0);
@@ -214,7 +216,7 @@ public class GuiMain extends JFrame {
             cbac.setFont(new Font("Microsoft Yi Baiti",Font.PLAIN,20));
             cbac.setForeground(Color.BLACK);
             cbac.setEditable(true);
-            Runnable abac = new Movimento(50,372,620,38,cbac,fundo);
+            Runnable abac = new Movimento(50,372,650,38,cbac,fundo);
             new Thread(abac).start();
             //fim
             //diretorio arquivo
@@ -236,12 +238,28 @@ public class GuiMain extends JFrame {
             scr.setOpaque(false);//
             scr.getViewport().setOpaque(false);//
             scr.setBounds(0,0,618,74);   
-            Runnable adic = new Movimento(50,256,620,76,scr,fundo);
+            Runnable adic = new Movimento(50,256,650,76,scr,fundo);
             new Thread(adic).start();
+            Search=new TJbutton("",0,0,0,0);
+            ImageIcon i1 = new ImageIcon(getClass().getResource("/GUI/Imagens/sea.jpg"));
+            Search.setIcon(i1);
+            Search.addActionListener(null);
+            Runnable sea1=new Movimento(700,372,38,38,Search,fundo);
+            new Thread(sea1).start();
+            Searchs=new TJbutton("",0,0,0,0);
+            ImageIcon i2 = new ImageIcon(getClass().getResource("/GUI/Imagens/sea.jpg"));
+            Searchs.setIcon(i2);
+            Searchs.addActionListener(null);
+            Runnable sea2=new Movimento(700,256,38,38,Searchs,fundo);
+            new Thread(sea2).start();            
             //fim
             //setBounds (horizontal,vertical,largura,altura);
         }
         public void hideCadastro(){
+            Runnable sea1=new Recolher(700,372,38,38,Search,fundo);
+            new Thread(sea1).start();
+            Runnable sea2=new Recolher(700,256,38,38,Searchs,fundo);
+            new Thread(sea2).start(); 
             Runnable voltar= new Recolher(50,6,22,22,tlv,fundo);
             new Thread(voltar).start();
             Runnable text = new Recolher(50,25,799,114,tp1,fundo);
