@@ -53,8 +53,13 @@ public class GuiMain extends JFrame {
         private JLabel tlv;
         private TJlabel tp1;
         private TJlabel tl1,tl2,tl3;
-    private TJbutton Search;
-    private TJbutton Searchs;
+        private TJbutton Search;
+        private TJbutton Searchs;
+        private TJbutton conf;
+        private TJbutton age;
+        private JLabel tla;
+        private TJlabel tpa;
+    
     GuiMain()
     {
         setUndecorated(true);
@@ -240,18 +245,38 @@ public class GuiMain extends JFrame {
             scr.setBounds(0,0,618,74);   
             Runnable adic = new Movimento(50,256,650,76,scr,fundo);
             new Thread(adic).start();
+             //botao procura pasta para backup
             Search=new TJbutton("",0,0,0,0);
             ImageIcon i1 = new ImageIcon(getClass().getResource("/GUI/Imagens/sea.jpg"));
             Search.setIcon(i1);
             Search.addActionListener(null);
             Runnable sea1=new Movimento(700,372,38,38,Search,fundo);
             new Thread(sea1).start();
+            //botao procura arquivos
             Searchs=new TJbutton("",0,0,0,0);
             ImageIcon i2 = new ImageIcon(getClass().getResource("/GUI/Imagens/sea.jpg"));
             Searchs.setIcon(i2);
             Searchs.addActionListener(null);
             Runnable sea2=new Movimento(700,256,38,38,Searchs,fundo);
-            new Thread(sea2).start();            
+            new Thread(sea2).start();
+            //botao confirma
+            conf=new TJbutton(null,0,0,0,255);
+            conf.setText("Confirmar");
+            conf.setBackground(Color.black);
+            conf.setForeground(Color.white);
+            conf.setFont(new Font("Microsoft Yi Baiti",Font.PLAIN,18));
+            Runnable cf=new Movimento(50,432,90,38,conf,fundo);
+            new Thread(cf).start();
+            //botão agenda
+            age=new TJbutton(null,0,0,0,255);
+            age.setText("Agendamento");
+            age.setBackground(Color.black);
+            age.setForeground(Color.white);
+            age.setFont(new Font("Microsoft Yi Baiti",Font.PLAIN,18));
+            age.addActionListener(new Agend());
+            Runnable ag=new Movimento(650,432,90,38,age,fundo);
+            new Thread(ag).start();
+            
             //fim
             //setBounds (horizontal,vertical,largura,altura);
         }
@@ -276,20 +301,13 @@ public class GuiMain extends JFrame {
             new Thread(bac).start();
             Runnable abac = new Recolher(50,372,620,38,cbac,fundo);
             new Thread(abac).start();
+            Runnable ag=new Recolher(650,432,90,38,age,fundo);
+            new Thread(ag).start();
+            Runnable cf=new Recolher(50,432,90,38,conf,fundo);
+            new Thread(cf).start();
 
         }
-        //listeners Cadastro
-        class Tscroll implements AdjustmentListener{ //rolagem automatica
-
-            @Override
-            public void adjustmentValueChanged(AdjustmentEvent e) {
-                  if(flag)
-                  {  
-                          e.getAdjustable().setValue(e.getAdjustable().getMaximum());
-                  }
-                  flag = false;
-          } 
-}
+        //listener Cadastro
         class BackInicio implements MouseListener{
 
 			@Override
@@ -311,6 +329,92 @@ public class GuiMain extends JFrame {
 			public void mouseReleased(MouseEvent arg0) {}
         	
         }
+        class Agend implements ActionListener{
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+                hideCadastro();
+                Agendamento();
+        }
+            
+        }
+        class Tscroll implements AdjustmentListener{ //rolagem automatica
+
+            @Override
+            public void adjustmentValueChanged(AdjustmentEvent e) {
+                  if(flag)
+                  {  
+                          e.getAdjustable().setValue(e.getAdjustable().getMaximum());
+                  }
+                  flag = false;
+          } 
+}
+         //fim listener cadastro
+        //tela de agendamento de dia
+        public void Agendamento(){
+            ImageIcon v1 = new ImageIcon(getClass().getResource("/GUI/Imagens/back.png"));
+            tla=new JLabel(v1);
+            tla.addMouseListener(new BackCadas());
+            Runnable voltar= new Movimento(50,6,22,22,tla,fundo);
+            new Thread(voltar).start();
+            tpa=new TJlabel("Agendar Backup",0,0,0,0);
+            tpa.setFont(new Font("CordiaUPC",Font.PLAIN,83));
+            tpa.setForeground(Color.BLACK);
+            Runnable text = new Movimento(50,25,799,114,tpa,fundo);
+            new Thread(text).start();           
+        }
+        //esconder agendamento
+        public void hideAgen(){
+            Runnable voltar= new Recolher(50,6,22,22,tla,fundo);
+            new Thread(voltar).start();
+            Runnable text = new Recolher(50,25,799,114,tpa,fundo);
+            new Thread(text).start(); 
+        }
+        //listener agendamento
+        class BackCadas implements MouseListener{
+
+        @Override
+        public void mouseClicked(MouseEvent e) {
+           hideAgen();
+            Runnable sea1=new Movimento(700,372,38,38,Search,fundo);
+            new Thread(sea1).start();
+            Runnable sea2=new Movimento(700,256,38,38,Searchs,fundo);
+            new Thread(sea2).start(); 
+            Runnable voltar= new Movimento(50,6,22,22,tlv,fundo);
+            new Thread(voltar).start();
+            Runnable text = new Movimento(50,25,799,114,tp1,fundo);
+            new Thread(text).start();
+            Runnable nome = new Movimento(50,140,100,38,tl1,fundo);
+            new Thread(nome).start();
+            Runnable anome = new Movimento(50,179,620,38,cnome,fundo);
+            new Thread(anome).start();
+            Runnable dic = new Movimento(50,217,700,38,tl2,fundo);
+            new Thread(dic).start();
+            Runnable adic = new Movimento(50,256,620,76,scr,fundo);
+            new Thread(adic).start();
+            Runnable bac = new Movimento(50,333,700,38,tl3,fundo);
+            new Thread(bac).start();
+            Runnable abac = new Movimento(50,372,620,38,cbac,fundo);
+            new Thread(abac).start();
+            Runnable ag=new Movimento(650,432,90,38,age,fundo);
+            new Thread(ag).start();
+            Runnable cf=new Movimento(50,432,90,38,conf,fundo);
+            new Thread(cf).start();           
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {}
+
+        @Override
+        public void mouseReleased(MouseEvent e) {}
+
+        @Override
+        public void mouseEntered(MouseEvent e) {}
+
+        @Override
+        public void mouseExited(MouseEvent e) {}
+        }
+        
 //Minhas classes de movimento
         class Movimento implements Runnable{
             int x,y,alt,larg;
