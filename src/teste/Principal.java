@@ -15,7 +15,7 @@ import objetos.Versao;
 import iteradores.IteradorBackups;
 import historicos.HistoricoBackups;
 
-//OS ARVOROS SOMOS NOZES
+//Jamais toque na minha classe de testes novamente Ass: Allyson : )
 
 public class Principal {
 	public static void main (String [] args ){
