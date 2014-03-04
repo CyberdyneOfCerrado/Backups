@@ -5,10 +5,11 @@
  */
 
 package GUI;
-
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Insets;
+
 import javax.swing.JButton;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
@@ -27,6 +28,11 @@ public class TJbutton extends JButton
 		setOpaque(false); 
 		setBorder(new CompoundBorder(new EmptyBorder(0, 0, 0, 0), 
 		new LineBorder(Color.LIGHT_GRAY))); 
+                setOpaque(false);
+                setContentAreaFilled(false);
+                setBorderPainted(true);
+                setFont(new Font("Microsoft Yi Baiti",Font.PLAIN,20));
+                setForeground(Color.WHITE);
 	}
 	Graphics g;
 @Override protected void paintComponent(Graphics g) {
@@ -48,4 +54,4 @@ public class TJbutton extends JButton
 	this.revalidate();
 	this.repaint();
 	}
-}        
+}
