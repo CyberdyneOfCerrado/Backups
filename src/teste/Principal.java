@@ -12,8 +12,10 @@ import objetos.Backup;
 import objetos.Dias;
 import objetos.RegraBackup;
 import objetos.Versao;
+import iteradores.IteradorArtefatos;
 import iteradores.IteradorBackups;
 import iteradores.IteradorDias;
+import iteradores.IteradorVersoes;
 import historicos.HistoricoBackups;
 
 //Jamais toque na minha classe de testes novamente Ass: Allyson : )
@@ -23,8 +25,8 @@ public class Principal {
 		//new SingleGuiMain();
 		
 		/*Criando um objeto hb para resgatar/adicionar os backups existentes no BD*/
-		
-		
+		HistoricoBackups hb = new HistoricoBackups();
+		/*
 		HistoricoBackups hb = new HistoricoBackups();
 		
 		
@@ -44,6 +46,7 @@ public class Principal {
 			Artefato a = v.salvarArtefato(new Artefato(new Date().toString()));
 			System.out.println("Minha id " + a.primaryKey);
 		
+		*/
 		
 		IteradorBackups ib = hb.obterHistorico();
 		
@@ -57,6 +60,22 @@ public class Principal {
 			while( id.hasNext() ){
 				Dias dia = id.next();
 				System.out.println("Info : " + dia.getHoras() +" dia : " + dia.getDias() + " desliga : " + dia.getDesligar());
+			}
+			
+			IteradorVersoes iv = br.resgatarVersoes();
+			
+			System.out.println("Versoes disponíveis para esse Backup : ");
+			while( iv.hasNext() ){
+				Versao versao = iv.next();
+				System.out.println("info : "+ versao.getDataInicio()+"");
+				
+				System.out.println("Artefatos dessa versão: ");
+				
+				IteradorArtefatos ia = versao.resgatarArtefatos();
+				while( ia.hasNext() ){
+					Artefato artefato = ia.next();
+					System.out.println("info"+ artefato.getUltimaModificacao());
+				}
 			}
 		}
 	}

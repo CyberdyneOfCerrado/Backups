@@ -1,5 +1,6 @@
 package objetos;
 
+import iteradores.IteradorVersoes;
 import historicos.HistoricoVersoes;
 
 
@@ -68,5 +69,8 @@ public class Backup {
 		versao.primaryKey = hv.salvar(versao,primaryKey);
 		return versao;
 	};
-
+	
+	public IteradorVersoes resgatarVersoes ( ){
+		return hv.obterHistorico(primaryKey);
+	}
 }

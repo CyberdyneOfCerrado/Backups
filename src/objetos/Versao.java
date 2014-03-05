@@ -1,5 +1,6 @@
 package objetos;
 
+import iteradores.IteradorArtefatos;
 import historicos.HistoricoArtefatos;
 
 
@@ -40,4 +41,8 @@ public class Versao {
 		artefato.primaryKey = ha.salvar(artefato,primaryKey);
 		return artefato;
 	};
+	
+	public IteradorArtefatos resgatarArtefatos(){
+		return ha.obterHistorico(primaryKey);
+	}
 }
