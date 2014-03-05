@@ -5,9 +5,6 @@ import java.awt.Graphics;
 import java.awt.Insets;
 
 import javax.swing.JTextArea;
-import javax.swing.border.CompoundBorder;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
 
 public class TJtextArea extends JTextArea { 
 	/**

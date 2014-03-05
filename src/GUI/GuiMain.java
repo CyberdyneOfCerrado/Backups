@@ -2,6 +2,7 @@
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
+ * Erick Batista do Nascimento
  */
 
 package GUI;
@@ -28,7 +29,9 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import java.awt.Dimension;
-import java.awt.GridLayout;
+import java.io.File;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollBar;
 
 /**
@@ -36,7 +39,11 @@ import javax.swing.JScrollBar;
  * @author erick7
  */
 public class GuiMain extends JFrame {
-        private JPanel fundo;
+        /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+		private JPanel fundo;
         int screenX,screenY;
         int x,y,tempx,tempy;
         private TJtextArea cdic;
@@ -70,100 +77,108 @@ public class GuiMain extends JFrame {
         private JButton sex;
         private JButton sab;
         private JButton dom;
-    private FundoJpane horas;
-    private TJbutton h0;
-    private TJbutton h1;
-    private TJbutton h2;
-    private TJbutton h3;
-    private TJbutton h4;
-    private TJbutton h5;
-    private TJbutton h6;
-    private TJbutton h7;
-    private TJbutton h8;
-    private TJbutton h9;
-    private TJbutton h10;
-    private TJbutton h11;
-    private TJbutton h12;
-    private TJbutton h13;
-    private TJbutton h14;
-    private TJbutton h15;
-    private TJbutton h16;
-    private TJbutton h17;
-    private TJbutton h18;
-    private TJbutton h19;
-    private TJbutton h20;
-    private TJbutton h21;
-    private TJbutton h22;
-    private TJbutton h23;
-    private FundoJpane minutos;
-    private TJbutton m0;
-    private TJbutton m1;
-    private TJbutton m3;
-    private TJbutton m2;
-    private TJbutton m4;
-    private TJbutton m5;
-    private TJbutton m6;
-    private TJbutton m7;
-    private TJbutton m8;
-    private TJbutton m9;
-    private TJbutton m10;
-    private TJbutton m11;
-    private TJbutton m12;
-    private TJbutton m13;
-    private TJbutton m14;
-    private TJbutton m15;
-    private TJbutton m16;
-    private TJbutton m17;
-    private TJbutton m18;
-    private TJbutton m19;
-    private TJbutton m20;
-    private TJbutton m21;
-    private TJbutton m22;
-    private TJbutton m23;
-    private TJbutton m24;
-    private TJbutton m25;
-    private TJbutton m26;
-    private TJbutton m27;
-    private TJbutton m28;
-    private TJbutton m29;
-    private TJbutton m31;
-    private TJbutton m32;
-    private TJbutton m33;
-    private TJbutton m34;
-    private TJbutton m35;
-    private TJbutton m36;
-    private TJbutton m30;
-    private TJbutton m37;
-    private TJbutton m38;
-    private TJbutton m39;
-    private TJbutton m40;
-    private TJbutton m41;
-    private TJbutton m42;
-    private TJbutton m43;
-    private TJbutton m44;
-    private TJbutton m45;
-    private TJbutton m46;
-    private TJbutton m48;
-    private TJbutton m47;
-    private TJbutton m49;
-    private TJbutton m50;
-    private TJbutton m51;
-    private TJbutton m52;
-    private TJbutton m53;
-    private TJbutton m54;
-    private TJbutton m55;
-    private TJbutton m56;
-    private TJbutton m57;
-    private TJbutton m58;
-    private TJbutton m59;
-    private JScrollPane scrolldia;
-    private TJbutton diau;
-    private TJbutton diad;
-    private TJlabel lbdia;
-    private TJlabel lbdh;
-    private JScrollPane scrollHora;
-    private TJbutton hu;
-    private TJbutton hd;
+        private FundoJpane horas;
+        private TJbutton h0;
+        private TJbutton h1;
+        private TJbutton h2;
+        private TJbutton h3;
+        private TJbutton h4;
+        private TJbutton h5;
+        private TJbutton h6;
+        private TJbutton h7;
+        private TJbutton h8;
+        private TJbutton h9;
+        private TJbutton h10;
+        private TJbutton h11;
+        private TJbutton h12;
+        private TJbutton h13;
+        private TJbutton h14;
+        private TJbutton h15;
+        private TJbutton h16;
+        private TJbutton h17;
+        private TJbutton h18;
+        private TJbutton h19;
+        private TJbutton h20;
+        private TJbutton h21;
+        private TJbutton h22;
+        private TJbutton h23;
+        private FundoJpane minutos;
+        private TJbutton m0;
+        private TJbutton m1;
+        private TJbutton m3;
+        private TJbutton m2;
+        private TJbutton m4;
+        private TJbutton m5;
+        private TJbutton m6;
+        private TJbutton m7;
+        private TJbutton m8;
+        private TJbutton m9;
+        private TJbutton m10;
+        private TJbutton m11;
+        private TJbutton m12;
+        private TJbutton m13;
+        private TJbutton m14;
+        private TJbutton m15;
+        private TJbutton m16;
+        private TJbutton m17;
+        private TJbutton m18;
+        private TJbutton m19;
+        private TJbutton m20;
+        private TJbutton m21;
+        private TJbutton m22;
+        private TJbutton m23;
+        private TJbutton m24;
+        private TJbutton m25;
+        private TJbutton m26;
+        private TJbutton m27;
+        private TJbutton m28;
+        private TJbutton m29;
+        private TJbutton m31;
+        private TJbutton m32;
+        private TJbutton m33;
+        private TJbutton m34;
+        private TJbutton m35;
+        private TJbutton m36;
+        private TJbutton m30;
+        private TJbutton m37;
+        private TJbutton m38;
+        private TJbutton m39;
+        private TJbutton m40;
+        private TJbutton m41;
+        private TJbutton m42;
+        private TJbutton m43;
+        private TJbutton m44;
+        private TJbutton m45;
+        private TJbutton m46;
+        private TJbutton m48;
+        private TJbutton m47;
+        private TJbutton m49;
+        private TJbutton m50;
+        private TJbutton m51;
+        private TJbutton m52;
+        private TJbutton m53;
+        private TJbutton m54;
+        private TJbutton m55;
+        private TJbutton m56;
+        private TJbutton m57;
+        private TJbutton m58;
+        private TJbutton m59;
+        private JScrollPane scrolldia;
+        private TJbutton diau;
+        private TJbutton diad;
+        private TJlabel lbdia;
+        private TJlabel lbdh;
+        private JScrollPane scrollHora;
+        private TJbutton hu;
+        private TJbutton hd;
+        private TJbutton mu;
+        private TJbutton md;
+        private JScrollPane scrollMinutos;
+        private TJlabel lbm;
+        private TJbutton confa;
+        private FundoJpane ld;
+        private FundoJpane lh;
+        private FundoJpane lm;
     
     GuiMain()
     {
@@ -219,19 +234,19 @@ public class GuiMain extends JFrame {
             textoTile1=new TJlabel("Novo backup",0,0,0,0);
             textoTile1.setFont(new Font("Microsoft Yi Baiti",Font.PLAIN,31));
             textoTile1.setForeground(Color.BLACK);
-            ImageIcon tl1 = new ImageIcon(getClass().getResource("/GUI/Imagens/NovoBackup.png"));
+            ImageIcon tl1i = new ImageIcon(getClass().getResource("/GUI/Imagens/NovoBackup.png"));
             tile1=new TJbutton("",0,0,0,0);  
-            tile1.setIcon(tl1);
+            tile1.setIcon(tl1i);
             tile1.addActionListener(new Novo());
-            ImageIcon tl2 = new ImageIcon(getClass().getResource("/GUI/Imagens/rodarBk.png"));
+            ImageIcon tl2i = new ImageIcon(getClass().getResource("/GUI/Imagens/rodarBk.png"));
             tile2=new TJbutton("",0,0,0,0);  
-            tile2.setIcon(tl2);
+            tile2.setIcon(tl2i);
             textoTile2=new TJlabel("Listar backups",0,0,0,0);
             textoTile2.setFont(new Font("Microsoft Yi Baiti",Font.PLAIN,31));
             textoTile2.setForeground(Color.BLACK);
-            ImageIcon tl3 = new ImageIcon(getClass().getResource("/GUI/Imagens/rodaRegra.png"));
+            ImageIcon tl3i = new ImageIcon(getClass().getResource("/GUI/Imagens/rodaRegra.png"));
             tile3=new TJbutton("",0,0,0,0);  
-            tile3.setIcon(tl3);
+            tile3.setIcon(tl3i);
             textoTile3=new TJlabel("Rodar regra de backup",0,0,0,0);
             textoTile3.setFont(new Font("Microsoft Yi Baiti",Font.PLAIN,31));
             textoTile3.setForeground(Color.BLACK);            
@@ -284,10 +299,10 @@ public class GuiMain extends JFrame {
         //listeners da tela de inicio
         class Novo implements ActionListener{          
 
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            Cadastro();
-            hideInicio();
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Cadastro();
+                hideInicio();
         }
         }
 // tela de cadastro
@@ -317,7 +332,7 @@ public class GuiMain extends JFrame {
             Runnable anome = new Movimento(50,179,650,38,cnome,fundo);
             new Thread(anome).start();
             //diretorio Backup
-            tl3=new TJlabel("Diretorio do backup",0,0,0,0);
+            tl3=new TJlabel("Diretório de destino do backup",0,0,0,0);
             tl3.setFont(new Font("Microsoft Yi Baiti",Font.PLAIN,31));
             tl3.setForeground(Color.BLACK);
             Runnable bac = new Movimento(50,333,700,38,tl3,fundo);
@@ -325,12 +340,12 @@ public class GuiMain extends JFrame {
             cbac = new TJtextField(0,0,0,0);
             cbac.setFont(new Font("Microsoft Yi Baiti",Font.PLAIN,20));
             cbac.setForeground(Color.BLACK);
-            cbac.setEditable(true);
+            cbac.setEditable(false);
             Runnable abac = new Movimento(50,372,650,38,cbac,fundo);
             new Thread(abac).start();
             //fim
             //diretorio arquivo
-            tl2=new TJlabel("Diretorio do Arquivo",0,0,0,0);
+            tl2=new TJlabel("Diretórios e arquivos de origem",0,0,0,0);
             tl2.setFont(new Font("Microsoft Yi Baiti",Font.PLAIN,31));
             tl2.setForeground(Color.BLACK);
             Runnable dic = new Movimento(50,217,700,38,tl2,fundo);
@@ -340,7 +355,7 @@ public class GuiMain extends JFrame {
             cdic.setWrapStyleWord(true);
             cdic.setFont(new Font("Microsoft Yi Baiti",Font.PLAIN,20));
             cdic.setForeground(Color.black);
-            cdic.setEditable(true);
+            cdic.setEditable(false);
             cdic.setBounds(0, 0, WIDTH,HEIGHT);
             scr = new JScrollPane(cdic);
             scr.getVerticalScrollBar().addAdjustmentListener(new Tscroll());
@@ -354,14 +369,14 @@ public class GuiMain extends JFrame {
             Search=new TJbutton("",0,0,0,0);
             ImageIcon i1 = new ImageIcon(getClass().getResource("/GUI/Imagens/sea.jpg"));
             Search.setIcon(i1);
-            Search.addActionListener(null);
+            Search.addActionListener(new DBackup(this));//backup
             Runnable sea1=new Movimento(700,372,38,38,Search,fundo);
             new Thread(sea1).start();
             //botao procura arquivos
             Searchs=new TJbutton("",0,0,0,0);
             ImageIcon i2 = new ImageIcon(getClass().getResource("/GUI/Imagens/sea.jpg"));
             Searchs.setIcon(i2);
-            Searchs.addActionListener(null);
+            Searchs.addActionListener(new Diretorio(this));//origem
             Runnable sea2=new Movimento(700,256,38,38,Searchs,fundo);
             new Thread(sea2).start();
             //botao confirma
@@ -409,6 +424,58 @@ public class GuiMain extends JFrame {
 
         }
         //listener Cadastro
+        class Diretorio implements ActionListener{
+        private JFileChooser chooser;
+        private JFrame j;
+        public Diretorio(JFrame j){
+            this.j=j;
+        }
+        String caminho="";
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            chooser = new JFileChooser();
+            chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);  
+            chooser.setMultiSelectionEnabled(true);
+            int r=chooser.showOpenDialog(j);
+            if (r == JFileChooser.APPROVE_OPTION){
+                File[] file=chooser.getSelectedFiles(); 
+                try{
+                    for(File temp:file)
+                    {
+                        caminho+=temp.getAbsolutePath()+"\n";
+                        cdic.setText(caminho);
+                    }
+                }catch (Exception erro){
+                    JOptionPane.showMessageDialog(j,"Erro ao carregar o caminho!");
+                }
+            }
+        }
+            
+        }
+        class DBackup implements ActionListener{
+        private JFrame j;
+        private JFileChooser chooserb;
+        public DBackup(JFrame j){
+            this.j=j;
+        }
+        String caminho="";
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            chooserb = new JFileChooser();
+            chooserb.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);  
+            chooserb.setMultiSelectionEnabled(false);
+            int r=chooserb.showOpenDialog(j);
+            if (r == JFileChooser.APPROVE_OPTION){
+                File file=chooserb.getSelectedFile(); 
+                try{
+                        cbac.setText(file.getAbsolutePath());
+                }catch (Exception erro){
+                    JOptionPane.showMessageDialog(j,"Erro ao carregar o caminho!");
+                }
+            }
+        }
+            
+        }
         class BackInicio implements MouseListener{
 
 			@Override
@@ -432,12 +499,12 @@ public class GuiMain extends JFrame {
         }
         class Agend implements ActionListener{
 
-        @Override
-        public void actionPerformed(ActionEvent e) {
-                hideCadastro();
-                Agendamento();
-        }
-            
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                    hideCadastro();
+                    Agendamento();
+            }
+
         }
         class Tscroll implements AdjustmentListener{ //rolagem automatica
 
@@ -465,28 +532,28 @@ public class GuiMain extends JFrame {
             //escolha de dia
             dia = new JPanel();
             dia.setLayout(null);
-            dia.setPreferredSize(new Dimension(100,468));
+            dia.setPreferredSize(new Dimension(100,477));
             dia.setOpaque(false);
             seg=new TJbutton("Segunda",0,0,0,255);
             seg.setBounds(1,53,99,50);
             dia.add(seg);
             ter=new TJbutton("Terça",0,0,0,255);
-            ter.setBounds(1,105,99,50);
+            ter.setBounds(1,106,99,50);
             dia.add(ter);
             quar=new TJbutton("Quarta",0,0,0,255);
-            quar.setBounds(1,157,99,50);
+            quar.setBounds(1,159,99,50);
             dia.add(quar);
             quin=new TJbutton("Quinta",0,0,0,255);
-            quin.setBounds(1,209,99,50);
+            quin.setBounds(1,212,99,50);
             dia.add(quin);
             sex=new TJbutton("Sexta",0,0,0,255);
-            sex.setBounds(1,261,99,50);
+            sex.setBounds(1,265,99,50);
             dia.add(sex);
             sab=new TJbutton("Sábado",0,0,0,255);
-            sab.setBounds(1,313,99,50);
+            sab.setBounds(1,318,99,50);
             dia.add(sab);
             dom=new TJbutton("Domingo",0,0,0,255);
-            dom.setBounds(1,365,99,50);
+            dom.setBounds(1,371,99,50);
             dia.add(dom);
             scrolldia = new JScrollPane(dia);
             scrolldia.setOpaque(false);
@@ -511,79 +578,79 @@ public class GuiMain extends JFrame {
             //escolha Horas
             horas=new FundoJpane(null,0,0,0,0);
             horas.setLayout(null);
-            horas.setPreferredSize(new Dimension(52,1353));
+            horas.setPreferredSize(new Dimension(52,1378));
             horas.setOpaque(false);
             h0=new TJbutton("00",0,0,0,255);
             h0.setBounds(1,53,50,50);
             horas.add(h0);
             h1=new TJbutton("01",0,0,0,255);
-            h1.setBounds(1,105,50,50);
+            h1.setBounds(1,106,50,50);
             horas.add(h1);
             h2=new TJbutton("02",0,0,0,255);
-            h2.setBounds(1,157,50,50);
+            h2.setBounds(1,159,50,50);
             horas.add(h2);            
             h3=new TJbutton("03",0,0,0,255);
-            h3.setBounds(1,209,50,50);
+            h3.setBounds(1,212,50,50);
             horas.add(h3);
             h4=new TJbutton("04",0,0,0,255);
-            h4.setBounds(1,261,50,50);
+            h4.setBounds(1,265,50,50);
             horas.add(h4);
             h5=new TJbutton("05",0,0,0,255);
-            h5.setBounds(1,313,50,50);
+            h5.setBounds(1,318,50,50);
             horas.add(h5);
             h6=new TJbutton("06",0,0,0,255);
-            h6.setBounds(1,365,50,50);
+            h6.setBounds(1,371,50,50);
             horas.add(h6);
             h7=new TJbutton("07",0,0,0,255);
-            h7.setBounds(1,417,50,50);
+            h7.setBounds(1,424,50,50);
             horas.add(h7);
             h8=new TJbutton("08",0,0,0,255);
-            h8.setBounds(1,469,50,50);
+            h8.setBounds(1,477,50,50);
             horas.add(h8);
             h9=new TJbutton("09",0,0,0,255);
-            h9.setBounds(1,521,50,50);
+            h9.setBounds(1,530,50,50);
             horas.add(h9);
             h10=new TJbutton("10",0,0,0,255);
-            h10.setBounds(1,573,50,50);
+            h10.setBounds(1,583,50,50);
             horas.add(h10);
             h11=new TJbutton("11",0,0,0,255);
-            h11.setBounds(1,625,50,50);
+            h11.setBounds(1,636,50,50);
             horas.add(h11);
             h12=new TJbutton("12",0,0,0,255);
-            h12.setBounds(1,677,50,50);
+            h12.setBounds(1,689,50,50);
             horas.add(h12);
             h13=new TJbutton("13",0,0,0,255);
-            h13.setBounds(1,729,50,50);
+            h13.setBounds(1,742,50,50);
             horas.add(h13);
             h14=new TJbutton("14",0,0,0,255);
-            h14.setBounds(1,781,50,50);
+            h14.setBounds(1,795,50,50);
             horas.add(h14);
             h15=new TJbutton("15",0,0,0,255);
-            h15.setBounds(1,833,50,50);
+            h15.setBounds(1,848,50,50);
             horas.add(h15);
             h16=new TJbutton("16",0,0,0,255);
-            h16.setBounds(1,885,50,50);
+            h16.setBounds(1,901,50,50);
             horas.add(h16);
             h17=new TJbutton("17",0,0,0,255);
-            h17.setBounds(1,935,50,50);
+            h17.setBounds(1,954,50,50);
             horas.add(h17);
             h18=new TJbutton("18",0,0,0,255);
-            h18.setBounds(1,989,50,50);
+            h18.setBounds(1,1007,50,50);
             horas.add(h18);
             h19=new TJbutton("19",0,0,0,255);
-            h19.setBounds(1,1041,50,50);
+            h19.setBounds(1,1060,50,50);
             horas.add(h19);
             h20=new TJbutton("20",0,0,0,255);
-            h20.setBounds(1,1093,50,50);
+            h20.setBounds(1,1113,50,50);
             horas.add(h20);
             h21=new TJbutton("21",0,0,0,255);
-            h21.setBounds(1,1145,50,50);
+            h21.setBounds(1,1166,50,50);
             horas.add(h21);
             h22=new TJbutton("22",0,0,0,255);
-            h22.setBounds(1,1197,50,50);
+            h22.setBounds(1,1219,50,50);
             horas.add(h22);
             h23=new TJbutton("23",0,0,0,255);
-            h23.setBounds(1,1249,50,50);
+            h23.setBounds(1,1272,50,50);
             horas.add(h23);
             lbdh = new TJlabel(null,0,0,0,0);
             lbdh.setText("Hora");
@@ -601,176 +668,237 @@ public class GuiMain extends JFrame {
             hu.setBorder(null);
             hd = new TJbutton("",0,0,0,0);
             ImageIcon ihd = new ImageIcon(getClass().getResource("/GUI/Imagens/Down.png"));
-            hd.setIcon(idiad);
+            hd.setIcon(ihd);
             hd.addActionListener(new Dw(scrollHora));
             hd.setBorder(null);
+            //escolha minutos
             minutos=new FundoJpane(null,0,0,0,0);
             minutos.setLayout(null);
-            minutos.setPreferredSize(new Dimension(52,3172));
+            minutos.setPreferredSize(new Dimension(52,3286));
             minutos.setOpaque(false);
-            
             m0=new TJbutton("00",0,0,0,255);
             m0.setBounds(1,53,50,50);
             minutos.add(m0);
             m1=new TJbutton("01",0,0,0,255);
-            m1.setBounds(1,105,50,50);
+            m1.setBounds(1,106,50,50);
             minutos.add(m1);
             m2=new TJbutton("02",0,0,0,255);
-            m2.setBounds(1,158,50,50);
+            m2.setBounds(1,159,50,50);
             minutos.add(m2);
             m3=new TJbutton("03",0,0,0,255);
-            m3.setBounds(1,211,50,50);
+            m3.setBounds(1,212,50,50);
             minutos.add(m3);
             m4=new TJbutton("04",0,0,0,255);
-            m4.setBounds(1,264,50,50);
+            m4.setBounds(1,265,50,50);
             minutos.add(m4);
             m5=new TJbutton("05",0,0,0,255);
-            m5.setBounds(1,317,50,50);
+            m5.setBounds(1,318,50,50);
             minutos.add(m5);
             m6=new TJbutton("06",0,0,0,255);
-            m6.setBounds(1,370,50,50);
+            m6.setBounds(1,371,50,50);
             minutos.add(m6);
             m7=new TJbutton("07",0,0,0,255);
-            m7.setBounds(1,423,50,50);
+            m7.setBounds(1,424,50,50);
             minutos.add(m7);
             m8=new TJbutton("08",0,0,0,255);
-            m8.setBounds(1,476,50,50);
+            m8.setBounds(1,477,50,50);
             minutos.add(m8);
             m9=new TJbutton("09",0,0,0,255);
-            m9.setBounds(1,259,50,50);
+            m9.setBounds(1,530,50,50);
             minutos.add(m9);
             m10=new TJbutton("10",0,0,0,255);
-            m10.setBounds(1,582,50,50);
+            m10.setBounds(1,583,50,50);
             minutos.add(m10);
             m11=new TJbutton("11",0,0,0,255);
-            m11.setBounds(1,635,50,50);
+            m11.setBounds(1,636,50,50);
             minutos.add(m11);
             m12=new TJbutton("12",0,0,0,255);
-            m12.setBounds(1,688,50,50);
+            m12.setBounds(1,689,50,50);
             minutos.add(m12);
             m13=new TJbutton("13",0,0,0,255);
-            m13.setBounds(1,741,50,50);
+            m13.setBounds(1,742,50,50);
             minutos.add(m13);
             m14=new TJbutton("14",0,0,0,255);
-            m14.setBounds(1,794,50,50);
+            m14.setBounds(1,795,50,50);
             minutos.add(m14);
             m15=new TJbutton("15",0,0,0,255);
-            m15.setBounds(1,847,50,50);
+            m15.setBounds(1,848,50,50);
             minutos.add(m15);
             m16=new TJbutton("16",0,0,0,255);
-            m16.setBounds(1,900,50,50);
+            m16.setBounds(1,901,50,50);
             minutos.add(m16);
             m17=new TJbutton("17",0,0,0,255);
-            m17.setBounds(1,953,50,50);
+            m17.setBounds(1,954,50,50);
             minutos.add(m17);
             m18=new TJbutton("18",0,0,0,255);
-            m18.setBounds(1,1006,50,50);
+            m18.setBounds(1,1007,50,50);
             minutos.add(m18);
             m19=new TJbutton("19",0,0,0,255);
-            m19.setBounds(1,1059,50,50);
+            m19.setBounds(1,1060,50,50);
             minutos.add(m19);
             m20=new TJbutton("20",0,0,0,255);
-            m20.setBounds(1,1112,50,50);
+            m20.setBounds(1,1113,50,50);
             minutos.add(m20);
             m21=new TJbutton("21",0,0,0,255);
-            m21.setBounds(1,1165,50,50);
+            m21.setBounds(1,1166,50,50);
             minutos.add(m21);
             m22=new TJbutton("22",0,0,0,255);
-            m22.setBounds(1,1218,50,50);
+            m22.setBounds(1,1219,50,50);
             minutos.add(m22);
             m23=new TJbutton("23",0,0,0,255);
-            m23.setBounds(1,1271,50,50);
+            m23.setBounds(1,1272,50,50);
             minutos.add(m23);
             m24=new TJbutton("24",0,0,0,255);
-            m24.setBounds(1,1324,50,50);
+            m24.setBounds(1,1325,50,50);
             minutos.add(m24);
             m25=new TJbutton("25",0,0,0,255);
-            m25.setBounds(1,1377,50,50);
+            m25.setBounds(1,1378,50,50);
             minutos.add(m25);
             m26=new TJbutton("26",0,0,0,255);
-            m26.setBounds(1,1430,50,50);
+            m26.setBounds(1,1431,50,50);
             minutos.add(m26);
             m27=new TJbutton("27",0,0,0,255);
-            m27.setBounds(1,1483,50,50);
+            m27.setBounds(1,1484,50,50);
             minutos.add(m27);
             m28=new TJbutton("28",0,0,0,255);
-            m28.setBounds(1,1536,50,50);
+            m28.setBounds(1,1537,50,50);
             minutos.add(m28);
             m29=new TJbutton("29",0,0,0,255);
-            m29.setBounds(1,1589,50,50);
+            m29.setBounds(1,1590,50,50);
             minutos.add(m29);
             m30=new TJbutton("30",0,0,0,255);
-            m30.setBounds(1,1642,50,50);
+            m30.setBounds(1,1643,50,50);
             minutos.add(m30);
             m31=new TJbutton("31",0,0,0,255);
-            m31.setBounds(1,1695,50,50);
+            m31.setBounds(1,1696,50,50);
             minutos.add(m31);
             m32=new TJbutton("32",0,0,0,255);
-            m32.setBounds(1,1748,50,50);
+            m32.setBounds(1,1749,50,50);
             minutos.add(m32);
             m33=new TJbutton("33",0,0,0,255);
-            m33.setBounds(1,1801,50,50);
+            m33.setBounds(1,1802,50,50);
             minutos.add(m33);
             m34=new TJbutton("34",0,0,0,255);
-            m34.setBounds(1,1854,50,50);
+            m34.setBounds(1,1855,50,50);
             minutos.add(m34);
             m35=new TJbutton("35",0,0,0,255);
-            m35.setBounds(1,1907,50,50);
+            m35.setBounds(1,1908,50,50);
             minutos.add(m35);
             m36=new TJbutton("36",0,0,0,255);
-            m36.setBounds(1,1960,50,50);
+            m36.setBounds(1,1961,50,50);
             minutos.add(m36);
             m37=new TJbutton("37",0,0,0,255);
-            m37.setBounds(1,2013,50,50);
+            m37.setBounds(1,2014,50,50);
             minutos.add(m37);
             m38=new TJbutton("38",0,0,0,255);
-            m38.setBounds(1,2066,50,50);
+            m38.setBounds(1,2067,50,50);
             minutos.add(m38);
             m39=new TJbutton("39",0,0,0,255);
-            m39.setBounds(1,2119,50,50);
+            m39.setBounds(1,2120,50,50);
             minutos.add(m39);
             m40=new TJbutton("40",0,0,0,255);
-            m40.setBounds(1,2172,50,50);
+            m40.setBounds(1,2173,50,50);
             minutos.add(m40);
             m41=new TJbutton("41",0,0,0,255);
-            m41.setBounds(1,2225,50,50);
+            m41.setBounds(1,2226,50,50);
             minutos.add(m41);
             m42=new TJbutton("42",0,0,0,255);
-            m42.setBounds(1,2278,50,50);
+            m42.setBounds(1,2279,50,50);
             minutos.add(m42);
             m43=new TJbutton("43",0,0,0,255);
-            m43.setBounds(1,2331,50,50);
+            m43.setBounds(1,2332,50,50);
             minutos.add(m43);
             m44=new TJbutton("44",0,0,0,255);
-            m44.setBounds(1,2384,50,50);
+            m44.setBounds(1,2385,50,50);
             minutos.add(m44);
             m45=new TJbutton("45",0,0,0,255);
-            m45.setBounds(1,2437,50,50);
+            m45.setBounds(1,2438,50,50);
             minutos.add(m45);
             m46=new TJbutton("46",0,0,0,255);
-            m46.setBounds(1,2490,50,50);
+            m46.setBounds(1,2491,50,50);
             minutos.add(m46);
             m47=new TJbutton("47",0,0,0,255);
-            m47.setBounds(1,2543,50,50);
+            m47.setBounds(1,2544,50,50);
             minutos.add(m47);
             m48=new TJbutton("48",0,0,0,255);
-            m48.setBounds(1,2596,50,50);
+            m48.setBounds(1,2597,50,50);
             minutos.add(m48);
             m49=new TJbutton("49",0,0,0,255);
-            m49.setBounds(1,2649,50,50);
+            m49.setBounds(1,2650,50,50);
             minutos.add(m49);
             m50=new TJbutton("50",0,0,0,255);
-            m50.setBounds(1,2702,50,50);
+            m50.setBounds(1,2703,50,50);
             minutos.add(m50);
             m51=new TJbutton("51",0,0,0,255);
+            m51.setBounds(1,2756,50,50);
+            minutos.add(m51);
             m52=new TJbutton("52",0,0,0,255);
+            m52.setBounds(1,2809,50,50);
+            minutos.add(m52);
             m53=new TJbutton("53",0,0,0,255);
+            m53.setBounds(1,2862,50,50);
+            minutos.add(m53);
             m54=new TJbutton("54",0,0,0,255);
+            m54.setBounds(1,2915,50,50);
+            minutos.add(m54);
             m55=new TJbutton("55",0,0,0,255);
+            m55.setBounds(1,2968,50,50);
+            minutos.add(m55);
             m56=new TJbutton("56",0,0,0,255);
+            m56.setBounds(1,3021,50,50);
+            minutos.add(m56);
             m57=new TJbutton("57",0,0,0,255);
+            m57.setBounds(1,3074,50,50);
+            minutos.add(m57);
             m58=new TJbutton("58",0,0,0,255);
+            m58.setBounds(1,3127,50,50);
+            minutos.add(m58);
             m59=new TJbutton("59",0,0,0,255);
+            m59.setBounds(1,3180,50,50);
+            minutos.add(m59);
+            lbm = new TJlabel(null,0,0,0,0);
+            lbm.setText("Minuto");
+            lbm.setFont(new Font("Microsoft Yi Baiti",Font.PLAIN,30));
+            lbm.setBounds(430,257,70,50);
+            fundo.add(lbm);
+            scrollMinutos = new JScrollPane(minutos);
+            scrollMinutos.setOpaque(false);
+            scrollMinutos.getViewport().setOpaque(false);
+            scrollMinutos.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+            scrollMinutos.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
+            scrollMinutos.setBorder(null);            
+            mu = new TJbutton("",0,0,0,0);
+            ImageIcon imu = new ImageIcon(getClass().getResource("/GUI/Imagens/UP.png"));
+            mu.setIcon(imu);
+            mu.addActionListener(new Up(scrollMinutos));
+            mu.setBorder(null);
+            md = new TJbutton("",0,0,0,0);
+            ImageIcon imd = new ImageIcon(getClass().getResource("/GUI/Imagens/Down.png"));
+            md.setIcon(imd);
+            md.addActionListener(new Dw(scrollMinutos));
+            md.setBorder(null);         
+            //fim minutos
+            confa=new TJbutton("Confirmar",0,0,0,255);            
+            confa.setFont(new Font("Microsoft Yi Baiti",Font.PLAIN,18));
+            confa.setForeground(Color.WHITE); 
+            confa.setBounds(355,432,90,38);
+            fundo.add(confa);
+            ImageIcon icd = new ImageIcon(getClass().getResource("/GUI/Imagens/100.png"));
+            Image id=icd.getImage();
+            ld=new FundoJpane(id,0,0,0,0);
+            ld.setBounds(100,208,99,156);
+            lh=new FundoJpane(id,0,0,0,0);
+            lh.setBounds(300,208,51,156);
+            lm=new FundoJpane(id,0,0,0,0);
+            lm.setBounds(500,208,51,156);
+            //threads de movimento
+            //setBounds (horizontal,vertical,largura,altura);
+            Runnable min= new Movimento(500,208,51,156,scrollMinutos,fundo);
+            new Thread(min).start();
+            Runnable upm = new Movimento(550,260,17,27,mu,fundo);
+            new Thread(upm).start();
+            Runnable dwm = new Movimento(550,288,17,27,md,fundo);
+            new Thread(dwm).start();            
             Runnable text = new Movimento(50,25,799,114,tpa,fundo);
             new Thread(text).start();
             Runnable day= new Movimento(100,208,99,156,scrolldia,fundo);
@@ -789,10 +917,21 @@ public class GuiMain extends JFrame {
             new Thread(uph).start();
             Runnable dwh = new Movimento(350,288,17,27,hd,fundo);
             new Thread(dwh).start();
+            fundo.add(ld);
+            fundo.add(lh);
+            fundo.add(lm);
         }
         
         //esconder agendamento
         public void hideAgen(){
+            Runnable d= new Recolher(100,208,99,156,ld,fundo);
+            new Thread(d).start();
+            Runnable h= new Recolher(300,208,51,156,lh,fundo);
+            new Thread(h).start();
+            Runnable m= new Recolher(500,208,51,156,lm,fundo);
+            new Thread(m).start();
+            Runnable cf=new Recolher(355,432,90,38,confa,fundo);
+            new Thread(cf).start();  
             Runnable voltar= new Recolher(50,6,22,22,tla,fundo);
             new Thread(voltar).start();
             Runnable text = new Recolher(50,25,799,114,tpa,fundo);
@@ -812,14 +951,22 @@ public class GuiMain extends JFrame {
             Runnable uph = new Recolher(350,260,17,27,hu,fundo);
             new Thread(uph).start();
             Runnable dwh = new Recolher(350,288,17,27,hd,fundo);
-            new Thread(dwh).start();            
+            new Thread(dwh).start();
+            Runnable min= new Recolher(500,208,51,156,scrollMinutos,fundo);
+            new Thread(min).start();
+            Runnable upm = new Recolher(550,260,17,27,mu,fundo);
+            new Thread(upm).start();
+            Runnable dwm = new Recolher(550,288,17,27,md,fundo);
+            new Thread(dwm).start();
+            Runnable mlb = new Recolher(430,257,70,50,lbm,fundo);
+            new Thread(mlb).start();
         }
         //listener agendamento
         class BackCadas implements MouseListener{
 
         @Override
         public void mouseClicked(MouseEvent e) {
-           hideAgen();
+            hideAgen();
             Runnable sea1=new Movimento(700,372,38,38,Search,fundo);
             new Thread(sea1).start();
             Runnable sea2=new Movimento(700,256,38,38,Searchs,fundo);
@@ -830,20 +977,20 @@ public class GuiMain extends JFrame {
             new Thread(text).start();
             Runnable nome = new Movimento(50,140,100,38,tl1,fundo);
             new Thread(nome).start();
-            Runnable anome = new Movimento(50,179,620,38,cnome,fundo);
-            new Thread(anome).start();
             Runnable dic = new Movimento(50,217,700,38,tl2,fundo);
             new Thread(dic).start();
-            Runnable adic = new Movimento(50,256,620,76,scr,fundo);
+            Runnable adic = new Movimento(50,256,650,76,scr,fundo);
             new Thread(adic).start();
             Runnable bac = new Movimento(50,333,700,38,tl3,fundo);
             new Thread(bac).start();
-            Runnable abac = new Movimento(50,372,620,38,cbac,fundo);
-            new Thread(abac).start();
             Runnable ag=new Movimento(650,432,90,38,age,fundo);
             new Thread(ag).start();
             Runnable cf=new Movimento(50,432,90,38,conf,fundo);
-            new Thread(cf).start();           
+            new Thread(cf).start(); 
+            Runnable anome = new Movimento(50,179,650,38,cnome,fundo);
+            new Thread(anome).start();
+            Runnable abac = new Movimento(50,372,650,38,cbac,fundo);
+            new Thread(abac).start();
         }
 
         @Override
@@ -867,7 +1014,7 @@ public class GuiMain extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             JScrollBar scroll = scr.getVerticalScrollBar();
-            if(scroll.getValue()<=scroll.getMaximum()-52)scroll.setValue(scroll.getValue()+52);
+            if(scroll.getValue()<=scroll.getMaximum()-53)scroll.setValue(scroll.getValue()+53);
         }
         
     }
@@ -881,7 +1028,7 @@ public class GuiMain extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             JScrollBar scroll = scr.getVerticalScrollBar();
-            if(scroll.getValue()>0)scroll.setValue(scroll.getValue()-52);        
+            if(scroll.getValue()>0)scroll.setValue(scroll.getValue()-53);        
         }
         
     }
@@ -945,14 +1092,14 @@ public class GuiMain extends JFrame {
            }
             @Override
             public void run() {
-                int temp=800;
+                int temp=800;             
                 while(temp>=x)
                 {
                     try {
                         Thread.sleep(10);
                     } catch (InterruptedException ex) {
                         Logger.getLogger(Movimento.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+                    }   
                     if(b!=null)
                     {
                         b.setBounds(temp, y, larg, alt);
@@ -1055,14 +1202,14 @@ public class GuiMain extends JFrame {
            }           
             @Override
             public void run() {
-                int temp=x;
+                int temp=x;          
                 while(temp<=800+768)
                 {
                     try {
                         Thread.sleep(10);
                     } catch (InterruptedException ex) {
                         Logger.getLogger(Recolher.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+                    }                          
                     if(b!=null)
                     {
                         b.setBounds(temp, y, larg, alt);
