@@ -1,5 +1,6 @@
 package objetos;
 
+import iteradores.IteradorDias;
 import historicos.HistoricoDias;
 
 
@@ -40,5 +41,9 @@ public class RegraBackup {
 	
 	public void salvarDia ( Dias dia ){
 		hd.salvar(dia, primaryKey);
+	};
+	
+	public IteradorDias recuperarDias(){
+		return hd.obterHistorico(primaryKey);
 	}
 }

@@ -13,33 +13,51 @@ import objetos.Dias;
 import objetos.RegraBackup;
 import objetos.Versao;
 import iteradores.IteradorBackups;
+import iteradores.IteradorDias;
 import historicos.HistoricoBackups;
 
 //Jamais toque na minha classe de testes novamente Ass: Allyson : )
 
 public class Principal {
 	public static void main (String [] args ){
-		new SingleGuiMain();
-		/*HistoricoBackups hb = new HistoricoBackups();
-		for( int i = 0 ; i < 100 ; i ++){
-			Backup b = new Backup("Meus codigos",new Date().toString(), new RegraBackup("Aqui"+i,"Ali2"));
+		//new SingleGuiMain();
+		
+		/*Criando um objeto hb para resgatar/adicionar os backups existentes no BD*/
+		
+		
+		HistoricoBackups hb = new HistoricoBackups();
+		
+		
+			Backup b = new Backup("Meus codigos",new Date().toString(), new RegraBackup("Aqui","Ali2"));
+			//Cria-se primeiramente o objeto Backup, este objeto terá a sua chave primária 0 como default. Após a criação, chamamos o método 'salvar' e insere-se
+			//o objeto backps. O método salvar retorna o mesmo objeto backup que entrou, porém já com a chave primária do banco de dados.
 			b = hb.salvar(b);
+			
 			System.out.println("Minha primaryKey Backup : " + b.primaryKey +" PrimaryKey Regra : " + b.getRegra().primaryKey);
 			
-			for( int x = 0 ; x < 7 ; x++ ) b.getRegra().salvarDia(new Dias(DiasSemana.DOMINGO, new Date().toString().substring(17,19),true));
+			//Adicionando 7 dias em uma regra de Backup
+			for( int x = 0 ; x < 7 ; x++ ) b.getRegra().salvarDia(new Dias(DiasSemana.DOMINGO, new Date().toString().substring(17,18)+x,true));
 			
+			//Salvando uma versão e salvando uma artefato e uma versão.
 			Versao v = b.salvarVersao(new Versao(new Date().toString(),Status.SUCESSO));
 			System.out.println("Minha id " + v.primaryKey);
 			Artefato a = v.salvarArtefato(new Artefato(new Date().toString()));
 			System.out.println("Minha id " + a.primaryKey);
-		}
+		
 		
 		IteradorBackups ib = hb.obterHistorico();
 		
 		while(ib.hasNext()){
 			Backup br = ib.next();
 			
-			System.out.println(" Nome Back up _> " + br.getNomeBackup() +"Primarykey ; "+br.primaryKey+" Alguns dados da regra _> " + br.getRegra().getDestino());
-		}*/
+			System.out.println(" Nome Backup: " + br.getNomeBackup() +"Primarykey : "+br.primaryKey+" Alguns dados da regra: " + br.getRegra().getDestino());
+			
+			IteradorDias id = br.getRegra().recuperarDias();
+			System.out.println("Dias Da regra de BackUp : ");
+			while( id.hasNext() ){
+				Dias dia = id.next();
+				System.out.println("Info : " + dia.getHoras() +" dia : " + dia.getDias() + " desliga : " + dia.getDesligar());
+			}
+		}
 	}
 }
