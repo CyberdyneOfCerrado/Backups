@@ -33,7 +33,7 @@ public class Versao {
 	}*/
 	
 	public String getDataInicio(){
-		System.out.println(dataInicio.toString());
+		//System.out.println(dataInicio.toString());
 		return dataInicio;
 	}
 	

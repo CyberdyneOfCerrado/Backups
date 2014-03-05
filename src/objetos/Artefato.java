@@ -11,7 +11,7 @@ public class Artefato {
 	}
 	
 	public String getUltimaModificacao(){
-		System.out.println(ultimaModificacao.toString());
+		//System.out.println(ultimaModificacao.toString());
 		return ultimaModificacao;
 	}
 
