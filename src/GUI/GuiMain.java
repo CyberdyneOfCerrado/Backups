@@ -238,12 +238,6 @@ public class GuiMain extends JFrame {
             tile1=new TJbutton("",0,0,0,0);  
             tile1.setIcon(tl1i);
             tile1.addActionListener(new Novo());
-            ImageIcon tl2i = new ImageIcon(getClass().getResource("/GUI/Imagens/rodarBk.png"));
-            tile2=new TJbutton("",0,0,0,0);  
-            tile2.setIcon(tl2i);
-            textoTile2=new TJlabel("Listar backups",0,0,0,0);
-            textoTile2.setFont(new Font("Microsoft Yi Baiti",Font.PLAIN,31));
-            textoTile2.setForeground(Color.BLACK);
             ImageIcon tl3i = new ImageIcon(getClass().getResource("/GUI/Imagens/rodaRegra.png"));
             tile3=new TJbutton("",0,0,0,0);  
             tile3.setIcon(tl3i);
@@ -262,17 +256,13 @@ public class GuiMain extends JFrame {
             new Thread(rt1).start();
             Runnable rtt1 = new Movimento(203,171,799,41,textoTile1,fundo);
             new Thread(rtt1).start();            
-            Runnable rt2 = new Movimento(118,233,80,80,tile2,fundo);
-            new Thread(rt2).start();
-            Runnable rtt2 = new Movimento(203,256,799,41,textoTile2,fundo);
-            new Thread(rtt2).start();
-            Runnable rt3 = new Movimento(118,318,80,80,tile3,fundo);
+            Runnable rt3 = new Movimento(118,233,80,80,tile3,fundo);
             new Thread(rt3).start();
-            Runnable rtt3 = new Movimento(203,341,799,41,textoTile3,fundo);
-            new Thread(rtt3).start();
-            Runnable rt4 = new Movimento(118,403,80,80,tile4,fundo);
+            Runnable rtt3 = new Movimento(203,256,799,41,textoTile3,fundo);
+            new Thread(rtt3).start();        
+            Runnable rt4 = new Movimento(118,318,80,80,tile4,fundo);
             new Thread(rt4).start();
-            Runnable rtt4 = new Movimento(203,426,799,41,textoTile4,fundo);
+            Runnable rtt4 = new Movimento(203,341,799,41,textoTile4,fundo);
             new Thread(rtt4).start();         
         }
         private void hideInicio()
@@ -283,17 +273,13 @@ public class GuiMain extends JFrame {
                     new Thread(rt1).start();
                     Runnable rtt1 = new Recolher(203,171,799,41,textoTile1,fundo);
                     new Thread(rtt1).start(); 
-                    Runnable rt2 = new Recolher(118,233,80,80,tile2,fundo);
-                    new Thread(rt2).start();
-                    Runnable rtt2 = new Recolher(203,256,799,41,textoTile2,fundo);
-                    new Thread(rtt2).start();
-                    Runnable rt3 = new Recolher(118,318,80,80,tile3,fundo);
+                    Runnable rt3 = new Recolher(118,233,80,80,tile3,fundo);
                     new Thread(rt3).start();
-                    Runnable rtt3 = new Recolher(203,341,799,41,textoTile3,fundo);
+                    Runnable rtt3 = new Recolher(203,256,799,41,textoTile3,fundo);
                     new Thread(rtt3).start();        
-                    Runnable rt4 = new Recolher(118,403,80,80,tile4,fundo);
+                    Runnable rt4 = new Recolher(118,318,80,80,tile4,fundo);
                     new Thread(rt4).start();
-                    Runnable rtt4 = new Recolher(203,426,799,41,textoTile4,fundo);
+                    Runnable rtt4 = new Recolher(203,341,799,41,textoTile4,fundo);
                     new Thread(rtt4).start(); 
         }
         //listeners da tela de inicio
@@ -1092,52 +1078,84 @@ public class GuiMain extends JFrame {
            }
             @Override
             public void run() {
-                int temp=800;             
+                int temp=800,pi=80;//numero de pixel por velocidade            
                 while(temp>=x)
                 {
                     try {
-                        Thread.sleep(10);
+                        Thread.sleep(50);//velocidade
                     } catch (InterruptedException ex) {
                         Logger.getLogger(Movimento.class.getName()).log(Level.SEVERE, null, ex);
                     }   
                     if(b!=null)
                     {
                         b.setBounds(temp, y, larg, alt);
-                        temp-=50;
+                        temp-=pi;
                         j.add(b);
                     }
                     if(l!=null)
                     {
                         l.setBounds(temp, y, larg, alt);          
-                        temp-=50;
+                        temp-=pi;
                         j.add(l);
                     }
                      if(t!=null)
                     {
                         t.setBounds(temp, y, larg, alt);
-                        temp-=50;
+                        temp-=pi;
                         j.add(t);
                     }
                      if(a!=null)
                     {
                         a.setBounds(temp, y, larg, alt);
-                        temp-=50;
+                        temp-=pi;
                         j.add(a);
                     }
                      if(r!=null)
                     {
                         r.setBounds(temp, y, larg, alt);
-                        temp-=50;
+                        temp-=pi;
                         j.add(r);
                         j.revalidate();
                     }
                      if(p!=null)
                     {
                         p.setBounds(temp, y, larg, alt);
-                        temp-=50;
+                        temp-=pi;
                         j.add(p);
                     }                      
                 }
+                    //correção de posição  
+                    if(b!=null)
+                    {
+                        b.setBounds(x, y, larg, alt);
+                        j.add(b);
+                    }
+                    if(l!=null)
+                    {
+                        l.setBounds(x, y, larg, alt);          
+                        j.add(l);
+                    }
+                     if(t!=null)
+                    {
+                        t.setBounds(x, y, larg, alt);
+                        j.add(t);
+                    }
+                     if(a!=null)
+                    {
+                        a.setBounds(x, y, larg, alt);
+                        j.add(a);
+                    }
+                     if(r!=null)
+                    {
+                        r.setBounds(x, y, larg, alt);
+                        j.add(r);
+                        j.revalidate();
+                    }
+                     if(p!=null)
+                    {
+                        p.setBounds(x, y, larg, alt);
+                        j.add(p);
+                    } 
                 j.repaint();
                 Thread.interrupted();
             }
