@@ -34,6 +34,9 @@ public class RegraBackup {
 		return destino;
 	}
 	
+	public boolean rodarRegra(){
+		return true;
+	}
 	public String getOrigem(){
 		System.out.println(origem);
 		return origem;
