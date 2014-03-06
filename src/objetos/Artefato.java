@@ -3,10 +3,13 @@ package objetos;
 public class Artefato {
 	
 	public int primaryKey;
+	public String nome;
 	public String ultimaModificacao;
 	
-	public Artefato(String ultimaModificacao){
+	
+	public Artefato(String nome , String ultimaModificacao){
 		this.primaryKey = 0;
+		this.nome = nome;
 		this.ultimaModificacao = ultimaModificacao;
 	}
 	
@@ -14,5 +17,8 @@ public class Artefato {
 		//System.out.println(ultimaModificacao.toString());
 		return ultimaModificacao;
 	}
-
+	
+	public String getNome(){
+		return nome;
+	}
 }

@@ -149,7 +149,7 @@ public class ReflexaoSql {
 						break;
 					case"ARTEFATO":
 						System.err.println("ARTEFATO");
-						arl.add( new Artefato(result.getString(1)));
+						arl.add( new Artefato(result.getString(1),result.getString(2)));
 						break;
 					case"DIAS":
 						System.err.println("DIAS");
