@@ -49,11 +49,9 @@ public class GuiMain extends JFrame {
         private TJtextArea cdic;
         private JLabel t1;
         private JLabel textoTile1;
-        private JLabel textoTile2;
         private JLabel textoTile3;
         private JLabel textoTile4;
         private JButton tile1;
-        private JButton tile2;
         private JButton tile3;
         private JButton tile4;
         private TJtextField cnome;
@@ -1078,11 +1076,11 @@ public class GuiMain extends JFrame {
            }
             @Override
             public void run() {
-                int temp=800,pi=80;//numero de pixel por velocidade            
+                int temp=800,pi=70;//numero de pixel por velocidade            
                 while(temp>=x)
                 {
                     try {
-                        Thread.sleep(50);//velocidade
+                        Thread.sleep(70);//velocidade
                     } catch (InterruptedException ex) {
                         Logger.getLogger(Movimento.class.getName()).log(Level.SEVERE, null, ex);
                     }   
