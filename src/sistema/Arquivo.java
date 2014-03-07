@@ -11,7 +11,6 @@ public class Arquivo {
 	{
 		ArrayList<Artefato> duplicados = new ArrayList<Artefato>();
 		ArrayList<Item> relacao;
-		ArrayList<String> arquivos = new ArrayList<String>();
 		File[] f = new File[0];
 		f[0] = new File(nome);
 		
