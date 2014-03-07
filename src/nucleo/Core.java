@@ -33,6 +33,7 @@ public class Core implements Runnable {
 	};
 	
 	public boolean rodarBackup( Backup backup ){//Funcional
+		System.out.println("Executando uma regra de Backup");
 		return backup.getRegra().rodarRegra();
 	};
 	
@@ -54,19 +55,19 @@ public class Core implements Runnable {
 				IteradorDias id = backup.getRegra().recuperarDias();
 				
 				 DateFormat dateFormat = new SimpleDateFormat("EEE,HH:mm");
-				 dateFormat.format( new Date());
-				 
-				 System.out.println(dateFormat.toString());
-				 
+				 String [] dados = dateFormat.format( new Date()).split(",");
+				  
 				while(id.hasNext()){
 					Dias dia = id.next();
 					
-					//if(){
-						
-					//}
+					 if(dia.getDias().equals(dados[0])){
+						if(dia.getHoras().equals(dados[1])) rodarBackup(backup);
+					}
 				}
 				
 			}
+
+			System.out.println("Esperando");
 			sleep(1000*60);
 		}
 	}
