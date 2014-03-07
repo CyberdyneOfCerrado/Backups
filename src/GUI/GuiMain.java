@@ -202,8 +202,8 @@ public class GuiMain extends JFrame {
         fundo=new FundoJpane(imf,0,0,0,0);
         fundo.setLayout(null);
         fundo.setBounds(0,0,800,500);
-        fundo.addMouseListener(new ClickMove());
-        fundo.addMouseMotionListener(new Mover());
+        fundo.addMouseListener(new CoordenadasFrameMovimentacao());
+        fundo.addMouseMotionListener(new CoordenadasTelaMovimentacao());
         add(fundo);
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.setIconImage(null);
@@ -218,7 +218,7 @@ public class GuiMain extends JFrame {
         ((FundoJpane) fundo).alterarImagem(imf);
         JButton fechar = new TJbutton("X",0,0,0,0);
         fechar.setBounds(767,6,16,25);
-        fechar.addActionListener(new Close());
+        fechar.addActionListener(new AcaoFechar());
         fechar.setContentAreaFilled(false);
         fechar.setOpaque(false);
         fechar.setForeground(Color.BLACK);
@@ -227,7 +227,7 @@ public class GuiMain extends JFrame {
         fundo.add(fechar);
         JButton min = new TJbutton("-",0,0,0,0);
         min.setBounds(748,2,16,25);
-        min.addActionListener(new Min());
+        min.addActionListener(new AcaoMinimizar());
         min.setContentAreaFilled(false);
         min.setOpaque(false);
         min.setForeground(Color.BLACK);
@@ -256,7 +256,7 @@ inicio();
             ImageIcon tl1i = new ImageIcon(getClass().getResource("/GUI/Imagens/NovoBackup.png"));
             tile1=new TJbutton("",0,0,0,0);  
             tile1.setIcon(tl1i);
-            tile1.addActionListener(new Novo());
+            tile1.addActionListener(new AcaoNovoCadastro());
             ImageIcon tl3i = new ImageIcon(getClass().getResource("/GUI/Imagens/rodaRegra.png"));
             tile3=new TJbutton("",0,0,0,0);  
             tile3.setIcon(tl3i);
@@ -269,40 +269,40 @@ inicio();
             textoTile4=new TJlabel("Buscar arquivos duplicados",0,0,0,0);
             textoTile4.setFont(new Font("Microsoft Yi Baiti",Font.PLAIN,31));
             textoTile4.setForeground(Color.BLACK);            
-            Runnable text = new Movimento(50,25,799,114,t1,fundo);
+            Runnable text = new MovimentoDeObjetos(50,25,799,114,t1,fundo);
             new Thread(text).start();
-            Runnable rt1 = new Movimento(118,148,80,80,tile1,fundo);
+            Runnable rt1 = new MovimentoDeObjetos(118,148,80,80,tile1,fundo);
             new Thread(rt1).start();
-            Runnable rtt1 = new Movimento(203,171,799,41,textoTile1,fundo);
+            Runnable rtt1 = new MovimentoDeObjetos(203,171,799,41,textoTile1,fundo);
             new Thread(rtt1).start();            
-            Runnable rt3 = new Movimento(118,233,80,80,tile3,fundo);
+            Runnable rt3 = new MovimentoDeObjetos(118,233,80,80,tile3,fundo);
             new Thread(rt3).start();
-            Runnable rtt3 = new Movimento(203,256,799,41,textoTile3,fundo);
+            Runnable rtt3 = new MovimentoDeObjetos(203,256,799,41,textoTile3,fundo);
             new Thread(rtt3).start();        
-            Runnable rt4 = new Movimento(118,318,80,80,tile4,fundo);
+            Runnable rt4 = new MovimentoDeObjetos(118,318,80,80,tile4,fundo);
             new Thread(rt4).start();
-            Runnable rtt4 = new Movimento(203,341,799,41,textoTile4,fundo);
+            Runnable rtt4 = new MovimentoDeObjetos(203,341,799,41,textoTile4,fundo);
             new Thread(rtt4).start();         
         }
         private void hideInicio()
         {
-                    Runnable text = new Recolher(50,25,799,114,t1,fundo);
+                    Runnable text = new RecolherObjetos(50,25,799,114,t1,fundo);
                     new Thread(text).start();
-                    Runnable rt1 = new Recolher(118,148,80,80,tile1,fundo);
+                    Runnable rt1 = new RecolherObjetos(118,148,80,80,tile1,fundo);
                     new Thread(rt1).start();
-                    Runnable rtt1 = new Recolher(203,171,799,41,textoTile1,fundo);
+                    Runnable rtt1 = new RecolherObjetos(203,171,799,41,textoTile1,fundo);
                     new Thread(rtt1).start(); 
-                    Runnable rt3 = new Recolher(118,233,80,80,tile3,fundo);
+                    Runnable rt3 = new RecolherObjetos(118,233,80,80,tile3,fundo);
                     new Thread(rt3).start();
-                    Runnable rtt3 = new Recolher(203,256,799,41,textoTile3,fundo);
+                    Runnable rtt3 = new RecolherObjetos(203,256,799,41,textoTile3,fundo);
                     new Thread(rtt3).start();        
-                    Runnable rt4 = new Recolher(118,318,80,80,tile4,fundo);
+                    Runnable rt4 = new RecolherObjetos(118,318,80,80,tile4,fundo);
                     new Thread(rt4).start();
-                    Runnable rtt4 = new Recolher(203,341,799,41,textoTile4,fundo);
+                    Runnable rtt4 = new RecolherObjetos(203,341,799,41,textoTile4,fundo);
                     new Thread(rtt4).start(); 
         }
         //listeners da tela de inicio
-        class Novo implements ActionListener{          
+        class AcaoNovoCadastro implements ActionListener{          
 
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -316,44 +316,44 @@ inicio();
 
             ImageIcon v1 = new ImageIcon(getClass().getResource("/GUI/Imagens/back.png"));
             tlv=new JLabel(v1);
-            tlv.addMouseListener(new BackInicio());
-            Runnable voltar= new Movimento(50,6,22,22,tlv,fundo);
+            tlv.addMouseListener(new TelaVoltaInicio());
+            Runnable voltar= new MovimentoDeObjetos(50,6,22,22,tlv,fundo);
             new Thread(voltar).start();
             tp1=new TJlabel("Novo backup",0,0,0,0);
             tp1.setFont(new Font("CordiaUPC",Font.PLAIN,83));
             tp1.setForeground(Color.BLACK);
-            Runnable text = new Movimento(50,25,799,114,tp1,fundo);
+            Runnable text = new MovimentoDeObjetos(50,25,799,114,tp1,fundo);
             new Thread(text).start();
             //nome
             tl1=new TJlabel("Nome",0,0,0,0);
             tl1.setFont(new Font("Microsoft Yi Baiti",Font.PLAIN,31));
             tl1.setForeground(Color.BLACK);
-            Runnable nome = new Movimento(50,140,100,38,tl1,fundo);
+            Runnable nome = new MovimentoDeObjetos(50,140,100,38,tl1,fundo);
             new Thread(nome).start();
             cnome = new TJtextField(0,0,0,0);
             cnome.setEditable(true);
             cnome.setFont(new Font("Microsoft Yi Baiti",Font.PLAIN,20));
             cnome.setForeground(Color.BLACK);
-            Runnable anome = new Movimento(50,179,650,38,cnome,fundo);
+            Runnable anome = new MovimentoDeObjetos(50,179,650,38,cnome,fundo);
             new Thread(anome).start();
             //diretorio Backup
             tl3=new TJlabel("Diretório de destino do backup",0,0,0,0);
             tl3.setFont(new Font("Microsoft Yi Baiti",Font.PLAIN,31));
             tl3.setForeground(Color.BLACK);
-            Runnable bac = new Movimento(50,333,700,38,tl3,fundo);
+            Runnable bac = new MovimentoDeObjetos(50,333,700,38,tl3,fundo);
             new Thread(bac).start();
             cbac = new TJtextField(0,0,0,0);
             cbac.setFont(new Font("Microsoft Yi Baiti",Font.PLAIN,20));
             cbac.setForeground(Color.BLACK);
             cbac.setEditable(false);
-            Runnable abac = new Movimento(50,372,650,38,cbac,fundo);
+            Runnable abac = new MovimentoDeObjetos(50,372,650,38,cbac,fundo);
             new Thread(abac).start();
             //fim
             //diretorio arquivo
             tl2=new TJlabel("Diretórios e arquivos de origem",0,0,0,0);
             tl2.setFont(new Font("Microsoft Yi Baiti",Font.PLAIN,31));
             tl2.setForeground(Color.BLACK);
-            Runnable dic = new Movimento(50,217,700,38,tl2,fundo);
+            Runnable dic = new MovimentoDeObjetos(50,217,700,38,tl2,fundo);
             new Thread(dic).start();
             cdic = new TJtextArea(0,0,0,0);
             cdic.setLineWrap(true);
@@ -368,71 +368,71 @@ inicio();
             scr.setOpaque(false);//
             scr.getViewport().setOpaque(false);//
             scr.setBounds(0,0,648,74);   
-            Runnable adic = new Movimento(50,256,650,76,scr,fundo);
+            Runnable adic = new MovimentoDeObjetos(50,256,650,76,scr,fundo);
             new Thread(adic).start();
              //botao procura pasta para backup
             Search=new TJbutton("",0,0,0,0);
             ImageIcon i1 = new ImageIcon(getClass().getResource("/GUI/Imagens/sea.jpg"));
             Search.setIcon(i1);
-            Search.addActionListener(new DBackup(this));//backup
-            Runnable sea1=new Movimento(700,372,38,38,Search,fundo);
+            Search.addActionListener(new ChooserBackup(this));//backup
+            Runnable sea1=new MovimentoDeObjetos(700,372,38,38,Search,fundo);
             new Thread(sea1).start();
             //botao procura arquivos
             Searchs=new TJbutton("",0,0,0,0);
             ImageIcon i2 = new ImageIcon(getClass().getResource("/GUI/Imagens/sea.jpg"));
             Searchs.setIcon(i2);
-            Searchs.addActionListener(new Diretorio(this));//origem
-            Runnable sea2=new Movimento(700,256,38,38,Searchs,fundo);
+            Searchs.addActionListener(new ChooserDiretorio(this));//origem
+            Runnable sea2=new MovimentoDeObjetos(700,256,38,38,Searchs,fundo);
             new Thread(sea2).start();
             //botao confirma
             conf=new TJbutton("Confirmar",0,0,0,255);            
             conf.setFont(new Font("Microsoft Yi Baiti",Font.PLAIN,18));
             conf.setForeground(Color.WHITE);
-            Runnable cf=new Movimento(50,432,90,38,conf,fundo);
+            Runnable cf=new MovimentoDeObjetos(50,432,90,38,conf,fundo);
             new Thread(cf).start();
             //botão agenda
             age=new TJbutton("Agendamento",0,0,0,255);
             age.setForeground(Color.white);
             age.setFont(new Font("Microsoft Yi Baiti",Font.PLAIN,18));
-            age.addActionListener(new Agend());
-            Runnable ag=new Movimento(650,432,90,38,age,fundo);
+            age.addActionListener(new TelaAgenda());
+            Runnable ag=new MovimentoDeObjetos(650,432,90,38,age,fundo);
             new Thread(ag).start();
             
             //fim
             //setBounds (horizontal,vertical,largura,altura);
         }
         private void hideCadastro(){
-            Runnable sea1=new Recolher(700,372,38,38,Search,fundo);
+            Runnable sea1=new RecolherObjetos(700,372,38,38,Search,fundo);
             new Thread(sea1).start();
-            Runnable sea2=new Recolher(700,256,38,38,Searchs,fundo);
+            Runnable sea2=new RecolherObjetos(700,256,38,38,Searchs,fundo);
             new Thread(sea2).start(); 
-            Runnable voltar= new Recolher(50,6,22,22,tlv,fundo);
+            Runnable voltar= new RecolherObjetos(50,6,22,22,tlv,fundo);
             new Thread(voltar).start();
-            Runnable text = new Recolher(50,25,799,114,tp1,fundo);
+            Runnable text = new RecolherObjetos(50,25,799,114,tp1,fundo);
             new Thread(text).start();
-            Runnable nome = new Recolher(50,140,100,38,tl1,fundo);
+            Runnable nome = new RecolherObjetos(50,140,100,38,tl1,fundo);
             new Thread(nome).start();
-            Runnable anome = new Recolher(50,179,620,38,cnome,fundo);
+            Runnable anome = new RecolherObjetos(50,179,620,38,cnome,fundo);
             new Thread(anome).start();
-            Runnable dic = new Recolher(50,217,700,38,tl2,fundo);
+            Runnable dic = new RecolherObjetos(50,217,700,38,tl2,fundo);
             new Thread(dic).start();
-            Runnable adic = new Recolher(50,256,620,76,scr,fundo);
+            Runnable adic = new RecolherObjetos(50,256,620,76,scr,fundo);
             new Thread(adic).start();
-            Runnable bac = new Recolher(50,333,700,38,tl3,fundo);
+            Runnable bac = new RecolherObjetos(50,333,700,38,tl3,fundo);
             new Thread(bac).start();
-            Runnable abac = new Recolher(50,372,620,38,cbac,fundo);
+            Runnable abac = new RecolherObjetos(50,372,620,38,cbac,fundo);
             new Thread(abac).start();
-            Runnable ag=new Recolher(650,432,90,38,age,fundo);
+            Runnable ag=new RecolherObjetos(650,432,90,38,age,fundo);
             new Thread(ag).start();
-            Runnable cf=new Recolher(50,432,90,38,conf,fundo);
+            Runnable cf=new RecolherObjetos(50,432,90,38,conf,fundo);
             new Thread(cf).start();
 
         }
         //listener Cadastro
-        class Diretorio implements ActionListener{
+        class ChooserDiretorio implements ActionListener{
         private JFileChooser chooser;
         private JFrame j;
-        public Diretorio(JFrame j){
+        public ChooserDiretorio(JFrame j){
             this.j=j;
         }
         String caminho="";
@@ -457,10 +457,10 @@ inicio();
         }
             
         }
-        class DBackup implements ActionListener{
+        class ChooserBackup implements ActionListener{
         private JFrame j;
         private JFileChooser chooserb;
-        public DBackup(JFrame j){
+        public ChooserBackup(JFrame j){
             this.j=j;
         }
         String caminho="";
@@ -481,7 +481,7 @@ inicio();
         }
             
         }
-        class BackInicio implements MouseListener{
+        class TelaVoltaInicio implements MouseListener{
 
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -502,7 +502,7 @@ inicio();
 			public void mouseReleased(MouseEvent arg0) {}
         	
         }
-        class Agend implements ActionListener{
+        class TelaAgenda implements ActionListener{
 
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -528,8 +528,8 @@ inicio();
         private void Agendamento(){
             ImageIcon v1 = new ImageIcon(getClass().getResource("/GUI/Imagens/back.png"));
             tla=new JLabel(v1);
-            tla.addMouseListener(new BackCadas());
-            Runnable voltar= new Movimento(50,6,22,22,tla,fundo);
+            tla.addMouseListener(new TelaVoltaCadastro());
+            Runnable voltar= new MovimentoDeObjetos(50,6,22,22,tla,fundo);
             new Thread(voltar).start();
             tpa=new TJlabel("Agendar Backup",0,0,0,0);
             tpa.setFont(new Font("CordiaUPC",Font.PLAIN,83));
@@ -569,12 +569,12 @@ inicio();
             diau = new TJbutton("",0,0,0,0);
             ImageIcon idiau = new ImageIcon(getClass().getResource("/GUI/Imagens/UP.png"));
             diau.setIcon(idiau);
-            diau.addActionListener(new Up(scrolldia));
+            diau.addActionListener(new Subir(scrolldia));
             diau.setBorder(null);
             diad = new TJbutton("",0,0,0,0);
             ImageIcon idiad = new ImageIcon(getClass().getResource("/GUI/Imagens/Down.png"));
             diad.setIcon(idiad);
-            diad.addActionListener(new Dw(scrolldia));
+            diad.addActionListener(new Descer(scrolldia));
             diad.setBorder(null);
             lbdia = new TJlabel(null,0,0,0,0);
             lbdia.setText("Dia");
@@ -669,12 +669,12 @@ inicio();
             hu = new TJbutton("",0,0,0,0);
             ImageIcon ihu = new ImageIcon(getClass().getResource("/GUI/Imagens/UP.png"));
             hu.setIcon(ihu);
-            hu.addActionListener(new Up(scrollHora));
+            hu.addActionListener(new Subir(scrollHora));
             hu.setBorder(null);
             hd = new TJbutton("",0,0,0,0);
             ImageIcon ihd = new ImageIcon(getClass().getResource("/GUI/Imagens/Down.png"));
             hd.setIcon(ihd);
-            hd.addActionListener(new Dw(scrollHora));
+            hd.addActionListener(new Descer(scrollHora));
             hd.setBorder(null);
             //escolha minutos
             minutos=new FundoJpane(null,0,0,0,0);
@@ -875,12 +875,12 @@ inicio();
             mu = new TJbutton("",0,0,0,0);
             ImageIcon imu = new ImageIcon(getClass().getResource("/GUI/Imagens/UP.png"));
             mu.setIcon(imu);
-            mu.addActionListener(new Up(scrollMinutos));
+            mu.addActionListener(new Subir(scrollMinutos));
             mu.setBorder(null);
             md = new TJbutton("",0,0,0,0);
             ImageIcon imd = new ImageIcon(getClass().getResource("/GUI/Imagens/Down.png"));
             md.setIcon(imd);
-            md.addActionListener(new Dw(scrollMinutos));
+            md.addActionListener(new Descer(scrollMinutos));
             md.setBorder(null);         
             //fim minutos
             confa=new TJbutton("Confirmar",0,0,0,255);            
@@ -898,29 +898,29 @@ inicio();
             lm.setBounds(500,208,51,156);
             //threads de movimento
             //setBounds (horizontal,vertical,largura,altura);
-            Runnable min= new Movimento(500,208,51,156,scrollMinutos,fundo);
+            Runnable min= new MovimentoDeObjetos(500,208,51,156,scrollMinutos,fundo);
             new Thread(min).start();
-            Runnable upm = new Movimento(550,260,17,27,mu,fundo);
+            Runnable upm = new MovimentoDeObjetos(550,260,17,27,mu,fundo);
             new Thread(upm).start();
-            Runnable dwm = new Movimento(550,288,17,27,md,fundo);
+            Runnable dwm = new MovimentoDeObjetos(550,288,17,27,md,fundo);
             new Thread(dwm).start();            
-            Runnable text = new Movimento(50,25,799,114,tpa,fundo);
+            Runnable text = new MovimentoDeObjetos(50,25,799,114,tpa,fundo);
             new Thread(text).start();
-            Runnable day= new Movimento(100,208,99,156,scrolldia,fundo);
+            Runnable day= new MovimentoDeObjetos(100,208,99,156,scrolldia,fundo);
             new Thread(day).start();
-            Runnable upd = new Movimento(200,260,17,27,diau,fundo);
+            Runnable upd = new MovimentoDeObjetos(200,260,17,27,diau,fundo);
             new Thread(upd).start();
-            Runnable dwd = new Movimento(200,288,17,27,diad,fundo);
+            Runnable dwd = new MovimentoDeObjetos(200,288,17,27,diad,fundo);
             new Thread(dwd).start();
-            Runnable lbd = new Movimento(50,257,50,50,lbdia,fundo);
+            Runnable lbd = new MovimentoDeObjetos(50,257,50,50,lbdia,fundo);
             new Thread(lbd).start();
-            Runnable lbh = new Movimento(250,257,50,50,lbdh,fundo);
+            Runnable lbh = new MovimentoDeObjetos(250,257,50,50,lbdh,fundo);
             new Thread(lbh).start();
-            Runnable hor= new Movimento(300,208,51,156,scrollHora,fundo);
+            Runnable hor= new MovimentoDeObjetos(300,208,51,156,scrollHora,fundo);
             new Thread(hor).start();
-            Runnable uph = new Movimento(350,260,17,27,hu,fundo);
+            Runnable uph = new MovimentoDeObjetos(350,260,17,27,hu,fundo);
             new Thread(uph).start();
-            Runnable dwh = new Movimento(350,288,17,27,hd,fundo);
+            Runnable dwh = new MovimentoDeObjetos(350,288,17,27,hd,fundo);
             new Thread(dwh).start();
             fundo.add(ld);
             fundo.add(lh);
@@ -929,72 +929,72 @@ inicio();
         
         //esconder agendamento
         private void hideAgen(){
-            Runnable d= new Recolher(100,208,99,156,ld,fundo);
+            Runnable d= new RecolherObjetos(100,208,99,156,ld,fundo);
             new Thread(d).start();
-            Runnable h= new Recolher(300,208,51,156,lh,fundo);
+            Runnable h= new RecolherObjetos(300,208,51,156,lh,fundo);
             new Thread(h).start();
-            Runnable m= new Recolher(500,208,51,156,lm,fundo);
+            Runnable m= new RecolherObjetos(500,208,51,156,lm,fundo);
             new Thread(m).start();
-            Runnable cf=new Recolher(355,432,90,38,confa,fundo);
+            Runnable cf=new RecolherObjetos(355,432,90,38,confa,fundo);
             new Thread(cf).start();  
-            Runnable voltar= new Recolher(50,6,22,22,tla,fundo);
+            Runnable voltar= new RecolherObjetos(50,6,22,22,tla,fundo);
             new Thread(voltar).start();
-            Runnable text = new Recolher(50,25,799,114,tpa,fundo);
+            Runnable text = new RecolherObjetos(50,25,799,114,tpa,fundo);
             new Thread(text).start();
-            Runnable day= new Recolher(100,208,99,156,scrolldia,fundo);
+            Runnable day= new RecolherObjetos(100,208,99,156,scrolldia,fundo);
             new Thread(day).start();
-            Runnable upd = new Recolher(200,260,17,27,diau,fundo);
+            Runnable upd = new RecolherObjetos(200,260,17,27,diau,fundo);
             new Thread(upd).start();
-            Runnable dwd = new Recolher(200,288,17,27,diad,fundo);
+            Runnable dwd = new RecolherObjetos(200,288,17,27,diad,fundo);
             new Thread(dwd).start();
-            Runnable lbd = new Recolher(50,257,50,50,lbdia,fundo);
+            Runnable lbd = new RecolherObjetos(50,257,50,50,lbdia,fundo);
             new Thread(lbd).start();
-            Runnable lbh = new Recolher(250,257,50,50,lbdh,fundo);
+            Runnable lbh = new RecolherObjetos(250,257,50,50,lbdh,fundo);
             new Thread(lbh).start();
-            Runnable hor= new Recolher(300,208,51,156,scrollHora,fundo);
+            Runnable hor= new RecolherObjetos(300,208,51,156,scrollHora,fundo);
             new Thread(hor).start();
-            Runnable uph = new Recolher(350,260,17,27,hu,fundo);
+            Runnable uph = new RecolherObjetos(350,260,17,27,hu,fundo);
             new Thread(uph).start();
-            Runnable dwh = new Recolher(350,288,17,27,hd,fundo);
+            Runnable dwh = new RecolherObjetos(350,288,17,27,hd,fundo);
             new Thread(dwh).start();
-            Runnable min= new Recolher(500,208,51,156,scrollMinutos,fundo);
+            Runnable min= new RecolherObjetos(500,208,51,156,scrollMinutos,fundo);
             new Thread(min).start();
-            Runnable upm = new Recolher(550,260,17,27,mu,fundo);
+            Runnable upm = new RecolherObjetos(550,260,17,27,mu,fundo);
             new Thread(upm).start();
-            Runnable dwm = new Recolher(550,288,17,27,md,fundo);
+            Runnable dwm = new RecolherObjetos(550,288,17,27,md,fundo);
             new Thread(dwm).start();
-            Runnable mlb = new Recolher(430,257,70,50,lbm,fundo);
+            Runnable mlb = new RecolherObjetos(430,257,70,50,lbm,fundo);
             new Thread(mlb).start();
         }
         //listener agendamento
-        class BackCadas implements MouseListener{
+        class TelaVoltaCadastro implements MouseListener{
 
         @Override
         public void mouseClicked(MouseEvent e) {
             hideAgen();
-            Runnable sea1=new Movimento(700,372,38,38,Search,fundo);
+            Runnable sea1=new MovimentoDeObjetos(700,372,38,38,Search,fundo);
             new Thread(sea1).start();
-            Runnable sea2=new Movimento(700,256,38,38,Searchs,fundo);
+            Runnable sea2=new MovimentoDeObjetos(700,256,38,38,Searchs,fundo);
             new Thread(sea2).start(); 
-            Runnable voltar= new Movimento(50,6,22,22,tlv,fundo);
+            Runnable voltar= new MovimentoDeObjetos(50,6,22,22,tlv,fundo);
             new Thread(voltar).start();
-            Runnable text = new Movimento(50,25,799,114,tp1,fundo);
+            Runnable text = new MovimentoDeObjetos(50,25,799,114,tp1,fundo);
             new Thread(text).start();
-            Runnable nome = new Movimento(50,140,100,38,tl1,fundo);
+            Runnable nome = new MovimentoDeObjetos(50,140,100,38,tl1,fundo);
             new Thread(nome).start();
-            Runnable dic = new Movimento(50,217,700,38,tl2,fundo);
+            Runnable dic = new MovimentoDeObjetos(50,217,700,38,tl2,fundo);
             new Thread(dic).start();
-            Runnable adic = new Movimento(50,256,650,76,scr,fundo);
+            Runnable adic = new MovimentoDeObjetos(50,256,650,76,scr,fundo);
             new Thread(adic).start();
-            Runnable bac = new Movimento(50,333,700,38,tl3,fundo);
+            Runnable bac = new MovimentoDeObjetos(50,333,700,38,tl3,fundo);
             new Thread(bac).start();
-            Runnable ag=new Movimento(650,432,90,38,age,fundo);
+            Runnable ag=new MovimentoDeObjetos(650,432,90,38,age,fundo);
             new Thread(ag).start();
-            Runnable cf=new Movimento(50,432,90,38,conf,fundo);
+            Runnable cf=new MovimentoDeObjetos(50,432,90,38,conf,fundo);
             new Thread(cf).start(); 
-            Runnable anome = new Movimento(50,179,650,38,cnome,fundo);
+            Runnable anome = new MovimentoDeObjetos(50,179,650,38,cnome,fundo);
             new Thread(anome).start();
-            Runnable abac = new Movimento(50,372,650,38,cbac,fundo);
+            Runnable abac = new MovimentoDeObjetos(50,372,650,38,cbac,fundo);
             new Thread(abac).start();
         }
 
@@ -1010,9 +1010,9 @@ inicio();
         @Override
         public void mouseExited(MouseEvent e) {}
         }
-    class Dw implements ActionListener{
+    class Descer implements ActionListener{
         private JScrollPane scr;
-        public Dw(JScrollPane scr)
+        public Descer(JScrollPane scr)
         {
             this.scr=scr;
         }
@@ -1023,10 +1023,10 @@ inicio();
         }
         
     }
-    class Up implements ActionListener{
+    class Subir implements ActionListener{
 
        private JScrollPane scr;
-        public Up(JScrollPane scr)
+        public Subir(JScrollPane scr)
         {
             this.scr=scr;
         }
@@ -1038,7 +1038,7 @@ inicio();
         
     }
 //Minhas classes de movimento
-        class Movimento implements Runnable{
+        class MovimentoDeObjetos implements Runnable{
         private    int x,y,alt,larg;
         private   JButton b=null;
         private   JLabel l=null;
@@ -1047,7 +1047,7 @@ inicio();
         private    TJtextArea a=null;
         private    JScrollPane r=null;
         private    JPanel p=null;
-           public Movimento(int x,int y,int larg,int alt,JLabel l,JPanel j){
+           public MovimentoDeObjetos(int x,int y,int larg,int alt,JLabel l,JPanel j){
                 this.x=x;
                 this.y=y;
                 this.l=l;
@@ -1055,7 +1055,7 @@ inicio();
                 this.alt=alt;
                 this.larg=larg;
             }
-           public Movimento(int x,int y,int larg,int alt,JButton b,JPanel j){
+           public MovimentoDeObjetos(int x,int y,int larg,int alt,JButton b,JPanel j){
                 this.x=x;
                 this.y=y;
                 this.b=b;
@@ -1063,7 +1063,7 @@ inicio();
                 this.alt=alt;
                 this.larg=larg;
             }
-           public Movimento(int x,int y,int larg,int alt,TJtextField t,JPanel j){
+           public MovimentoDeObjetos(int x,int y,int larg,int alt,TJtextField t,JPanel j){
                this.x=x;
                this.y=y;
                this.j=j;
@@ -1071,7 +1071,7 @@ inicio();
                this.larg=larg;
                this.t=t;
            }
-           public Movimento(int x,int y,int larg,int alt,TJtextArea a,JPanel j){
+           public MovimentoDeObjetos(int x,int y,int larg,int alt,TJtextArea a,JPanel j){
                this.x=x;
                this.y=y;
                this.j=j;
@@ -1079,7 +1079,7 @@ inicio();
                this.larg=larg;
                this.a=a;
            }
-           public Movimento(int x,int y,int larg,int alt,JScrollPane r,JPanel j){
+           public MovimentoDeObjetos(int x,int y,int larg,int alt,JScrollPane r,JPanel j){
                this.x=x;
                this.y=y;
                this.j=j;
@@ -1087,7 +1087,7 @@ inicio();
                this.larg=larg;
                this.r=r;
            }
-           public Movimento(int x,int y,int larg,int alt,FundoJpane p,JPanel j){
+           public MovimentoDeObjetos(int x,int y,int larg,int alt,FundoJpane p,JPanel j){
                this.x=x;
                this.y=y;
                this.j=j;
@@ -1103,7 +1103,7 @@ inicio();
                     try {
                         Thread.sleep(40);//velocidade
                     } catch (InterruptedException ex) {
-                        Logger.getLogger(Movimento.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(MovimentoDeObjetos.class.getName()).log(Level.SEVERE, null, ex);
                     }   
                     if(b!=null)
                     {
@@ -1180,7 +1180,7 @@ inicio();
             }
         }
         
-        class Recolher implements Runnable{
+        class RecolherObjetos implements Runnable{
             int x,y,alt,larg;
             JButton b=null;
             JLabel l=null;
@@ -1189,7 +1189,7 @@ inicio();
             TJtextField t=null;
             TJtextArea a=null;
             JScrollPane r=null;        
-           public Recolher(int x,int y,int larg,int alt,JLabel l,JPanel j){
+           public RecolherObjetos(int x,int y,int larg,int alt,JLabel l,JPanel j){
                 this.x=x;
                 this.y=y;
                 this.l=l;
@@ -1197,7 +1197,7 @@ inicio();
                 this.alt=alt;
                 this.larg=larg;
             }
-           public Recolher(int x,int y,int larg,int alt,JButton b,JPanel j){
+           public RecolherObjetos(int x,int y,int larg,int alt,JButton b,JPanel j){
                 this.x=x;
                 this.y=y;
                 this.b=b;
@@ -1205,7 +1205,7 @@ inicio();
                 this.alt=alt;
                 this.larg=larg;
             }
-           public Recolher(int x,int y,int larg,int alt,JPanel p,JPanel j){
+           public RecolherObjetos(int x,int y,int larg,int alt,JPanel p,JPanel j){
                 this.x=x;
                 this.y=y;
                 this.j=j;
@@ -1213,7 +1213,7 @@ inicio();
                 this.larg=larg;
                 this.p=p;
             }
-           public Recolher(int x,int y,int larg,int alt,TJtextField t,JPanel j){
+           public RecolherObjetos(int x,int y,int larg,int alt,TJtextField t,JPanel j){
                this.x=x;
                this.y=y;
                this.j=j;
@@ -1221,7 +1221,7 @@ inicio();
                this.larg=larg;
                this.t=t;
            }
-           public Recolher(int x,int y,int larg,int alt,TJtextArea a,JPanel j){
+           public RecolherObjetos(int x,int y,int larg,int alt,TJtextArea a,JPanel j){
                this.x=x;
                this.y=y;
                this.j=j;
@@ -1229,7 +1229,7 @@ inicio();
                this.larg=larg;
                this.a=a;
            } 
-           public Recolher(int x,int y,int larg,int alt,JScrollPane r,JPanel j){
+           public RecolherObjetos(int x,int y,int larg,int alt,JScrollPane r,JPanel j){
                this.x=x;
                this.y=y;
                this.j=j;
@@ -1245,7 +1245,7 @@ inicio();
                     try {
                         Thread.sleep(10);
                     } catch (InterruptedException ex) {
-                        Logger.getLogger(Recolher.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(RecolherObjetos.class.getName()).log(Level.SEVERE, null, ex);
                     }                          
                     if(b!=null)
                     {
@@ -1289,7 +1289,7 @@ inicio();
             }
         }
 //listeners arrastar a tela
-    class ClickMove implements MouseListener{
+    class CoordenadasFrameMovimentacao implements MouseListener{
         @Override
         public void mouseClicked(MouseEvent e) {}
         @Override
@@ -1308,7 +1308,7 @@ inicio();
        
     }
     
-    class Mover implements MouseMotionListener{
+    class CoordenadasTelaMovimentacao implements MouseMotionListener{
 		@Override
                 public void mouseDragged(MouseEvent e) {	
               int screenX = e.getXOnScreen();
@@ -1320,14 +1320,14 @@ inicio();
     }
     }
  //listeners Botoes Close E MIN
-        class Close implements ActionListener{    
+        class AcaoFechar implements ActionListener{    
 
         @Override
         public void actionPerformed(ActionEvent e) {
                 System.exit(1);
         }
     }
-        class Min implements ActionListener{    
+        class AcaoMinimizar implements ActionListener{    
 
         @Override
         public void actionPerformed(ActionEvent e) {
