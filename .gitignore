@@ -16,3 +16,7 @@
 /Cliente/build/
 /Servidor/build/
 /Servidor/dist/
+/Cliente
+/Servidor
+/Talk
+/derby.log

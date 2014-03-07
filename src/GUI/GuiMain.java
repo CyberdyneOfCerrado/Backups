@@ -19,6 +19,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -28,11 +29,16 @@ import javax.swing.JScrollPane;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+
 import java.awt.Dimension;
 import java.io.File;
+
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollBar;
+
+import bancoDeDados.CarregaBanco;
+
 
 /**
  *
@@ -187,13 +193,12 @@ public class GuiMain extends JFrame {
         setBackground(new Color(0, 0, 0, 0));
         setLocationRelativeTo(null);
         Gmain();
-        setVisible(true);        
     }
 //Elementos do JFrame que sustentam a janela
     private void Gmain ()
     {
 //montando estrutura de fundo
-        ImageIcon icf = new ImageIcon(getClass().getResource("/GUI/Imagens/Jfundo.png"));
+        ImageIcon icf = new ImageIcon(getClass().getResource("/GUI/Imagens/load.gif"));
         Image imf = icf.getImage();
         fundo=new FundoJpane(imf,0,0,0,0);
         fundo.setLayout(null);
@@ -201,6 +206,14 @@ public class GuiMain extends JFrame {
         fundo.addMouseListener(new ClickMove());
         fundo.addMouseMotionListener(new Mover());
         add(fundo);
+        setVisible(true);
+        loading();
+//fim fundo
+    }
+    private void inicia(){
+        ImageIcon icf = new ImageIcon(getClass().getResource("/GUI/Imagens/Jfundo.png"));
+        Image imf = icf.getImage();
+        ((FundoJpane) fundo).alterarImagem(imf);
         JButton fechar = new TJbutton("X",0,0,0,0);
         fechar.setBounds(767,6,16,25);
         fechar.addActionListener(new Close());
@@ -219,12 +232,18 @@ public class GuiMain extends JFrame {
         min.setFont(new Font("Consolas",Font.BOLD,32));
         min.setBorderPainted(false);
         fundo.add(min);
-//fim fundo
-        inicio();
+        //tela inicio
+
+inicio();
     }
-    
+    private void loading(){
+    	CarregaBanco b = new CarregaBanco();
+        if(b.inciaBanco())inicia();
+    }
+
 //tela incial começa aqui
-        public void inicio()
+    
+    private void inicio()
         {         
             t1=new TJlabel("Início",0,0,0,0);
             t1.setFont(new Font("CordiaUPC",Font.PLAIN,83));
@@ -290,7 +309,7 @@ public class GuiMain extends JFrame {
         }
         }
 // tela de cadastro
-        public void Cadastro()
+        private void Cadastro()
         {
 
             ImageIcon v1 = new ImageIcon(getClass().getResource("/GUI/Imagens/back.png"));
@@ -380,7 +399,7 @@ public class GuiMain extends JFrame {
             //fim
             //setBounds (horizontal,vertical,largura,altura);
         }
-        public void hideCadastro(){
+        private void hideCadastro(){
             Runnable sea1=new Recolher(700,372,38,38,Search,fundo);
             new Thread(sea1).start();
             Runnable sea2=new Recolher(700,256,38,38,Searchs,fundo);
@@ -504,7 +523,7 @@ public class GuiMain extends JFrame {
          //fim listener cadastro
         //tela de agendamento de dia
         //setBounds (horizontal,vertical,largura,altura);
-        public void Agendamento(){
+        private void Agendamento(){
             ImageIcon v1 = new ImageIcon(getClass().getResource("/GUI/Imagens/back.png"));
             tla=new JLabel(v1);
             tla.addMouseListener(new BackCadas());
@@ -907,7 +926,7 @@ public class GuiMain extends JFrame {
         }
         
         //esconder agendamento
-        public void hideAgen(){
+        private void hideAgen(){
             Runnable d= new Recolher(100,208,99,156,ld,fundo);
             new Thread(d).start();
             Runnable h= new Recolher(300,208,51,156,lh,fundo);
@@ -1080,7 +1099,7 @@ public class GuiMain extends JFrame {
                 while(temp>=x)
                 {
                     try {
-                        Thread.sleep(70);//velocidade
+                        Thread.sleep(40);//velocidade
                     } catch (InterruptedException ex) {
                         Logger.getLogger(Movimento.class.getName()).log(Level.SEVERE, null, ex);
                     }   
