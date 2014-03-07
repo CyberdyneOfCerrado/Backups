@@ -319,6 +319,26 @@ telaInicio();
                 esconderInicio();
         }
         }
+        //tela de  conclusão
+        //setBounds (horizontal,vertical,largura,altura);
+        private void concluido(){
+            t1=new TJlabel("Concluído",0,0,0,0);
+            t1.setFont(new Font("Microsoft Yi Baiti",Font.PLAIN,31));
+            t1.setForeground(Color.BLACK);
+            ImageIcon tl1i = new ImageIcon(getClass().getResource("/GUI/Imagens/ok.png"));
+            textoTile1=new TJlabel(null,0,0,0,0);
+            textoTile1.setIcon(tl1i);
+            Runnable icone = new AcaoMovimentoDeObjetos(185,200,100,100,textoTile1,fundo);
+            new Thread(icone).start(); 
+            Runnable text = new AcaoMovimentoDeObjetos(287,257,799,114,t1,fundo);
+            new Thread(text).start();            
+        }
+        private void esconderConcluido(){
+            Runnable icone = new AcaoRecolherObjetos(185,200,100,100,textoTile1,fundo);
+            new Thread(icone).start(); 
+            Runnable text = new AcaoRecolherObjetos(287,257,799,114,t1,fundo);
+            new Thread(text).start();
+        }
 // tela de cadastro
         private void telaCadastro()
         {
@@ -448,6 +468,15 @@ telaInicio();
 				R=new RegraBackup(cbac.getText(),cdic.getText());
 				B=new Backup(cnome.getText(),null);
 				core.criarBackup(B,R,null);
+				concluido();
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				esconderConcluido();
+				telaInicio();
 				}
 			}
         	

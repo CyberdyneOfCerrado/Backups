@@ -18,7 +18,6 @@ public class Core implements Runnable {
 	private HistoricoBackups hb;
 	
 	public Core (){
-		new SingleGuiMain();
 		hb = new HistoricoBackups();
 		new Thread(this,"Procura agengamentos").start();
 	};

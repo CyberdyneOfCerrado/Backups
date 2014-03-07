@@ -17,7 +17,6 @@ public class SingleGuiMain {
     	public static synchronized GuiMain getInstance() {
 		if (uniqueInstance == null)
 			uniqueInstance = new GuiMain();
-
 		return uniqueInstance;
 	}
         
