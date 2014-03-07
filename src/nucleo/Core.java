@@ -27,7 +27,13 @@ public class Core implements Runnable {
 		backup.setRegra(regraBackup);
 		backup = hb.salvar(backup);
 		backup.getRegra().salvarDia(dia);
-		
+		return true;
+	};
+	
+	public boolean criarBackup( Backup backup, RegraBackup regraBackup){
+		// Ainda tem que ser definido como essa merda dá pau
+		backup.setRegra(regraBackup);
+		backup = hb.salvar(backup);
 		return true;
 	};
 	

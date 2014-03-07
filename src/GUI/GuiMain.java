@@ -17,6 +17,7 @@ import java.awt.event.AdjustmentListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -467,8 +468,8 @@ telaInicio();
 					JOptionPane.showMessageDialog(null,"Todos os campos são obrigatórios");
 				}else{
 				R=new RegraBackup(cbac.getText(),cdic.getText());
-				B=new Backup(cnome.getText(),null);
-				core.criarBackup(B,R,null);
+				B=new Backup(cnome.getText(), new Date().toString());
+				core.criarBackup(B,R);
 				concluido();
 				try {
 					Thread.sleep(1000);
