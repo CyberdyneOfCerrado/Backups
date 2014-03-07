@@ -500,7 +500,7 @@ telaInicio();
                 try{
                     for(File temp:file)
                     {
-                        caminho+=temp.getAbsolutePath()+"\n";
+                        caminho+=temp.getAbsolutePath()+"|\n";
                         cdic.setText(caminho);
                     }
                 }catch (Exception erro){
@@ -526,7 +526,7 @@ telaInicio();
             if (r == JFileChooser.APPROVE_OPTION){
                 File file=chooserb.getSelectedFile(); 
                 try{
-                        cbac.setText(file.getAbsolutePath());
+                        cbac.setText(file.getAbsolutePath()+"|");
                 }catch (Exception erro){
                     JOptionPane.showMessageDialog(j,"Erro ao carregar o caminho!");
                 }
@@ -944,10 +944,10 @@ telaInicio();
             md.addActionListener(new AcaoDescerScroll(scrollMinutos));
             md.setBorder(null);         
             //fim minutos
-            confa=new TJbutton("Confirmar",0,0,0,255);            
+            confa=new TJbutton("Agendar e confirmar",0,0,0,255);            
             confa.setFont(new Font("Microsoft Yi Baiti",Font.PLAIN,18));
             confa.setForeground(Color.WHITE); 
-            confa.setBounds(355,432,90,38);
+            confa.setBounds(325,432,150,38);
             fundo.add(confa);
             ImageIcon icd = new ImageIcon(getClass().getResource("/GUI/Imagens/100.png"));
             Image id=icd.getImage();
@@ -1159,11 +1159,11 @@ telaInicio();
            }
             @Override
             public void run() {
-                int temp=800,pi=70;//numero de pixel por velocidade            
+                int temp=800,pi=50;//numero de pixel por velocidade            
                 while(temp>=x)
                 {
                     try {
-                        Thread.sleep(40);//velocidade
+                        Thread.sleep(10);//velocidade
                     } catch (InterruptedException ex) {
                         Logger.getLogger(AcaoMovimentoDeObjetos.class.getName()).log(Level.SEVERE, null, ex);
                     }   
