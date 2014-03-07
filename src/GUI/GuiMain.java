@@ -188,7 +188,6 @@ public class GuiMain extends JFrame {
     {
         setUndecorated(true);
         setResizable(false);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(800,500);
         setBackground(new Color(0, 0, 0, 0));
         setLocationRelativeTo(null);
@@ -206,11 +205,14 @@ public class GuiMain extends JFrame {
         fundo.addMouseListener(new ClickMove());
         fundo.addMouseMotionListener(new Mover());
         add(fundo);
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        this.setIconImage(null);
         setVisible(true);
         loading();
 //fim fundo
     }
     private void inicia(){
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         ImageIcon icf = new ImageIcon(getClass().getResource("/GUI/Imagens/Jfundo.png"));
         Image imf = icf.getImage();
         ((FundoJpane) fundo).alterarImagem(imf);
