@@ -23,9 +23,17 @@ public class Dias {
 		this.desligar = desligar;		
 	}
 	
-	public DiasSemana getDias(){
-		//System.out.println(dia);
-		return dia;
+	public String getDias(){
+		switch( dia.toString() ){
+		case "SEGUNDA": return "Seg";	
+		case "TERCA":   return "Ter";	
+		case "QUARTA":  return "Qua";	
+		case "QUINTA":  return "Qui";	
+		case "SEXTA":   return "Sex";	
+		case "SABADO":  return "Sab";	
+		case "DOMINGO": return "Dom";	
+		default :       return "vai te foder";
+		}	
 	}
 	
 	public String getHoras(){
