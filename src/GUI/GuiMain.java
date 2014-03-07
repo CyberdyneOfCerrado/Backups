@@ -417,6 +417,7 @@ telaInicio();
             conf=new TJbutton("Confirmar",0,0,0,255);            
             conf.setFont(new Font("Microsoft Yi Baiti",Font.PLAIN,18));
             conf.setForeground(Color.WHITE);
+            conf.addActionListener(new GravarCadastro());
             Runnable cf=new AcaoMovimentoDeObjetos(50,432,90,38,conf,fundo);
             new Thread(cf).start();
             //botão agenda
