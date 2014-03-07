@@ -54,6 +54,7 @@ public class GuiMain extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+		FundoJpane imgc;
 		private JPanel fundo;
 		private int screenX,screenY;
 		private int tempx,tempy;
@@ -323,22 +324,27 @@ telaInicio();
         //tela de  conclusão
         //setBounds (horizontal,vertical,largura,altura);
         private void concluido(){
+            ImageIcon v1 = new ImageIcon(getClass().getResource("/GUI/Imagens/back.png"));
+            tlv=new JLabel(v1);
+            tlv.addMouseListener(new AcaoChamarTelaVoltaInicio(true));
+            Runnable voltar= new AcaoMovimentoDeObjetos(50,6,22,22,tlv,fundo);
+            new Thread(voltar).start();
             t1=new TJlabel("Concluído",0,0,0,0);
-            t1.setFont(new Font("Microsoft Yi Baiti",Font.PLAIN,31));
+            t1.setFont(new Font("Microsoft Yi Baiti",Font.PLAIN,81));
             t1.setForeground(Color.BLACK);
             ImageIcon tl1i = new ImageIcon(getClass().getResource("/GUI/Imagens/ok.png"));
-            textoTile1=new TJlabel(null,0,0,0,0);
-            textoTile1.setIcon(tl1i);
-            Runnable icone = new AcaoMovimentoDeObjetos(185,200,100,100,textoTile1,fundo);
-            new Thread(icone).start(); 
-            Runnable text = new AcaoMovimentoDeObjetos(287,257,799,114,t1,fundo);
-            new Thread(text).start();            
+            Image temp= tl1i.getImage();
+            imgc = new FundoJpane(temp,0,0,0,0);
+            Runnable icone = new AcaoMovimentoDeObjetos(185,200,100,100,imgc,fundo);
+            new Thread(icone).start();
+            Runnable text = new AcaoMovimentoDeObjetos(300,180,799,114,t1,fundo);
+            new Thread(text).start();
         }
         private void esconderConcluido(){
-            Runnable icone = new AcaoRecolherObjetos(185,200,100,100,textoTile1,fundo);
-            new Thread(icone).start(); 
-            Runnable text = new AcaoRecolherObjetos(287,257,799,114,t1,fundo);
-            new Thread(text).start();
+            Runnable icone = new AcaoRecolherObjetos(185,200,100,100,imgc,fundo);
+			new Thread(icone).start();
+            Runnable text = new AcaoRecolherObjetos(300,180,799,114,t1,fundo);
+			new Thread(text).start();
         }
 // tela de cadastro
         private void telaCadastro()
@@ -346,7 +352,7 @@ telaInicio();
 
             ImageIcon v1 = new ImageIcon(getClass().getResource("/GUI/Imagens/back.png"));
             tlv=new JLabel(v1);
-            tlv.addMouseListener(new AcaoChamarTelaVoltaInicio());
+            tlv.addMouseListener(new AcaoChamarTelaVoltaInicio(false));
             Runnable voltar= new AcaoMovimentoDeObjetos(50,6,22,22,tlv,fundo);
             new Thread(voltar).start();
             tp1=new TJlabel("Novo backup",0,0,0,0);
@@ -470,15 +476,8 @@ telaInicio();
 				R=new RegraBackup(cbac.getText(),cdic.getText());
 				B=new Backup(cnome.getText(), new Date().toString());
 				core.criarBackup(B,R);
+				esconderCadastro();
 				concluido();
-				try {
-					Thread.sleep(1000);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				esconderConcluido();
-				telaInicio();
 				}
 			}
         	
@@ -536,11 +535,19 @@ telaInicio();
             
         }
         class AcaoChamarTelaVoltaInicio implements MouseListener{
-
+        	boolean c=false;
+        	AcaoChamarTelaVoltaInicio(boolean c)
+        	{
+        		this.c=c;
+        	}
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				esconderCadastro();
-				telaInicio();	
+				if(c==true){
+					esconderConcluido();
+		            Runnable voltar= new AcaoRecolherObjetos(50,6,22,22,tlv,fundo);
+		            new Thread(voltar).start();
+				}else esconderCadastro();
+				telaInicio();
 			}
 
 			@Override
@@ -1091,6 +1098,7 @@ telaInicio();
         }
         
     }
+
 //Minhas classes de movimento
         class AcaoMovimentoDeObjetos implements Runnable{
         private    int x,y,alt,larg;
