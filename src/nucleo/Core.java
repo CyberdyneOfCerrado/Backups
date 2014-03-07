@@ -1,18 +1,26 @@
 package nucleo;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import GUI.SingleGuiMain;
 import iteradores.IteradorArtefatos;
 import iteradores.IteradorBackups;
+import iteradores.IteradorDias;
 import objetos.Backup;
 import objetos.Dias;
 import objetos.RegraBackup;
 import historicos.HistoricoBackups;
 
-public class Core {
+public class Core implements Runnable {
 	
 	private HistoricoBackups hb;
 	
 	public Core (){
+		new SingleGuiMain();
 		hb = new HistoricoBackups();
+		new Thread(this,"Procura agengamentos").start();
 	};
 	
 	public boolean criarBackup( Backup backup, RegraBackup regraBackup, Dias dia){
@@ -34,5 +42,41 @@ public class Core {
 	
 	public IteradorArtefatos buscarClones(String caminho ){//não funcional, falta a classe do Luiz. ( Só para precavêêeer)
 		return new IteradorArtefatos(null);
+	};
+
+	//Verificar se há algum Backup agendado.
+	@Override
+	public void run() {
+		while(true){
+			IteradorBackups ib = hb.obterHistorico();
+			while( ib.hasNext() ){
+				Backup backup = ib.next();
+				IteradorDias id = backup.getRegra().recuperarDias();
+				
+				 DateFormat dateFormat = new SimpleDateFormat("EEE,HH:mm");
+				 dateFormat.format( new Date());
+				 
+				 System.out.println(dateFormat.toString());
+				 
+				while(id.hasNext()){
+					Dias dia = id.next();
+					
+					//if(){
+						
+					//}
+				}
+				
+			}
+			sleep(1000*60);
+		}
 	}
+	
+	private void sleep(int value ){
+		try {
+			Thread.sleep(value);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	};
+
 }
