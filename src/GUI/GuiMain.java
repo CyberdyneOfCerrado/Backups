@@ -37,6 +37,10 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollBar;
 
+import objetos.Backup;
+import objetos.Dias;
+import objetos.RegraBackup;
+import nucleo.Core;
 import bancoDeDados.CarregaBanco;
 
 
@@ -183,6 +187,10 @@ public class GuiMain extends JFrame {
         private FundoJpane ld;
         private FundoJpane lh;
         private FundoJpane lm;
+        private Core core;
+        private Backup B;
+        private RegraBackup R;
+        private Dias D;
     
     GuiMain()
     {
@@ -192,6 +200,7 @@ public class GuiMain extends JFrame {
         setBackground(new Color(0, 0, 0, 0));
         setLocationRelativeTo(null);
         constroiFrame();
+        core = new Core();
     }
 //Elementos do JFrame que sustentam a janela
     private void constroiFrame ()
@@ -429,6 +438,20 @@ telaInicio();
 
         }
         //listener Cadastro
+        class GravarCadastro implements ActionListener{
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				if(cdic.getText().isEmpty() && cbac.getText().isEmpty() && cnome.getText().isEmpty()){
+					JOptionPane.showMessageDialog(null,"Todos os campos são obrigatórios");
+				}else{
+				R=new RegraBackup(cbac.getText(),cdic.getText());
+				B=new Backup(cnome.getText(),null);
+				core.criarBackup(B,R,null);
+				}
+			}
+        	
+        }
         class AcaoChooserDiretorio implements ActionListener{
         private JFileChooser chooser;
         private JFrame j;
