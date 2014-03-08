@@ -24,13 +24,13 @@ public class Arquivo {
 			aux = relacao.get(x);
 			if ( !aux.isFile() )
 			{
-				x++;
+				relacao.remove(x);
 				continue;
 			}
 			
 			for (y=x+1;y<relacao.size();y++)
 			{
-				if ( aux.getNomeArquivo().compareTo(relacao.get(y).getNomeArquivo()) == 0 )
+				if ( relacao.get(y).isFile() && aux.getNomeArquivo().compareTo(relacao.get(y).getNomeArquivo()) == 0 )
 				{
 					cont++;
 				}
@@ -40,7 +40,7 @@ public class Arquivo {
 				z = x;
 				while ( z < relacao.size() )
 				{
-					if ( relacao.get(z).getNomeArquivo().compareTo(aux.getNomeArquivo()) == 0 )
+					if ( relacao.get(z).isFile() && relacao.get(z).getNomeArquivo().compareTo(aux.getNomeArquivo()) == 0 )
 					{
 						duplicados.add(new Artefato(relacao.get(z).getCaminhoCompleto(), Long.toString(relacao.get(z).getTam())));
 						relacao.remove(z);
@@ -51,7 +51,8 @@ public class Arquivo {
 					}
 				}
 			}
-		}
+			x++;
+		}        
 		return duplicados;
 	}
 }
