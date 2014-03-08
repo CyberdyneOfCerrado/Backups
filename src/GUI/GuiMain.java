@@ -38,6 +38,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollBar;
 
+import enuns.DiasSemana;
 import objetos.Backup;
 import objetos.Dias;
 import objetos.RegraBackup;
@@ -55,6 +56,7 @@ public class GuiMain extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 		FundoJpane imgc;
+		private boolean controle;
 		private JPanel fundo;
 		private int screenX,screenY;
 		private int tempx,tempy;
@@ -193,6 +195,7 @@ public class GuiMain extends JFrame {
         private Backup B;
         private RegraBackup R;
         private Dias D;
+		private TJcheck check;
     
     GuiMain()
     {
@@ -624,18 +627,19 @@ telaInicio();
             scrolldia = new JScrollPane(dia);
             scrolldia.setOpaque(false);
             scrolldia.getViewport().setOpaque(false);
+            scrolldia.setEnabled(false);
             scrolldia.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
             scrolldia.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
             scrolldia.setBorder(null);
             diau = new TJbutton("",0,0,0,0);
             ImageIcon idiau = new ImageIcon(getClass().getResource("/GUI/Imagens/UP.png"));
             diau.setIcon(idiau);
-            diau.addActionListener(new AcaoSubirScroll(scrolldia));
+            diau.addMouseListener(new AcaoSubirScroll(scrolldia));
             diau.setBorder(null);
             diad = new TJbutton("",0,0,0,0);
             ImageIcon idiad = new ImageIcon(getClass().getResource("/GUI/Imagens/Down.png"));
             diad.setIcon(idiad);
-            diad.addActionListener(new AcaoDescerScroll(scrolldia));
+            diad.addMouseListener(new AcaoDescerScroll(scrolldia));
             diad.setBorder(null);
             lbdia = new TJlabel(null,0,0,0,0);
             lbdia.setText("Dia");
@@ -724,18 +728,19 @@ telaInicio();
             scrollHora = new JScrollPane(horas);
             scrollHora.setOpaque(false);
             scrollHora.getViewport().setOpaque(false);
+            scrollHora.setEnabled(false);
             scrollHora.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
             scrollHora.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
             scrollHora.setBorder(null);
             hu = new TJbutton("",0,0,0,0);
             ImageIcon ihu = new ImageIcon(getClass().getResource("/GUI/Imagens/UP.png"));
             hu.setIcon(ihu);
-            hu.addActionListener(new AcaoSubirScroll(scrollHora));
+            hu.addMouseListener(new AcaoSubirScroll(scrollHora));
             hu.setBorder(null);
             hd = new TJbutton("",0,0,0,0);
             ImageIcon ihd = new ImageIcon(getClass().getResource("/GUI/Imagens/Down.png"));
             hd.setIcon(ihd);
-            hd.addActionListener(new AcaoDescerScroll(scrollHora));
+            hd.addMouseListener(new AcaoDescerScroll(scrollHora));
             hd.setBorder(null);
             //escolha minutos
             minutos=new FundoJpane(null,0,0,0,0);
@@ -930,23 +935,25 @@ telaInicio();
             scrollMinutos = new JScrollPane(minutos);
             scrollMinutos.setOpaque(false);
             scrollMinutos.getViewport().setOpaque(false);
+            scrollMinutos.setEnabled(false);
             scrollMinutos.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
             scrollMinutos.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
             scrollMinutos.setBorder(null);            
             mu = new TJbutton("",0,0,0,0);
             ImageIcon imu = new ImageIcon(getClass().getResource("/GUI/Imagens/UP.png"));
             mu.setIcon(imu);
-            mu.addActionListener(new AcaoSubirScroll(scrollMinutos));
+            mu.addMouseListener(new AcaoSubirScroll(scrollMinutos));
             mu.setBorder(null);
             md = new TJbutton("",0,0,0,0);
             ImageIcon imd = new ImageIcon(getClass().getResource("/GUI/Imagens/Down.png"));
             md.setIcon(imd);
-            md.addActionListener(new AcaoDescerScroll(scrollMinutos));
+            md.addMouseListener(new AcaoDescerScroll(scrollMinutos));
             md.setBorder(null);         
             //fim minutos
             confa=new TJbutton("Agendar e confirmar",0,0,0,255);            
             confa.setFont(new Font("Microsoft Yi Baiti",Font.PLAIN,18));
             confa.setForeground(Color.WHITE); 
+            confa.addActionListener(new SalvaAgendamento());
             confa.setBounds(325,432,150,38);
             fundo.add(confa);
             ImageIcon icd = new ImageIcon(getClass().getResource("/GUI/Imagens/100.png"));
@@ -957,6 +964,9 @@ telaInicio();
             lh.setBounds(300,208,51,156);
             lm=new FundoJpane(id,0,0,0,0);
             lm.setBounds(500,208,51,156);
+            check=new TJcheck("Desligar o computados após a execução.",0,0,0,0);
+            check.setFont(new Font("Microsoft Yi Baiti",Font.PLAIN,30));
+            check.setFocusable(false);
             //threads de movimento
             //setBounds (horizontal,vertical,largura,altura);
             Runnable min= new AcaoMovimentoDeObjetos(500,208,51,156,scrollMinutos,fundo);
@@ -983,13 +993,58 @@ telaInicio();
             new Thread(uph).start();
             Runnable dwh = new AcaoMovimentoDeObjetos(350,288,17,27,hd,fundo);
             new Thread(dwh).start();
+            Runnable chd = new AcaoMovimentoDeObjetos(50,328,799,114,check,fundo);
+            new Thread(chd).start();
             fundo.add(ld);
             fundo.add(lh);
             fundo.add(lm);
+            //setBounds (horizontal,vertical,largura,altura);
+        }
+        private DiasSemana getDia(JScrollPane scr){;
+        	DiasSemana dia=null;
+        	JScrollBar scroll = scr.getVerticalScrollBar();
+        	int temp=scroll.getValue()+53,resul;
+        	resul=temp/53;
+        	switch(resul){
+        		case 1: dia=DiasSemana.SEGUNDA;
+        		break;
+        		case 2: dia=DiasSemana.TERCA;
+        		break;
+        		case 3:	dia=DiasSemana.QUARTA;
+        		break;
+        		case 4: dia=DiasSemana.QUINTA;
+        		break;
+        		case 5: dia=DiasSemana.SEXTA;
+        		break;
+        		case 6: dia=DiasSemana.SABADO;
+        		break;
+        		case 7: dia=DiasSemana.DOMINGO;
+        		break;
+        	}
+        	return dia;
         }
         
+        private String getMinuto(JScrollPane scr){;
+    	JScrollBar scroll = scr.getVerticalScrollBar();
+    	int temp=scroll.getValue()+53,resul;
+    	resul=temp/53;
+    	resul--;
+    	String minuto=String.valueOf(resul);
+    	return minuto;
+    }
+        private String getHora(JScrollPane scr){;
+    	JScrollBar scroll = scr.getVerticalScrollBar();
+    	int temp=scroll.getValue()+53,resul;
+    	resul=temp/53;
+    	resul--;
+    	String hora=String.valueOf(resul);
+    	return hora;
+    }
+
         //esconder agendamento
         private void esconderAgendamento(){
+            Runnable chd = new AcaoRecolherObjetos(50,328,799,114,check,fundo);
+            new Thread(chd).start();
             Runnable d= new AcaoRecolherObjetos(100,208,99,156,ld,fundo);
             new Thread(d).start();
             Runnable h= new AcaoRecolherObjetos(300,208,51,156,lh,fundo);
@@ -1028,6 +1083,28 @@ telaInicio();
             new Thread(mlb).start();
         }
         //listener agendamento
+        class SalvaAgendamento implements ActionListener{
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("Agendado dia: "+getDia(scrolldia)+" ás "+getHora(scrollHora)+":"+getMinuto(scrollMinutos));
+				if(cdic.getText().isEmpty() && cbac.getText().isEmpty() && cnome.getText().isEmpty()){
+					JOptionPane.showMessageDialog(null,"Todos os campos são obrigatórios");
+				}else{
+				boolean des;
+				if(check.isSelected())des=true;
+				else des=false;
+				R=new RegraBackup(cbac.getText(),cdic.getText());
+				B=new Backup(cnome.getText(), new Date().toString());
+				D=new Dias(getDia(scrolldia),getHora(scrollHora)+":"+getMinuto(scrollMinutos),des);
+				core.criarBackup(B,R,D);
+				esconderAgendamento();
+				esconderCadastro();
+				concluido();
+				}
+			}
+        	
+        }
         class AcaoChamarTelaVoltaCadastro implements MouseListener{
 
         @Override
@@ -1071,34 +1148,85 @@ telaInicio();
         @Override
         public void mouseExited(MouseEvent e) {}
         }
-    class AcaoDescerScroll implements ActionListener{
+        
+    class AcaoDescerScroll implements MouseListener{
         private JScrollPane scr;
+        boolean cont=false;
         public AcaoDescerScroll(JScrollPane scr)
         {
             this.scr=scr;
         }
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            JScrollBar scroll = scr.getVerticalScrollBar();
-            if(scroll.getValue()<=scroll.getMaximum()-53)scroll.setValue(scroll.getValue()+53);
-        }
-        
+		@Override
+		public void mouseClicked(MouseEvent arg0) {}
+		@Override
+		public void mouseEntered(MouseEvent arg0) {}
+		@Override
+		public void mouseExited(MouseEvent arg0) {}
+		@Override
+		public void mousePressed(MouseEvent arg0) {
+			Runnable descer = new Correr(false,scr);
+			new Thread(descer).start();
+		}
+		@Override
+		public void mouseReleased(MouseEvent arg0) {
+			controle=false;
+		}
+
     }
-    class AcaoSubirScroll implements ActionListener{
+    
+    class AcaoSubirScroll implements MouseListener{
 
        private JScrollPane scr;
         public AcaoSubirScroll(JScrollPane scr)
         {
             this.scr=scr;
         }
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            JScrollBar scroll = scr.getVerticalScrollBar();
-            if(scroll.getValue()>0)scroll.setValue(scroll.getValue()-53);        
-        }
+		@Override
+		public void mouseClicked(MouseEvent arg0) {}
+		@Override
+		public void mouseEntered(MouseEvent arg0) {}
+		@Override
+		public void mouseExited(MouseEvent arg0) {}
+		@Override
+		public void mousePressed(MouseEvent arg0) {
+			Runnable subir = new Correr(true,scr);
+			new Thread(subir).start();
+		}
+		@Override
+		public void mouseReleased(MouseEvent arg0) {
+			controle=false;
+		}
         
     }
-
+    
+    	class Correr implements Runnable{
+    		boolean c;
+    	    private JScrollPane scr;
+    		Correr(boolean c,JScrollPane scr){
+    			this.c=c;
+    			controle=true;
+                this.scr=scr;
+    		}
+			@Override
+			public void run() {
+				while(controle){
+					  try {
+						Thread.sleep(200);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					if(c==false){  JScrollBar scroll = scr.getVerticalScrollBar();
+			          if(scroll.getValue()<=scroll.getMaximum()-53)scroll.setValue(scroll.getValue()+53);
+					}else{
+			            JScrollBar scroll = scr.getVerticalScrollBar();
+			            if(scroll.getValue()>0)scroll.setValue(scroll.getValue()-53);
+					}
+				}
+				
+			}
+    		
+    	}
 //Minhas classes de movimento
         class AcaoMovimentoDeObjetos implements Runnable{
         private    int x,y,alt,larg;
@@ -1109,6 +1237,7 @@ telaInicio();
         private    TJtextArea a=null;
         private    JScrollPane r=null;
         private    JPanel p=null;
+        private    TJcheck c=null;
            public AcaoMovimentoDeObjetos(int x,int y,int larg,int alt,JLabel l,JPanel j){
                 this.x=x;
                 this.y=y;
@@ -1117,6 +1246,14 @@ telaInicio();
                 this.alt=alt;
                 this.larg=larg;
             }
+           public AcaoMovimentoDeObjetos(int x,int y,int larg,int alt,TJcheck c,JPanel j){
+               this.x=x;
+               this.y=y;
+               this.c=c;
+               this.j=j;
+               this.alt=alt;
+               this.larg=larg;
+           }
            public AcaoMovimentoDeObjetos(int x,int y,int larg,int alt,JButton b,JPanel j){
                 this.x=x;
                 this.y=y;
@@ -1203,7 +1340,13 @@ telaInicio();
                         p.setBounds(temp, y, larg, alt);
                         temp-=pi;
                         j.add(p);
-                    }                      
+                    }
+                     if(c!=null)
+                    {
+                        c.setBounds(temp, y, larg, alt);
+                        temp-=pi;
+                        j.add(c);
+                    } 
                 }
                     //correção de posição  
                     if(b!=null)
@@ -1236,21 +1379,27 @@ telaInicio();
                     {
                         p.setBounds(x, y, larg, alt);
                         j.add(p);
-                    } 
+                    }
+                     if(c!=null)
+                    {
+                        c.setBounds(x, y, larg, alt);
+                        j.add(c);
+                    }
                 j.repaint();
                 Thread.interrupted();
             }
         }
         
         class AcaoRecolherObjetos implements Runnable{
-            int x,y,alt,larg;
-            JButton b=null;
-            JLabel l=null;
-            JPanel j;
-            JPanel p=null;
-            TJtextField t=null;
-            TJtextArea a=null;
-            JScrollPane r=null;        
+            private    int x,y,alt,larg;
+            private   JButton b=null;
+            private   JLabel l=null;
+            private    JPanel j;
+            private    TJtextField t=null;
+            private    TJtextArea a=null;
+            private    JScrollPane r=null;
+            private    JPanel p=null;
+            private    TJcheck c=null;       
            public AcaoRecolherObjetos(int x,int y,int larg,int alt,JLabel l,JPanel j){
                 this.x=x;
                 this.y=y;
@@ -1259,6 +1408,14 @@ telaInicio();
                 this.alt=alt;
                 this.larg=larg;
             }
+           public AcaoRecolherObjetos(int x,int y,int larg,int alt,TJcheck c,JPanel j){
+               this.x=x;
+               this.y=y;
+               this.c=c;
+               this.j=j;
+               this.alt=alt;
+               this.larg=larg;
+           }
            public AcaoRecolherObjetos(int x,int y,int larg,int alt,JButton b,JPanel j){
                 this.x=x;
                 this.y=y;
@@ -1344,7 +1501,13 @@ telaInicio();
                         r.setBounds(temp, y, larg, alt);
                         temp+=50;
                         j.add(r);
-                    }                     
+                    }
+                     if(c!=null)
+                    {
+                        c.setBounds(temp, y, larg, alt);
+                        temp+=50;
+                        j.add(c);
+                    } 
                 }
                 j.repaint();
                 Thread.interrupted();

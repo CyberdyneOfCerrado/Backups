@@ -4,7 +4,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import GUI.SingleGuiMain;
 import iteradores.IteradorArtefatos;
 import iteradores.IteradorBackups;
 import iteradores.IteradorDias;
