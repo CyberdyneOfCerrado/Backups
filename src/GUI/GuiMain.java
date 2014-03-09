@@ -964,8 +964,9 @@ telaInicio();
             lh.setBounds(300,208,51,156);
             lm=new FundoJpane(id,0,0,0,0);
             lm.setBounds(500,208,51,156);
-            check=new TJcheck("Desligar o computados após a execução.",0,0,0,0);
+            check=new TJcheck("Desligar o computador após a execução.",0,0,0,0);
             check.setFont(new Font("Microsoft Yi Baiti",Font.PLAIN,30));
+            check.setForeground(Color.BLACK); 
             check.setFocusable(false);
             //threads de movimento
             //setBounds (horizontal,vertical,largura,altura);
