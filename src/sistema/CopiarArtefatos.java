@@ -4,16 +4,10 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.zip.*;
 
-import objetos.Artefato;
-
 public class CopiarArtefatos extends Thread{
 	private String origem = null, destino = null;
 	boolean desligar = false, isZip = false, parar = false;
-	
-	public CopiarArtefatos()
-	{
-		
-	}
+
 	public CopiarArtefatos(String origem, String destino, boolean desligar, boolean isZip)
 	{
 		this.origem = origem;
