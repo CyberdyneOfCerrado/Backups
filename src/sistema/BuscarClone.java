@@ -18,6 +18,10 @@ public class BuscarClone extends Thread{
 	{
 		this.parar = true;
 	}
+	public boolean isRodando()
+	{
+		return !this.parar;
+	}
 	public ArrayList<Artefato> getDuplicados()
 	{
 		return this.duplicados;

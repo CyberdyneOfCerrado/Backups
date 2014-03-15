@@ -38,7 +38,7 @@ public class CopiarArtefatos extends Thread{
 	}
 	public boolean isRodando()
 	{
-		return this.parar;
+		return !this.parar;
 	}
 	public void parar()
 	{
