@@ -14,6 +14,22 @@ public class Lista implements Serializable	{
 	{
 		this.lista = lista;
 	}
+	public Lista()
+	{
+		this.lista = new ArrayList<Item>();
+	}
+	public void add(Item item)
+	{
+		this.lista.add(item);
+	}
+	public void addAll(Lista itens)
+	{
+		lista.addAll(itens.getLista());
+	}
+	public void AddAll(ArrayList<Item> itens)
+	{
+		lista.addAll(itens);
+	}
 	public ArrayList<Item> getLista()
 	{
 		return lista;

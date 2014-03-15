@@ -1,20 +1,130 @@
 package sistema;
 
-import java.io.File;
+import java.io.*;
 import java.util.ArrayList;
+import java.util.zip.*;
 
 import objetos.Artefato;
 
 public class Arquivo {
-//	public Arquivo()
+	public Arquivo(String origem, String destino, boolean desigar)
+	{
+		//	Erick, informe qual o token usado pra separar os path!
+		
+		Lista lista = new Lista();
+		
+//		lista.AddAll(varrerDiretorios())
+	}
+	private ArrayList<Item> varrerDiretorios(String origem, String path)
+	{
+		return new ObterItens(origem, path).getList();
+	}
+	private void salvarZip(ArrayList<Item> relacao, String destino)
+	{
+		int len;
+        byte[] buffer = new byte[5242880];
+        FileInputStream in = null;
+        FileOutputStream fos = null;
+        ZipOutputStream zos = null;
+
+		try {
+			fos = new FileOutputStream(destino);			
+			zos = new ZipOutputStream(fos);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("Falhou.");
+			return;
+		}
+	        
+        for ( Item item : relacao )
+        {
+        	if ( !item.isFile())	continue;
+        	ZipEntry ze = new ZipEntry(item.getCaminhoRelativo());
+            try {
+				zos.putNextEntry(ze);
+			
+	            try
+	            {
+	               in = new FileInputStream(item.getCaminhoCompleto());
+	               
+	               while ((len = in.read(buffer)) > 0)
+	               {
+	                  zos.write(buffer, 0, len);
+	                  zos.flush();
+	               }
+	            }
+	            catch ( IOException e)
+	            {
+	            	e.printStackTrace();
+	            }
+	            finally
+	            {
+	               in.close();
+	            }
+            }
+            catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        }
+        
+        try {
+        	if ( zos != null )	zos.finish();
+        	if ( fos != null )	fos.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	private void salvarAvulso(ArrayList<Item> relacao, String destino)
+	{
+		int len;
+        byte[] buffer = new byte[5242880];
+        FileInputStream in = null;
+        FileOutputStream fos = null;
+        
+        for ( Item item : relacao )
+        {
+        	if ( !item.isFile())
+        	{
+        		new File(destino + "\\" + item.getCaminhoRelativo()).mkdir();
+        		continue;
+        	}
+            try {
+            	fos = new FileOutputStream(destino + "\\" + item.getCaminhoRelativo());
+	            try
+	            {
+	               in = new FileInputStream(item.getCaminhoCompleto());
+	               
+	               while ((len = in.read(buffer)) > 0)
+	               {
+	                  fos.write(buffer, 0, len);
+	                  fos.flush();
+	               }
+	            }
+	            catch ( IOException e)
+	            {
+	            	e.printStackTrace();
+	            }
+	            finally
+	            {
+	               in.close();
+	               fos.close();
+	            }
+            }
+            catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        }
+	}
 	public ArrayList<Artefato> buscarClone(String path, String nome)
 	{
 		ArrayList<Artefato> duplicados = new ArrayList<Artefato>();
 		ArrayList<Item> relacao;
-		File[] f = new File[0];
-		f[0] = new File(nome);
-		
-		relacao = new ObterItens(path, f).getList();
+
+		relacao = new ObterItens(path, nome).getList();
 		
 		int x=0, y, z, cont;
 		Item aux;

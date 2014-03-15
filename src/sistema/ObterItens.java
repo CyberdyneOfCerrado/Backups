@@ -18,6 +18,21 @@ public class ObterItens {
 			}
 		}
 	}
+	public ObterItens(String raiz, File f)	{
+		resul.add(new Item(f.getAbsolutePath(), f.getName(), f.isFile(), f.length()));
+		if ( !f.isFile())
+		{
+			resul.addAll(subpastas(raiz + (raiz.endsWith("\\") ? "" : '\\' ), f));
+		}
+	}
+	public ObterItens(String raiz, String file)	{
+		File f = new File(file);
+		resul.add(new Item(f.getAbsolutePath(), f.getName(), f.isFile(), f.length()));
+		if ( !f.isFile())
+		{
+			resul.addAll(subpastas(raiz + (raiz.endsWith("\\") ? "" : '\\' ), f));
+		}
+	}
 	private ArrayList<Item> subpastas(String raiz, File f)
 	{
 		ArrayList<Item> sub = new ArrayList<Item>();
