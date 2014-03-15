@@ -1,5 +1,6 @@
 package objetos;
 
+import sistema.Arquivo;
 import iteradores.IteradorDias;
 import historicos.HistoricoDias;
 
@@ -10,12 +11,14 @@ public class RegraBackup {
 	public String destino;
 	public String origem;
 	HistoricoDias hd;
+	Arquivo arq;
 	
 	public RegraBackup(String destino, String origem){
 		this.primaryKey = 0;
 		this.destino = destino;
 		this.origem = origem;
 		hd = new HistoricoDias();
+		//arq = new Arquivo();
 	}
 	
 	public RegraBackup(int primaryKey, String destino, String origem){
@@ -34,7 +37,7 @@ public class RegraBackup {
 		return destino;
 	}
 	
-	public boolean rodarRegra(){
+	public boolean rodarRegra( boolean isZip ){//Arumar isso quando a classe arquivo estiver pronta.
 		return true;
 	}
 	public String getOrigem(){
@@ -48,5 +51,5 @@ public class RegraBackup {
 	
 	public IteradorDias recuperarDias(){
 		return hd.obterHistorico(primaryKey);
-	}
+	};
 }

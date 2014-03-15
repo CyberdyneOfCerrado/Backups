@@ -18,7 +18,7 @@ public class Core implements Runnable {
 	
 	public Core (){
 		hb = new HistoricoBackups();
-		new Thread(this,"Procura agengamentos").start();
+		new Thread(this,"Procura agendamentos").start();
 	};
 	
 	public boolean criarBackup( Backup backup, RegraBackup regraBackup, Dias dia){
@@ -36,9 +36,9 @@ public class Core implements Runnable {
 		return true;
 	};
 	
-	public boolean rodarBackup( Backup backup ){//Funcional
+	public boolean rodarBackup( Backup backup, boolean isZip ){//Funcional
 		System.out.println("Executando uma regra de Backup");
-		return backup.getRegra().rodarRegra();
+		return backup.getRegra().rodarRegra(isZip);
 	};
 	
 	public IteradorBackups resgatarBackups(){//Funcional
