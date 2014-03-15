@@ -7,13 +7,23 @@ import java.util.zip.*;
 import objetos.Artefato;
 
 public class Arquivo {
-	public Arquivo(String origem, String destino, boolean desigar)
+	public Arquivo(String origem, String destino, boolean desligar, boolean isZip)
 	{
-		//	Erick, informe qual o token usado pra separar os path!
+		String[] paths = origem.split("|");
+		ArrayList<Item> relacao = new ArrayList<Item>();
 		
-		Lista lista = new Lista();
-		
-//		lista.AddAll(varrerDiretorios())
+		for(String path : paths)
+		{
+			relacao.addAll(varrerDiretorios(path.substring(0 , path.lastIndexOf("\\")), path));
+		}
+		if ( isZip )
+		{
+			salvarZip(relacao, destino);
+		}
+		else
+		{
+			salvarAvulso(relacao, destino);
+		}
 	}
 	private ArrayList<Item> varrerDiretorios(String origem, String path)
 	{
