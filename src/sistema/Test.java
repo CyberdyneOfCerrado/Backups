@@ -23,14 +23,22 @@ public class Test {
 	        {
 	           return;
 	        }
+	        else
+	        {
+	        	if ( retorno == JFileChooser.CANCEL_OPTION )
+	        	{
+	        		break;
+	        	}
+	        }
 	        
 	        for(File fr : jfcarquivo.getSelectedFiles())
 	        {
+	        	System.out.println(fr.getAbsolutePath());
 	        	origem += fr.getAbsolutePath() + "|";
 	        }
 		} while ( retorno != JFileChooser.CANCEL_OPTION );
 //		String origem = jfcarquivo.getSelectedFile().getAbsolutePath(),
-        String destino = "D:\\P1\\Facu.zip";
+        String destino = "C:\\Users\\Luiz Eduardo\\Desktop\\ArquivosDesktop.zip";
 		CopiarArtefatos ca = new CopiarArtefatos(origem, destino, true);
 		ca.start();
 		while ( ca.isRodando() )

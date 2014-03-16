@@ -19,12 +19,7 @@ public class CopiarArtefatos extends Thread{
 		this.parar = false;
 		String[] paths = this.origem.split("\\|");
 		ArrayList<Item> relacao = new ArrayList<Item>();
-		
-		for(String path : paths)
-		{
-			System.out.println(path);
-		}
-		
+
 		for(String path : paths)
 		{
 			if ( path == null || path.length() == 0 )	continue;
