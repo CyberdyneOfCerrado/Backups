@@ -12,19 +12,25 @@ public class Test {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		JFileChooser jfcarquivo = new JFileChooser();
-        jfcarquivo.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-        jfcarquivo.setMultiSelectionEnabled(true);
-        if ( jfcarquivo.showOpenDialog(null) != JFileChooser.APPROVE_OPTION)
-        {
-           return;
-        }
-        String origem = "";
-        for(File fr : jfcarquivo.getSelectedFiles())
-        {
-        	origem += fr.getAbsolutePath() + "|";
-        }
+		String origem = "";
+		int retorno;
+		do
+		{
+	        jfcarquivo.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+	        jfcarquivo.setMultiSelectionEnabled(true);
+	        retorno = jfcarquivo.showOpenDialog(null);
+	        if ( retorno != JFileChooser.APPROVE_OPTION && origem.length() == 0 )
+	        {
+	           return;
+	        }
+	        
+	        for(File fr : jfcarquivo.getSelectedFiles())
+	        {
+	        	origem += fr.getAbsolutePath() + "|";
+	        }
+		} while ( retorno != JFileChooser.CANCEL_OPTION );
 //		String origem = jfcarquivo.getSelectedFile().getAbsolutePath(),
-        String destino = "D:\\P1\\TesteZip.zip";
+        String destino = "D:\\P1\\Facu.zip";
 		CopiarArtefatos ca = new CopiarArtefatos(origem, destino, true);
 		ca.start();
 		while ( ca.isRodando() )

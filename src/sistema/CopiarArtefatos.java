@@ -54,6 +54,10 @@ public class CopiarArtefatos extends Thread{
 		}
 		this.parar = true;
 	}
+	public void setZip(boolean zip)
+	{
+		this.isZip = zip;
+	}
 	public boolean isRodando()
 	{
 		return !this.parar;
@@ -101,6 +105,10 @@ public class CopiarArtefatos extends Thread{
 	                  zos.write(buffer, 0, len);
 	                  zos.flush();
 	               }
+	            }
+	            catch ( ZipException e)
+	            {
+	            	
 	            }
 	            catch ( IOException e)
 	            {
