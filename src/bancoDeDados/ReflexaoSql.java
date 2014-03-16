@@ -28,7 +28,7 @@ public class ReflexaoSql {
 		
 		for( Field temp : f ){
 			Type type = temp.getGenericType();
-			if( !temp.getName().equals("primaryKey") && !type.toString().contains("historico") && !type.toString().contains("Regra") ) sql += temp.getName().toUpperCase() +",";
+			if( !temp.getName().equals("primaryKey") && !type.toString().contains("historico") && !type.toString().contains("Regra") && !type.toString().contains("CopiarArtefatos")) sql += temp.getName().toUpperCase() +",";
 		}
 		
 		sql = sql.substring(0,sql.length()-1) +") VALUES (";
@@ -36,7 +36,7 @@ public class ReflexaoSql {
 		for( Field temp : f ){
 			try {
 				Type typef = temp.getGenericType();
-				if( !temp.getName().equals("primaryKey") && !typef.toString().contains("historico") && !typef.toString().contains("Regra")){
+				if( !temp.getName().equals("primaryKey") && !typef.toString().contains("historico") && !typef.toString().contains("Regra") && !typef.toString().contains("CopiarArtefatos")){
 					String type = temp.getGenericType().toString();
 					if( type.contains("String") || type.contains("DiasSemana") || type.contains("boolean") || type.contains("Date") ){
 						sql += "'"+temp.get(ob) +"',";
@@ -64,7 +64,7 @@ public class ReflexaoSql {
 		
 		for( Field temp : f ){
 			Type type = temp.getGenericType();
-			if( !temp.getName().equals("primaryKey") && !type.toString().contains("historico") && !type.toString().contains("Regra") ){
+			if( !temp.getName().equals("primaryKey") && !type.toString().contains("historico") && !type.toString().contains("Regra") && !type.toString().contains("CopiarArtefatos")){
 				sql += temp.getName().toUpperCase() +",";
 			}
 		}
@@ -74,7 +74,7 @@ public class ReflexaoSql {
 		for( Field temp : f ){
 			try {
 				Type typef = temp.getGenericType();
-				if( !temp.getName().equals("primaryKey") && !typef.toString().contains("historico") && !typef.toString().contains("Regra")  ){
+				if( !temp.getName().equals("primaryKey") && !typef.toString().contains("historico") && !typef.toString().contains("Regra") && !typef.toString().contains("CopiarArtefatos")  ){
 					String type = temp.getGenericType().toString();
 					
 					if( type.contains("String") || type.contains("DiasSemana") || type.contains("boolean") || type.contains("Date") || type.contains("Status") ){
@@ -102,7 +102,7 @@ public class ReflexaoSql {
 		for( Field temp : f ){
 			try {	
 				Type typef = temp.getGenericType();
-					if( !temp.getName().equals("primaryKey") && !typef.toString().contains("historico") && !typef.toString().contains("Regra") ){
+					if( !temp.getName().equals("primaryKey") && !typef.toString().contains("historico") && !typef.toString().contains("Regra") && !typef.toString().contains("CopiarArtefatos") ){
 					String type = temp.getGenericType().toString();
 				
 					if( type.contains("String") || type.contains("DiasSemana") || type.contains("boolean") || type.contains("Date") || type.contains("Status")){		
