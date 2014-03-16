@@ -6,7 +6,7 @@ import java.util.zip.*;
 
 public class CopiarArtefatos extends Thread{
 	private String origem = null, destino = null;
-	boolean desligar = false, isZip = false, parar = false;
+	boolean desligar = false, isZip = true, parar = false;
 
 	public CopiarArtefatos(String origem, String destino, boolean desligar)
 	{

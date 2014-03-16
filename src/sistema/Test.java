@@ -1,5 +1,7 @@
 package sistema;
 
+import java.io.File;
+
 import javax.swing.JFileChooser;
 
 public class Test {
@@ -16,7 +18,13 @@ public class Test {
         {
            return;
         }
-		String origem = jfcarquivo.getSelectedFile().getAbsolutePath(), destino = "D:\\P1\\LuizEduardo_Teste";
+        String origem = "";
+        for(File fr : jfcarquivo.getSelectedFiles())
+        {
+        	origem += fr.getAbsolutePath() + "|";
+        }
+//		String origem = jfcarquivo.getSelectedFile().getAbsolutePath(),
+        String destino = "D:\\P1\\TesteZip.zip";
 		CopiarArtefatos ca = new CopiarArtefatos(origem, destino, true);
 		ca.start();
 		while ( ca.isRodando() )
