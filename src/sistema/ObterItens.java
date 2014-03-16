@@ -19,6 +19,8 @@ public class ObterItens {
 		}
 	}
 	public ObterItens(String raiz, File f)	{
+		resul = new ArrayList<Item>();
+		
 		resul.add(new Item(f.getAbsolutePath(), f.getName(), f.isFile(), f.length()));
 		if ( !f.isFile())
 		{
@@ -27,6 +29,8 @@ public class ObterItens {
 	}
 	public ObterItens(String raiz, String file)	{
 		File f = new File(file);
+		resul = new ArrayList<Item>();
+		
 		resul.add(new Item(f.getAbsolutePath(), f.getName(), f.isFile(), f.length()));
 		if ( !f.isFile())
 		{

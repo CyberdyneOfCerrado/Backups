@@ -8,32 +8,49 @@ public class CopiarArtefatos extends Thread{
 	private String origem = null, destino = null;
 	boolean desligar = false, isZip = false, parar = false;
 
-	public CopiarArtefatos(String origem, String destino, boolean desligar, boolean isZip)
+	public CopiarArtefatos(String origem, String destino, boolean desligar)
 	{
 		this.origem = origem;
 		this.destino = destino;
 		this.desligar = desligar;
-		this.isZip = isZip;
 	}	
 	public void run()
 	{
 		this.parar = false;
-		String[] paths = origem.split("|");
+		String[] paths = this.origem.split("\\|");
 		ArrayList<Item> relacao = new ArrayList<Item>();
 		
 		for(String path : paths)
 		{
-			if ( path == null )	continue;
+			System.out.println(path);
+		}
+		
+		for(String path : paths)
+		{
+			if ( path == null || path.length() == 0 )	continue;
 			if ( this.parar )	return;
 			relacao.addAll(varrerDiretorios(path.substring(0 , path.lastIndexOf(File.separator)), path));
 		}
 		if ( isZip )
 		{
-			salvarZip(relacao, destino);
+			if ( new File(this.destino).isDirectory() )
+			{
+				System.out.println("Inválido!");
+				this.parar = true;
+				return;
+			}
+			salvarZip(relacao, this.destino);
 		}
 		else
 		{
-			salvarAvulso(relacao, destino);
+			if ( new File(this.destino).isFile() )
+			{
+				System.out.println("Inválido!");
+				this.parar = true;
+				return;
+			}
+			if ( !new File(this.destino).exists())	new File(this.destino).mkdir();
+			salvarAvulso(relacao, this.destino);
 		}
 		this.parar = true;
 	}
