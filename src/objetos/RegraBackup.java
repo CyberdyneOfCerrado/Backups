@@ -19,7 +19,7 @@ public class RegraBackup {
 		this.destino = destino;
 		this.origem = origem;
 		hd = new HistoricoDias();
-		ca = new CopiarArtefatos(origem, destino, false, false);
+		ca = new CopiarArtefatos(origem, destino, false);
 	}
 	
 	public RegraBackup(int primaryKey, String destino, String origem){
