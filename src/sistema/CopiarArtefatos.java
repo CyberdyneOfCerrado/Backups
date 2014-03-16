@@ -23,8 +23,9 @@ public class CopiarArtefatos extends Thread{
 		
 		for(String path : paths)
 		{
+			if ( path == null )	continue;
 			if ( this.parar )	return;
-			relacao.addAll(varrerDiretorios(path.substring(0 , path.lastIndexOf("\\")), path));
+			relacao.addAll(varrerDiretorios(path.substring(0 , path.lastIndexOf(File.separator)), path));
 		}
 		if ( isZip )
 		{
@@ -120,11 +121,11 @@ public class CopiarArtefatos extends Thread{
         	
         	if ( !item.isFile())
         	{
-        		new File(destino + "\\" + item.getCaminhoRelativo()).mkdir();
+        		new File(destino + File.separator + item.getCaminhoRelativo()).mkdir();
         		continue;
         	}
             try {
-            	fos = new FileOutputStream(destino + "\\" + item.getCaminhoRelativo());
+            	fos = new FileOutputStream(destino + File.separator + item.getCaminhoRelativo());
 	            try
 	            {
 	               in = new FileInputStream(item.getCaminhoCompleto());
@@ -134,9 +135,9 @@ public class CopiarArtefatos extends Thread{
 	                  fos.write(buffer, 0, len);
 	                  fos.flush();
 	               }
-	               if (new File(item.getCaminhoCompleto()).length() > new File(destino + "\\" + item.getCaminhoRelativo()).length() )
+	               if (new File(item.getCaminhoCompleto()).length() > new File(destino + File.separator + item.getCaminhoRelativo()).length() )
 	               {
-	            	   new File(destino + "\\" + item.getCaminhoRelativo()).delete();
+	            	   new File(destino + File.separator + item.getCaminhoRelativo()).delete();
 	               }
 	            }
 	            catch ( IOException e)

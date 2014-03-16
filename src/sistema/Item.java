@@ -1,4 +1,5 @@
 package sistema;
+import java.io.File;
 import java.io.Serializable;
 
 public class Item implements Serializable {
@@ -13,7 +14,7 @@ public class Item implements Serializable {
 	public Item (String caminhoCompleto, String caminhoRelativo, boolean isFile, long tam){
 		this.caminhoCompleto = caminhoCompleto;
 		this.caminhoRelativo = caminhoRelativo;
-		this.nome = (isFile ) ? caminhoRelativo.substring(caminhoRelativo.lastIndexOf("\\")+1) : null;
+		this.nome = (isFile ) ? caminhoRelativo.substring(caminhoRelativo.lastIndexOf(File.separator)+1) : null;
 		this.isFile = isFile;
 		this.tam = tam;
 	}

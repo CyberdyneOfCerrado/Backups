@@ -14,7 +14,7 @@ public class ObterItens {
 			resul.add(new Item(res.getAbsolutePath(), res.getName(), res.isFile(), res.length()));
 			if ( !res.isFile())
 			{
-				resul.addAll(subpastas(raiz + (raiz.endsWith("\\") ? "" : '\\' ), res));
+				resul.addAll(subpastas(raiz + (raiz.endsWith(File.separator) ? "" : File.separator ), res));
 			}
 		}
 	}
@@ -22,7 +22,7 @@ public class ObterItens {
 		resul.add(new Item(f.getAbsolutePath(), f.getName(), f.isFile(), f.length()));
 		if ( !f.isFile())
 		{
-			resul.addAll(subpastas(raiz + (raiz.endsWith("\\") ? "" : '\\' ), f));
+			resul.addAll(subpastas(raiz + (raiz.endsWith(File.separator) ? "" : File.separator ), f));
 		}
 	}
 	public ObterItens(String raiz, String file)	{
@@ -30,7 +30,7 @@ public class ObterItens {
 		resul.add(new Item(f.getAbsolutePath(), f.getName(), f.isFile(), f.length()));
 		if ( !f.isFile())
 		{
-			resul.addAll(subpastas(raiz + (raiz.endsWith("\\") ? "" : '\\' ), f));
+			resul.addAll(subpastas(raiz + (raiz.endsWith(File.separator) ? "" : File.separator ), f));
 		}
 	}
 	private ArrayList<Item> subpastas(String raiz, File f)
