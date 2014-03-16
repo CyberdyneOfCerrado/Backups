@@ -1,6 +1,7 @@
 package objetos;
 
-import sistema.Arquivo;
+
+import sistema.CopiarArtefatos;
 import iteradores.IteradorDias;
 import historicos.HistoricoDias;
 
@@ -11,14 +12,14 @@ public class RegraBackup {
 	public String destino;
 	public String origem;
 	HistoricoDias hd;
-	Arquivo arq;
+	CopiarArtefatos ca;
 	
 	public RegraBackup(String destino, String origem){
 		this.primaryKey = 0;
 		this.destino = destino;
 		this.origem = origem;
 		hd = new HistoricoDias();
-		//arq = new Arquivo();
+		ca = new CopiarArtefatos(origem, destino, false, false);
 	}
 	
 	public RegraBackup(int primaryKey, String destino, String origem){
