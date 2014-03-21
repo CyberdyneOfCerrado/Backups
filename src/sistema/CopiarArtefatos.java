@@ -114,15 +114,14 @@ public class CopiarArtefatos extends Thread{
         for ( Item item : relacao )
         {
         	if ( this.parar )	break;
+        	ZipEntry ze = new ZipEntry(item.getCaminhoRelativo());
         	if ( !item.isFile())
         	{
         		this.cont++;
         		continue;
-        	}
-        	ZipEntry ze = new ZipEntry(item.getCaminhoRelativo());
+        	}        	
             try {
-				zos.putNextEntry(ze);
-			
+				zos.putNextEntry(ze);			
 	            try
 	            {
 	               in = new FileInputStream(item.getCaminhoCompleto());
