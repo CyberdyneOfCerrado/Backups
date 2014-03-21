@@ -18,7 +18,7 @@ public class CopiarArtefatos extends Thread{
 	{
 		this.copiados = new ArrayList<Artefato>();
 		this.origem = origem;
-		this.destino = destino;
+		this.destino = destino.replaceAll("\\|", "");
 	}	
 	public void run()
 	{
@@ -30,7 +30,31 @@ public class CopiarArtefatos extends Thread{
 		{
 			if ( path == null || path.length() == 0 )	continue;
 			if ( this.parar )	return;
-			relacao.addAll(varrerDiretorios(path.substring(0 , path.lastIndexOf(File.separator)), path));
+			path = path.replaceAll("\n", "");
+			System.out.println(path);
+			try
+			{
+				relacao.addAll(varrerDiretorios(path.substring(0 , path.lastIndexOf(File.separator)), path));
+			} catch ( Exception e)
+			{
+				System.out.println("Falhou em: " + path);
+			}
+		}
+		String dest = this.destino.substring(destino.lastIndexOf(File.separator)+1);
+		try
+		{
+			if ( dest.toLowerCase().endsWith(".zip"))
+			{
+				this.isZip = true;
+			}
+			else
+			{
+				this.isZip = false;
+			}
+		}
+		catch ( Exception e)
+		{
+			this.isZip = false;
 		}
 		if ( isZip )
 		{
@@ -54,10 +78,6 @@ public class CopiarArtefatos extends Thread{
 			salvarAvulso(relacao, this.destino);
 		}
 		this.parar = true;
-	}
-	public void setZip(boolean zip)
-	{
-		this.isZip = zip;
 	}
 	public ArrayList<Artefato> getConcluidos()
 	{
