@@ -48,8 +48,8 @@ public class RegraBackup {
 		
 		Object [] objeto = new Object[2];
 		
-		objeto[0] = ca.getConcluidos();
-		objeto[1] = ca.getState();
+		objeto[0] = (Object) ca.getConcluidos();
+		objeto[1] = (Object) ca.getResultado();
 		
 		return objeto; 
 	};
