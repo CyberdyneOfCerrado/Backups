@@ -1312,7 +1312,6 @@ telaInicio();
     		//tamanho da letra 18
     		//setBounds (horizontal,vertical,largura,altura);
     		Integer i = new Integer(p);
-    		Boolean zip = new Boolean(false);
     		FundoJpane celula = new FundoJpane(null,0,0,0,0);
     		celula.setBackground(Color.BLACK);
     		celula.setLayout(null);
@@ -1373,9 +1372,31 @@ telaInicio();
     		celula.add(checkzip);
     		//setBounds (horizontal,vertical,largura,altura);
     		rodar.setBounds(231,65,134,30);
+    		Boolean zip = new Boolean(checkzip.isSelected());
+    		rodar.addActionListener(new ExecutarRegra(i,zip));
     		celula.add(rodar);
     		celula.setBounds(h,v,l,a);
     		return celula;
+    	}
+    	
+    	class ExecutarRegra implements ActionListener{
+    		int num,cont=0;
+    		boolean zip;
+    		Backup ba;
+    		IteradorBackups ib=core.resgatarBackups();
+    		ExecutarRegra(int num, boolean zip){
+    			this.num=num;
+    			this.zip=zip;
+    		}
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				while(cont<=num && ib.hasNext()){
+					ba=ib.next();
+					cont++;
+				}
+				core.rodarBackup(ba, zip);
+			}
+    		
     	}
 //Minhas classes de movimento
         class AcaoMovimentoDeObjetos implements Runnable{
