@@ -1,6 +1,7 @@
 package objetos;
 
 
+import GUI.SingleGuiMain;
 import sistema.CopiarArtefatos;
 import iteradores.IteradorDias;
 import historicos.HistoricoDias;
@@ -39,11 +40,13 @@ public class RegraBackup {
 		
 		if(isZip)ca.setZip(nomeZip);
 		ca.start();
-		
+		SingleGuiMain.getInstance().iniCarregamento();
 		while(ca.isRodando()){
+			if(SingleGuiMain.getInstance().isCancelado) ca.parar();
 			latencia(100);
 		}
 		
+		SingleGuiMain.getInstance().stopCarregamento();
 		latencia(300);
 		
 		Object [] objeto = new Object[2];

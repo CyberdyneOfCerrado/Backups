@@ -1,6 +1,5 @@
 package nucleo;
 
-import java.io.EOFException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
