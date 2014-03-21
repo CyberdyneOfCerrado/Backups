@@ -6,6 +6,6 @@
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Downloads/derby.jar"/>
+	<classpathentry kind="lib" path="derby.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

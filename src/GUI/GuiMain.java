@@ -6,7 +6,10 @@
  */
 
 package GUI;
+import iteradores.IteradorBackups;
+
 import java.awt.Color;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Frame;
 import java.awt.Image;
@@ -196,6 +199,7 @@ public class GuiMain extends JFrame {
         private RegraBackup R;
         private Dias D;
 		private TJcheck check;
+		private JScrollPane scrollRegra;
     
     GuiMain()
     {
@@ -276,7 +280,8 @@ telaInicio();
             tile3.setIcon(tl3i);
             textoTile3=new TJlabel("Rodar regra de backup",0,0,0,0);
             textoTile3.setFont(new Font("Microsoft Yi Baiti",Font.PLAIN,31));
-            textoTile3.setForeground(Color.BLACK);            
+            textoTile3.setForeground(Color.BLACK);
+            tile3.addActionListener(new AcaoRodaRegra());
             ImageIcon tl4 = new ImageIcon(getClass().getResource("/GUI/Imagens/duplicata.png"));
             tile4=new TJbutton("",0,0,0,0);  
             tile4.setIcon(tl4);
@@ -323,6 +328,15 @@ telaInicio();
                 telaCadastro();
                 esconderInicio();
         }
+        }
+        class AcaoRodaRegra implements ActionListener{
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				esconderInicio();
+				regraBackup();
+			}
+        	
         }
         //tela de  conclusão
         //setBounds (horizontal,vertical,largura,altura);
@@ -1227,6 +1241,100 @@ telaInicio();
 				
 			}
     		
+    	}
+    	//tela regra de backup
+    	private void regraBackup(){
+            //setBounds (horizontal,vertical,largura,altura);
+    		//fundo das informações
+    		Backup ba;
+    		int cont=0,cp=1;
+    		IteradorBackups ib;
+    		int largura=710,altura=125;
+    		FundoJpane area = new FundoJpane(null,0,0,0,0);
+    		area.setLayout(new FlowLayout());
+    		area.setPreferredSize(new Dimension(largura,altura));
+    		ib=core.resgatarBackups();
+    		scrollRegra = new JScrollPane(area);
+    		scrollRegra.setBorder(null);
+    		scrollRegra.setOpaque(false);//
+    		scrollRegra.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+    		scrollRegra.getViewport().setOpaque(false);
+    		while(ib.hasNext()){
+    			ba=null;
+    			ba=ib.next();
+    			area.add(criarInfo(ba,cont,125*cp,0,700,123));
+    			cp++;
+    			cont++;
+    			System.out.println(cont);
+    			if(ib.hasNext())area.setPreferredSize(new Dimension(largura,altura*cp));
+    		}
+            Runnable sr = new AcaoMovimentoDeObjetos(50,140,715,333,scrollRegra,fundo);
+            new Thread(sr).start();
+    		//fim fundo info
+    		//motor de apresentação
+    		
+    	}
+    	private JPanel criarInfo(Backup b,int p,int h, int v, int l,int a){
+    		//tamanho da letra 18
+    		//setBounds (horizontal,vertical,largura,altura);
+    		Integer i = new Integer(p);
+    		FundoJpane celula = new FundoJpane(null,0,0,0,0);
+    		celula.setBackground(Color.BLACK);
+    		celula.setLayout(null);
+    		celula.setPreferredSize(new Dimension(700,123));
+    		TJlabel nome=new TJlabel("Nome do Backup:",0,0,0,0);
+    		nome.setBounds(0,0,157,18);
+    		nome.setBorder(null);
+    		nome.setFont(new Font("Microsoft Yi Baiti",Font.BOLD,20));
+    		nome.setForeground(Color.black);
+    		celula.add(nome);
+    		TJlabel data=new TJlabel("Data de Criação:",0,0,0,0);
+    		data.setBounds(0,20,147,18);
+    		data.setBorder(null);
+    		data.setFont(new Font("Microsoft Yi Baiti",Font.BOLD,20));
+    		data.setForeground(Color.black);
+    		celula.add(data);
+    		TJlabel origem=new TJlabel("Caminho do backup:",0,0,0,0);
+    		origem.setBounds(0,40,184,18);
+    		origem.setFont(new Font("Microsoft Yi Baiti",Font.BOLD,20));
+    		origem.setBorder(null);
+    		origem.setForeground(Color.black);
+    		celula.add(origem);
+    		//setBounds (horizontal,vertical,largura,altura);
+    		TJtextField cnome = new TJtextField(0,0,0,0);
+    		cnome.setBorder(null);
+    		cnome.setForeground(Color.black);
+    		cnome.setFont(new Font("Microsoft Yi Baiti",Font.PLAIN,20));
+    		cnome.setBounds(140,0,700,18);
+    		celula.add(cnome);
+    		TJtextField cdata = new TJtextField(0,0,0,0);
+    		cdata.setBorder(null);
+    		cdata.setForeground(Color.black);
+    		cdata.setFont(new Font("Microsoft Yi Baiti",Font.PLAIN,20));
+    		cdata.setBounds(135,20,700,18);
+    		celula.add(cdata);
+    		TJtextField corigem = new TJtextField(0,0,0,0);
+    		corigem.setBorder(null);
+    		corigem.setForeground(Color.black);
+    		corigem.setFont(new Font("Microsoft Yi Baiti",Font.PLAIN,20));
+    		corigem.setBounds(160,40,700,18);
+    		celula.add(corigem);
+    		cnome.setEditable(false);
+    		cnome.setFocusable(false);
+    		cdata.setEditable(false);
+    		cdata.setFocusable(false);
+    		corigem.setEditable(false);
+    		corigem.setFocusable(false);
+    		cnome.setText(b.getNomeBackup());
+    		cdata.setText(b.getDataInicio());
+    		corigem.setText(b.getRegra().getDestino());
+    		TJbutton rodar = new TJbutton("Rodar regra",0,0,0,255);
+    		rodar.setForeground(Color.white);
+    		//setBounds (horizontal,vertical,largura,altura);
+    		rodar.setBounds(231,65,134,30);
+    		celula.add(rodar);
+    		celula.setBounds(h,v,l,a);
+    		return celula;
     	}
 //Minhas classes de movimento
         class AcaoMovimentoDeObjetos implements Runnable{
