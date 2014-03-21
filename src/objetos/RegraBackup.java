@@ -39,12 +39,10 @@ public class RegraBackup {
 		ca.start();
 		
 		while(ca.isRodando()){
-			try {
-				Thread.sleep(50);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+			latencia(100);
 		}
+		
+		latencia(300);
 		
 		Object [] objeto = new Object[2];
 		
@@ -66,4 +64,12 @@ public class RegraBackup {
 	public IteradorDias recuperarDias(){
 		return hd.obterHistorico(primaryKey);
 	};
+	
+	public void latencia( int laten ){
+		try {
+			Thread.sleep(laten);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
 }
