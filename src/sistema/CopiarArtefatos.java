@@ -25,7 +25,6 @@ public class CopiarArtefatos extends Thread{
 	public void run()
 	{
 		this.parar = false;
-		SingleGuiMain.getInstance().iniCarregamento();
 		String[] paths = this.origem.split("\\|");
 		ArrayList<Item> relacao = new ArrayList<Item>();
 

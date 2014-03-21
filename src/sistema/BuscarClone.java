@@ -31,7 +31,6 @@ public class BuscarClone extends Thread{
 	public void run()
 	{
 		this.parar= false;
-		SingleGuiMain.getInstance().iniCarregamento();
 		ArrayList<Item> relacao;
 
 		relacao = new ObterItens(this.path, this.nome).getList();
