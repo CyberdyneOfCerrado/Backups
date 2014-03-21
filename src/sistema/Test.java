@@ -38,7 +38,7 @@ public class Test {
 	        }
 		} while ( retorno != JFileChooser.CANCEL_OPTION );
 //		String origem = jfcarquivo.getSelectedFile().getAbsolutePath(),
-        String destino = "M:\\";
+        String destino = "D:\\P1\\Debug trab";
 		CopiarArtefatos ca = new CopiarArtefatos(origem, destino, true);
 		ca.setZip("ArquivoTeste");
 		ca.start();
