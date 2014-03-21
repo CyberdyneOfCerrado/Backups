@@ -59,6 +59,7 @@ public class GuiMain extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 		FundoJpane imgc;
+		public static boolean isCancelado=false;
 		private boolean controle;
 		private JPanel fundo;
 		private int screenX,screenY;
@@ -200,6 +201,8 @@ public class GuiMain extends JFrame {
         private Dias D;
 		private TJcheck check;
 		private JScrollPane scrollRegra;
+		private TJbutton cancela;
+		private TJbutton fechar;
     
     GuiMain()
     {
@@ -234,7 +237,7 @@ public class GuiMain extends JFrame {
         ImageIcon icf = new ImageIcon(getClass().getResource("/GUI/Imagens/Jfundo.png"));
         Image imf = icf.getImage();
         ((FundoJpane) fundo).alterarImagem(imf);
-        JButton fechar = new TJbutton("X",0,0,0,0);
+        fechar = new TJbutton("X",0,0,0,0);
         fechar.setBounds(767,6,16,25);
         fechar.addActionListener(new AcaoFechar());
         fechar.setContentAreaFilled(false);
@@ -1261,7 +1264,7 @@ telaInicio();
 			@Override
 			public void mouseReleased(MouseEvent arg0) {}
         }
-			public void escondeRegra(){
+			private void escondeRegra(){
 	            Runnable text = new AcaoRecolherObjetos(50,25,799,114,tp1,fundo);
 	            new Thread(text).start();
 	            Runnable sr = new AcaoRecolherObjetos(50,140,715,333,scrollRegra,fundo);
@@ -1310,6 +1313,39 @@ telaInicio();
     		//motor de apresentação
     		
     	}
+        public void iniCarregamento()
+        {
+            escondeRegra();
+            Runnable escondeX = new AcaoRecolherObjetos(767,6,16,25,fechar,fundo);
+            new Thread(escondeX).start();
+            ImageIcon tl1i = new ImageIcon(getClass().getResource("/GUI/Imagens/load2.png"));
+            Image temp= tl1i.getImage();
+            imgc = new FundoJpane(temp,0,0,0,0);
+            Runnable text = new AcaoMovimentoDeObjetos(199,88,380,269,imgc,fundo);
+            new Thread(text).start();
+            cancela = new TJbutton("Cancelar",0,0,0,255);
+            cancela.setForeground(Color.white);
+            cancela.addActionListener(new BotaoCancela());
+            Runnable cancel = new AcaoMovimentoDeObjetos(304,384,168,57,cancela,fundo);
+            new Thread(cancel).start();
+        }
+        class BotaoCancela implements ActionListener{
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+	            Runnable escondeX = new AcaoMovimentoDeObjetos(767,6,16,25,fechar,fundo);
+	            new Thread(escondeX).start();
+				isCancelado=true;	
+			}
+        	
+        }
+        public void stopCarregamento(){
+            Runnable text = new AcaoRecolherObjetos(199,88,380,269,imgc,fundo);
+            new Thread(text).start();
+            Runnable cancel = new AcaoRecolherObjetos(304,384,168,57,cancela,fundo);
+            new Thread(cancel).start();
+            concluido();
+        }
     	private JPanel criarInfo(Backup b,int p,int h, int v, int l,int a){
     		//tamanho da letra 18
     		//setBounds (horizontal,vertical,largura,altura);
