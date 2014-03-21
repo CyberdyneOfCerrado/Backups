@@ -1319,7 +1319,7 @@ public class GuiMain extends JFrame {
     		//setBounds (horizontal,vertical,largura,altura);
             Runnable escondeX = new AcaoRecolherObjetos(767,6,16,25,fechar,fundo);
             new Thread(escondeX).start();
-            ImageIcon tl1i = new ImageIcon(getClass().getResource("/GUI/Imagens/load2.gif"));
+            ImageIcon tl1i = new ImageIcon(getClass().getResource("/GUI/Imagens/load3.gif"));
             Image temp= tl1i.getImage();
             imgci = new FundoJpane(temp,0,0,0,0);
             Runnable gifLoad = new AcaoMovimentoDeObjetos(286,121,219,190,imgci,fundo);
