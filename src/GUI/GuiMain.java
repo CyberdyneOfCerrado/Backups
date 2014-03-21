@@ -1372,8 +1372,7 @@ telaInicio();
     		celula.add(checkzip);
     		//setBounds (horizontal,vertical,largura,altura);
     		rodar.setBounds(231,65,134,30);
-    		Boolean zip = new Boolean(checkzip.isSelected());
-    		rodar.addActionListener(new ExecutarRegra(i,zip));
+    		rodar.addActionListener(new ExecutarRegra(i,checkzip));
     		celula.add(rodar);
     		celula.setBounds(h,v,l,a);
     		return celula;
@@ -1381,10 +1380,10 @@ telaInicio();
     	
     	class ExecutarRegra implements ActionListener{
     		int num,cont=0;
-    		boolean zip;
+    		TJcheck zip;
     		Backup ba;
     		IteradorBackups ib=core.resgatarBackups();
-    		ExecutarRegra(int num, boolean zip){
+    		ExecutarRegra(int num, TJcheck zip){
     			this.num=num;
     			this.zip=zip;
     		}
@@ -1394,7 +1393,7 @@ telaInicio();
 					ba=ib.next();
 					cont++;
 				}
-				core.rodarBackup(ba, zip);
+				core.rodarBackup(ba, zip.isSelected());
 			}
     		
     	}
