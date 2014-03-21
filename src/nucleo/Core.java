@@ -62,20 +62,27 @@ public class Core implements Runnable {
 				 String [] dados = dateFormat.format( new Date()).split(",");
 				  
 				while(id.hasNext()){
-					Dias dia = id.next();
-					
+					Dias dia = id.next(); 
 					 if(dia.getDias().equals(dados[0])){
-						if(!dia.getHoras().equals(dados[1])){
-							System.out.println("Regra automática");
-							rodarBackup(backup,true);//Definindo política padrão automática.
-						}
+						 
+						 String [] horaDia = dia.getHoras().split(":");
+						 String [] horaNow = dados[1].split(":");
+						 
+						//Verificando hora
+						 if(Integer.parseInt(horaDia[0].trim()) == Integer.parseInt(horaNow[0].trim())){
+							 //Verificando minuto
+							 if(Integer.parseInt(horaDia[1].trim()) == Integer.parseInt(horaNow[1].trim())){
+								 System.out.println("Regra automática");
+								 rodarBackup(backup,true);//Definindo política padrão automática.
+							 }
+						 }
 					}
 				}
 				
 			}
 
 			System.out.println("Esperando");
-			sleep(1000);
+			sleep(1000*60);
 		}
 	}
 	
