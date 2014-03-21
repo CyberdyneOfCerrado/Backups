@@ -31,6 +31,10 @@ public class Versao {
 		return dataInicio;
 	};
 	
+	public Status getEstado(){
+		return status;
+	}
+	
 	public Artefato salvarArtefato( Artefato artefato){
 		artefato.primaryKey = ha.salvar(artefato,primaryKey);
 		return artefato;
