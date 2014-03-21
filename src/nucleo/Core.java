@@ -43,7 +43,7 @@ public class Core implements Runnable {
 	public boolean rodarBackup( Backup backup, boolean isZip ){//Funcional
 		
 		System.out.println("Executando uma regra de Backup");
-		Object [] objeto = backup.getRegra().rodarRegra(isZip);
+		Object [] objeto = backup.getRegra().rodarRegra(isZip,backup.getNomeBackup());
 		
 		Status status = (Status) objeto[1];
 		IteradorArtefatos ia = new IteradorArtefatos((ArrayList<Object>) objeto[0] );

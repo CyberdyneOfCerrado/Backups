@@ -35,7 +35,9 @@ public class RegraBackup {
 		return destino;
 	};
 	
-	public Object[] rodarRegra( boolean isZip ){
+	public Object[] rodarRegra( boolean isZip, String nomeZip ){
+		
+		if(isZip)ca.setZip(nomeZip);
 		ca.start();
 		
 		while(ca.isRodando()){
