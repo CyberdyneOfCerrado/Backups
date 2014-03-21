@@ -72,7 +72,7 @@ public class Core implements Runnable {
 						 if(Integer.parseInt(horaDia[0].trim()) == Integer.parseInt(horaNow[0].trim())){
 							 //Verificando minuto
 							 if(Integer.parseInt(horaDia[1].trim()) == Integer.parseInt(horaNow[1].trim())){
-								 System.out.println("Regra automática");
+								 System.out.println("Rodando regra automáticamente.");
 								 rodarBackup(backup,true);//Definindo política padrão automática.
 							 }
 						 }

@@ -18,24 +18,18 @@ public class Versao {
 		this.dataInicio = dataInicio;
 		this.status = status;
 		ha = new HistoricoArtefatos();
-	}
+	};
 	
 	public Versao(int primaryKey ,String string, Status status){
 		this.primaryKey = primaryKey;
 		this.dataInicio = string;
 		this.status = status;
 		ha = new HistoricoArtefatos();
-	}
-	
-	/*
-	public IteratorArtefato getArtefatos(){
-		return artefatos;
-	}*/
+	};
 	
 	public String getDataInicio(){
-		//System.out.println(dataInicio.toString());
 		return dataInicio;
-	}
+	};
 	
 	public Artefato salvarArtefato( Artefato artefato){
 		artefato.primaryKey = ha.salvar(artefato,primaryKey);
@@ -44,5 +38,5 @@ public class Versao {
 	
 	public IteradorArtefatos resgatarArtefatos(){
 		return ha.obterHistorico(primaryKey);
-	}
+	};
 }

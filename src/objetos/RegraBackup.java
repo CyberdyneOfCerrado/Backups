@@ -20,7 +20,7 @@ public class RegraBackup {
 		this.origem = origem;
 		hd = new HistoricoDias();
 		ca = new CopiarArtefatos(origem, destino, false);
-	}
+	};
 	
 	public RegraBackup(int primaryKey, String destino, String origem){
 		this.primaryKey = primaryKey;
@@ -28,25 +28,22 @@ public class RegraBackup {
 		this.origem = origem;
 		hd = new HistoricoDias();
 		ca = new CopiarArtefatos(origem, destino, false);
-	}
-	/*
-	public IteradorDias getDias(){
-		return historicoDias;
-	}*/
+	};
 	
 	public String getDestino(){
 		System.out.println(destino);
 		return destino;
-	}
+	};
 	
 	public boolean rodarRegra( boolean isZip ){//Arumar isso quando a classe arquivo estiver pronta.
 		ca.start();
 		return true; 
-	}
+	};
+	
 	public String getOrigem(){
 		System.out.println(origem);
 		return origem;
-	}
+	};
 	
 	public void salvarDia ( Dias dia ){
 		hd.salvar(dia, primaryKey);

@@ -37,12 +37,10 @@ public class Dias {
 	}
 	
 	public String getHoras(){
-		//System.out.println(horas);
 		return horas;
 	}
 	
 	public boolean getDesligar(){
-		//System.out.println(desligar);
 		return desligar;
 	}
 	
