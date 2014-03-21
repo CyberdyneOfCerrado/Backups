@@ -27,6 +27,7 @@ public class RegraBackup {
 		this.destino = destino;
 		this.origem = origem;
 		hd = new HistoricoDias();
+		ca = new CopiarArtefatos(origem, destino, false);
 	}
 	/*
 	public IteradorDias getDias(){
@@ -39,7 +40,8 @@ public class RegraBackup {
 	}
 	
 	public boolean rodarRegra( boolean isZip ){//Arumar isso quando a classe arquivo estiver pronta.
-		return true;
+		ca.start();
+		return true; 
 	}
 	public String getOrigem(){
 		System.out.println(origem);

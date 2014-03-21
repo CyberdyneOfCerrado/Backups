@@ -65,14 +65,17 @@ public class Core implements Runnable {
 					Dias dia = id.next();
 					
 					 if(dia.getDias().equals(dados[0])){
-						if(dia.getHoras().equals(dados[1])) rodarBackup(backup,true);//Definindo política padrão automática.
+						if(!dia.getHoras().equals(dados[1])){
+							System.out.println("Regra automática");
+							rodarBackup(backup,true);//Definindo política padrão automática.
+						}
 					}
 				}
 				
 			}
 
 			System.out.println("Esperando");
-			sleep(1000*60);
+			sleep(1000);
 		}
 	}
 	
