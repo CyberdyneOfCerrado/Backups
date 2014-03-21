@@ -37,7 +37,7 @@ public class CopiarArtefatos extends Thread{
 				relacao.addAll(varrerDiretorios(path.substring(0 , path.lastIndexOf(File.separator)), path));
 			} catch ( Exception e)
 			{
-				System.out.println("Falhou em: " + path);
+				
 			}
 		}
 		if ( this.nomezip != null )
