@@ -1316,12 +1316,13 @@ public class GuiMain extends JFrame {
         public void iniCarregamento()
         {
             escondeRegra();
+    		//setBounds (horizontal,vertical,largura,altura);
             Runnable escondeX = new AcaoRecolherObjetos(767,6,16,25,fechar,fundo);
             new Thread(escondeX).start();
             ImageIcon tl1i = new ImageIcon(getClass().getResource("/GUI/Imagens/load2.gif"));
             Image temp= tl1i.getImage();
             imgci = new FundoJpane(temp,0,0,0,0);
-            Runnable gifLoad = new AcaoMovimentoDeObjetos(199,88,380,269,imgci,fundo);
+            Runnable gifLoad = new AcaoMovimentoDeObjetos(286,121,219,190,imgci,fundo);
             new Thread(gifLoad).start();
             cancela = new TJbutton("Cancelar",0,0,0,255);
             cancela.setForeground(Color.white);
@@ -1340,10 +1341,13 @@ public class GuiMain extends JFrame {
         	
         }
         public void stopCarregamento(){
-            Runnable text = new AcaoRecolherObjetos(199,88,380,269,imgc,fundo);
+    		//setBounds (horizontal,vertical,largura,altura);
+            Runnable text = new AcaoRecolherObjetos(199,88,380,269,imgci,fundo);
             new Thread(text).start();
             Runnable cancel = new AcaoRecolherObjetos(304,384,168,57,cancela,fundo);
             new Thread(cancel).start();
+            Runnable escondeX = new AcaoMovimentoDeObjetos(767,6,16,25,fechar,fundo);
+            new Thread(escondeX).start();
             concluido();
         }
     	private JPanel criarInfo(Backup b,int p,int h, int v, int l,int a){
@@ -1428,11 +1432,33 @@ public class GuiMain extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 	    		iniCarregamento();
+	    		Runnable send = new enviarRegra(zip,ba,ib,cont,num);
+	    		new Thread(send).start();
+			}
+    		
+    	}
+    	
+    	class enviarRegra implements Runnable{
+    		TJcheck zip;
+    		Backup ba;
+    		IteradorBackups ib;
+    		int cont,num;
+    		enviarRegra(TJcheck zip,Backup ba,IteradorBackups ib,int cont,int num)
+    		{
+    			this.zip=zip;
+    			this.ba=ba;
+    			this.ib=ib;
+    			this.cont=cont;
+    			this.num=num;
+    		}
+			@Override
+			public void run() {
 				while(cont<=num && ib.hasNext()){
-					ba=ib.next();
-					cont++;
-				}
-				core.rodarBackup(ba, zip.isSelected());
+				     ba=ib.next();
+				     cont++;
+				    }
+				    core.rodarBackup(ba, zip.isSelected());
+				
 			}
     		
     	}
