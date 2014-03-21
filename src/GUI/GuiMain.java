@@ -203,6 +203,7 @@ public class GuiMain extends JFrame {
 		private JScrollPane scrollRegra;
 		private TJbutton cancela;
 		private TJbutton fechar;
+		private FundoJpane imgci;
     
     GuiMain()
     {
@@ -256,8 +257,7 @@ public class GuiMain extends JFrame {
         min.setBorderPainted(false);
         fundo.add(min);
         //tela inicio
-
-telaInicio();
+        telaInicio();
     }
     private void controleTelaLoading(){
     	CarregaBanco b = new CarregaBanco();
@@ -1318,11 +1318,11 @@ telaInicio();
             escondeRegra();
             Runnable escondeX = new AcaoRecolherObjetos(767,6,16,25,fechar,fundo);
             new Thread(escondeX).start();
-            ImageIcon tl1i = new ImageIcon(getClass().getResource("/GUI/Imagens/load2.png"));
+            ImageIcon tl1i = new ImageIcon(getClass().getResource("/GUI/Imagens/load2.gif"));
             Image temp= tl1i.getImage();
-            imgc = new FundoJpane(temp,0,0,0,0);
-            Runnable text = new AcaoMovimentoDeObjetos(199,88,380,269,imgc,fundo);
-            new Thread(text).start();
+            imgci = new FundoJpane(temp,0,0,0,0);
+            Runnable gifLoad = new AcaoMovimentoDeObjetos(199,88,380,269,imgci,fundo);
+            new Thread(gifLoad).start();
             cancela = new TJbutton("Cancelar",0,0,0,255);
             cancela.setForeground(Color.white);
             cancela.addActionListener(new BotaoCancela());
