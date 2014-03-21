@@ -1265,7 +1265,9 @@ telaInicio();
 	            Runnable text = new AcaoRecolherObjetos(50,25,799,114,tp1,fundo);
 	            new Thread(text).start();
 	            Runnable sr = new AcaoRecolherObjetos(50,140,715,333,scrollRegra,fundo);
-	            new Thread(sr).start();	            
+	            new Thread(sr).start();	
+	            Runnable voltar= new AcaoRecolherObjetos(50,6,22,22,tlv,fundo);
+	            new Thread(voltar).start();
 			}
     	private void regraBackup(){
             //setBounds (horizontal,vertical,largura,altura);
