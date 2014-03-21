@@ -1243,9 +1243,43 @@ telaInicio();
     		
     	}
     	//tela regra de backup
+        class AcaoRegraToMenu implements MouseListener{
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				escondeRegra();
+				telaInicio();
+			}
+			@Override
+			public void mouseEntered(MouseEvent arg0) {}
+
+			@Override
+			public void mouseExited(MouseEvent arg0) {}
+
+			@Override
+			public void mousePressed(MouseEvent arg0) {}
+
+			@Override
+			public void mouseReleased(MouseEvent arg0) {}
+        }
+			public void escondeRegra(){
+	            Runnable text = new AcaoRecolherObjetos(50,25,799,114,tp1,fundo);
+	            new Thread(text).start();
+	            Runnable sr = new AcaoRecolherObjetos(50,140,715,333,scrollRegra,fundo);
+	            new Thread(sr).start();	            
+			}
     	private void regraBackup(){
             //setBounds (horizontal,vertical,largura,altura);
     		//fundo das informações
+            ImageIcon v1 = new ImageIcon(getClass().getResource("/GUI/Imagens/back.png"));
+            tlv=new JLabel(v1);
+            tlv.addMouseListener(new AcaoRegraToMenu());
+            Runnable voltar= new AcaoMovimentoDeObjetos(50,6,22,22,tlv,fundo);
+            new Thread(voltar).start();
+            tp1=new TJlabel("Rodar Regra de backup",0,0,0,0);
+            tp1.setFont(new Font("CordiaUPC",Font.PLAIN,83));
+            tp1.setForeground(Color.BLACK);
+            Runnable text = new AcaoMovimentoDeObjetos(50,25,799,114,tp1,fundo);
+            new Thread(text).start();
     		Backup ba;
     		int cont=0,cp=1;
     		IteradorBackups ib;
@@ -1278,6 +1312,7 @@ telaInicio();
     		//tamanho da letra 18
     		//setBounds (horizontal,vertical,largura,altura);
     		Integer i = new Integer(p);
+    		Boolean zip = new Boolean(false);
     		FundoJpane celula = new FundoJpane(null,0,0,0,0);
     		celula.setBackground(Color.BLACK);
     		celula.setLayout(null);
@@ -1330,6 +1365,12 @@ telaInicio();
     		corigem.setText(b.getRegra().getDestino());
     		TJbutton rodar = new TJbutton("Rodar regra",0,0,0,255);
     		rodar.setForeground(Color.white);
+    		TJcheck checkzip=new TJcheck("Salvar saída em Zip.",0,0,0,0);
+    		checkzip.setFont(new Font("Microsoft Yi Baiti",Font.BOLD,20));
+    		checkzip.setForeground(Color.BLACK); 
+    		checkzip.setFocusable(false);
+    		checkzip.setBounds(0,65,230,18);
+    		celula.add(checkzip);
     		//setBounds (horizontal,vertical,largura,altura);
     		rodar.setBounds(231,65,134,30);
     		celula.add(rodar);
