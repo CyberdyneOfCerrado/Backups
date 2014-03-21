@@ -4,6 +4,8 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.zip.*;
 
+import GUI.SingleGuiMain;
+
 import enuns.Status;
 import objetos.Artefato;
 
@@ -23,6 +25,7 @@ public class CopiarArtefatos extends Thread{
 	public void run()
 	{
 		this.parar = false;
+		SingleGuiMain.getInstance().iniCarregamento();
 		String[] paths = this.origem.split("\\|");
 		ArrayList<Item> relacao = new ArrayList<Item>();
 
@@ -66,6 +69,7 @@ public class CopiarArtefatos extends Thread{
 			if ( !new File(this.destino).exists())	new File(this.destino).mkdir();
 			salvarAvulso(relacao, this.destino);
 		}
+		SingleGuiMain.getInstance().stopCarregamento();
 		this.parar = true;
 	}
 	public ArrayList<Artefato> getConcluidos()
