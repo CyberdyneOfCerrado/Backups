@@ -1,5 +1,6 @@
 package nucleo;
 
+import java.io.EOFException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -70,7 +71,13 @@ public class Core implements Runnable {
 	@Override
 	public void run() {
 		while(true){
-			IteradorBackups ib = hb.obterHistorico();
+			IteradorBackups ib = null;
+			try{
+				ib = hb.obterHistorico();
+			}catch( Exception e ){
+				continue;
+			}
+			
 			while( ib.hasNext() ){
 				Backup backup = ib.next();
 				IteradorDias id = backup.getRegra().recuperarDias();
