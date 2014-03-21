@@ -45,8 +45,8 @@ public class Core implements Runnable {
 		System.out.println("Executando uma regra de Backup");
 		Object [] objeto = backup.getRegra().rodarRegra(isZip);
 		
-		Status status = (Status) objeto[0];
-		IteradorArtefatos ia = new IteradorArtefatos((ArrayList<Object>) objeto[1] );
+		Status status = (Status) objeto[1];
+		IteradorArtefatos ia = new IteradorArtefatos((ArrayList<Object>) objeto[0] );
 		
 		Versao versao = backup.salvarVersao(new Versao(new Date().toString(),status));
 		
