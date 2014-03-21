@@ -1427,6 +1427,7 @@ public class GuiMain extends JFrame {
     		}
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+	    		iniCarregamento();
 				while(cont<=num && ib.hasNext()){
 					ba=ib.next();
 					cont++;
