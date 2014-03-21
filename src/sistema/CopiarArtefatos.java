@@ -8,8 +8,8 @@ import enuns.Status;
 import objetos.Artefato;
 
 public class CopiarArtefatos extends Thread{
-	private String origem = null, destino = null;
-	private boolean isZip = true, parar = false;
+	private String origem = null, destino = null, nomezip = null;
+	private boolean isZip = false, parar = false;
 	private ArrayList<Artefato> copiados;
 	private long cont=0;
 	private Status resultado;
@@ -40,21 +40,10 @@ public class CopiarArtefatos extends Thread{
 				System.out.println("Falhou em: " + path);
 			}
 		}
-		String dest = this.destino.substring(destino.lastIndexOf(File.separator)+1);
-		try
+		if ( this.nomezip != null )
 		{
-			if ( dest.toLowerCase().endsWith(".zip"))
-			{
-				this.isZip = true;
-			}
-			else
-			{
-				this.isZip = false;
-			}
-		}
-		catch ( Exception e)
-		{
-			this.isZip = false;
+			this.destino += (this.destino.endsWith(File.separator)) ? this.nomezip + ".zip" : File.separator + this.nomezip + ".zip";
+			this.isZip = true;
 		}
 		if ( isZip )
 		{
@@ -90,6 +79,10 @@ public class CopiarArtefatos extends Thread{
 	public Status getResultado()
 	{
 		return this.resultado;
+	}
+	public void setZip(String nomezip)
+	{
+		this.nomezip = nomezip;
 	}
 	public void parar()
 	{
