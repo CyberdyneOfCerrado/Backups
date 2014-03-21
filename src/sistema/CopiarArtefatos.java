@@ -114,7 +114,11 @@ public class CopiarArtefatos extends Thread{
         for ( Item item : relacao )
         {
         	if ( this.parar )	break;
-        	if ( !item.isFile())	continue;
+        	if ( !item.isFile())
+        	{
+        		this.cont++;
+        		continue;
+        	}
         	ZipEntry ze = new ZipEntry(item.getCaminhoRelativo());
             try {
 				zos.putNextEntry(ze);
@@ -129,10 +133,10 @@ public class CopiarArtefatos extends Thread{
 	                  zos.flush();
 	               }
 	               this.copiados.add(new Artefato(item.getCaminhoCompleto(),Long.toString((new File(item.getCaminhoCompleto())).lastModified())));
+	               this.cont++;
 	            }
 	            catch ( IOException e)
 	            {
-	            	this.cont++;
 	            	e.printStackTrace();
 	            }
 	            finally
@@ -142,7 +146,6 @@ public class CopiarArtefatos extends Thread{
             }
             catch (IOException e) {
 				// TODO Auto-generated catch block
-            	this.cont++;
 				e.printStackTrace();
 			}
         }
@@ -161,6 +164,7 @@ public class CopiarArtefatos extends Thread{
         }
         if ( this.cont < relacao.size())
         {
+        	
         	this.resultado = Status.FALHAPARCIAL;
         	return;
         }
@@ -180,6 +184,7 @@ public class CopiarArtefatos extends Thread{
         	if ( !item.isFile())
         	{
         		new File(destino + File.separator + item.getCaminhoRelativo()).mkdir();
+        		this.cont++;
         		continue;
         	}
             try {
@@ -197,10 +202,10 @@ public class CopiarArtefatos extends Thread{
 	               {
 	            	   new File(destino + File.separator + item.getCaminhoRelativo()).delete();
 	               }
+	               this.cont++;
 	            }
 	            catch ( IOException e)
 	            {
-	            	this.cont++;
 	            	e.printStackTrace();
 	            }
 	            finally
@@ -211,7 +216,6 @@ public class CopiarArtefatos extends Thread{
             }
             catch (IOException e) {
 				// TODO Auto-generated catch block
-            	this.cont++;
 				e.printStackTrace();
 			}
         }

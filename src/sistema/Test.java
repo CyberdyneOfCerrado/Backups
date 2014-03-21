@@ -38,8 +38,9 @@ public class Test {
 	        }
 		} while ( retorno != JFileChooser.CANCEL_OPTION );
 //		String origem = jfcarquivo.getSelectedFile().getAbsolutePath(),
-        String destino = "C:\\Users\\Luiz Eduardo\\Desktop\\ArquivosDesktop.zip";
+        String destino = "M:\\";
 		CopiarArtefatos ca = new CopiarArtefatos(origem, destino, true);
+		ca.setZip("ArquivoTeste");
 		ca.start();
 		while ( ca.isRodando() )
 		{
@@ -50,6 +51,7 @@ public class Test {
 				e.printStackTrace();
 			}
 		}
+		System.out.println(ca.getResultado().name());
 		System.out.println("Cabô!");
 	}
 
