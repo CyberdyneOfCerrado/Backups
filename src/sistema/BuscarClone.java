@@ -2,6 +2,8 @@ package sistema;
 
 import java.util.ArrayList;
 
+import GUI.SingleGuiMain;
+
 import objetos.Artefato;
 
 public class BuscarClone extends Thread{
@@ -29,6 +31,7 @@ public class BuscarClone extends Thread{
 	public void run()
 	{
 		this.parar= false;
+		SingleGuiMain.getInstance().iniCarregamento();
 		ArrayList<Item> relacao;
 
 		relacao = new ObterItens(this.path, this.nome).getList();
@@ -73,5 +76,7 @@ public class BuscarClone extends Thread{
 			}
 			x++;
 		}
+		SingleGuiMain.getInstance().stopCarregamento();
+		this.parar = true;
 	}
 }
