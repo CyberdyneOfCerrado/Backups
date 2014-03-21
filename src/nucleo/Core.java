@@ -99,7 +99,7 @@ public class Core implements Runnable {
 			}
 
 			System.out.println("Esperando");
-			sleep(1000*60);
+			sleep(500);
 		}
 	}
 	
