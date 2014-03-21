@@ -35,9 +35,23 @@ public class RegraBackup {
 		return destino;
 	};
 	
-	public boolean rodarRegra( boolean isZip ){//Arumar isso quando a classe arquivo estiver pronta.
+	public Object[] rodarRegra( boolean isZip ){
 		ca.start();
-		return true; 
+		
+		while(ca.isRodando()){
+			try {
+				Thread.sleep(50);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		Object [] objeto = new Object[2];
+		
+		objeto[0] = ca.getConcluidos();
+		objeto[1] = ca.getState();
+		
+		return objeto; 
 	};
 	
 	public String getOrigem(){

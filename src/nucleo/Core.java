@@ -2,12 +2,14 @@ package nucleo;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import enuns.Status;
 import iteradores.IteradorArtefatos;
 import iteradores.IteradorBackups;
 import iteradores.IteradorDias;
+import objetos.Artefato;
 import objetos.Backup;
 import objetos.Dias;
 import objetos.RegraBackup;
@@ -41,11 +43,18 @@ public class Core implements Runnable {
 	public boolean rodarBackup( Backup backup, boolean isZip ){//Funcional
 		
 		System.out.println("Executando uma regra de Backup");
-		backup.getRegra().rodarRegra(isZip);
+		Object [] objeto = backup.getRegra().rodarRegra(isZip);
 		
-		Versao versao = backup.salvarVersao(new Versao(new Date().toString(),Status.SUCESSO));
-		//Receber um IteradorArtefatos e adicionar a versão criada.
-		//Versão ao backup
+		Status status = (Status) objeto[0];
+		IteradorArtefatos ia = new IteradorArtefatos((ArrayList<Object>) objeto[1] );
+		
+		Versao versao = backup.salvarVersao(new Versao(new Date().toString(),status));
+		
+		while(ia.hasNext()){
+			Artefato artefato = ia.next();
+			versao.salvarArtefato(artefato);
+		}
+		
 		return true;
 	};
 	
