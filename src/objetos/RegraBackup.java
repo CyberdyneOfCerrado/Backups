@@ -45,8 +45,7 @@ public class RegraBackup {
 			if(SingleGuiMain.getInstance().isCancelado) ca.parar();
 			latencia(100);
 		}
-		
-		SingleGuiMain.getInstance().stopCarregamento();
+
 		latencia(300);
 		
 		Object [] objeto = new Object[2];
