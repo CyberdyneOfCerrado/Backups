@@ -1,5 +1,5 @@
 package enuns;
 
 public enum Status {
-	SUCESSO, FALHA
+	SUCESSO, FALHATOTAL, FALHAPARCIAL
 }

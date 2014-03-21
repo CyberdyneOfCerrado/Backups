@@ -4,15 +4,21 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.zip.*;
 
+import enuns.Status;
+import objetos.Artefato;
+
 public class CopiarArtefatos extends Thread{
 	private String origem = null, destino = null;
-	boolean desligar = false, isZip = true, parar = false;
+	private boolean isZip = true, parar = false;
+	private ArrayList<Artefato> copiados;
+	private long cont=0;
+	private Status resultado;
 
 	public CopiarArtefatos(String origem, String destino, boolean desligar)
 	{
+		this.copiados = new ArrayList<Artefato>();
 		this.origem = origem;
 		this.destino = destino;
-		this.desligar = desligar;
 	}	
 	public void run()
 	{
@@ -53,9 +59,17 @@ public class CopiarArtefatos extends Thread{
 	{
 		this.isZip = zip;
 	}
+	public ArrayList<Artefato> getConcluidos()
+	{
+		return this.copiados;
+	}
 	public boolean isRodando()
 	{
 		return !this.parar;
+	}
+	public Status getResultado()
+	{
+		return this.resultado;
 	}
 	public void parar()
 	{
@@ -76,6 +90,7 @@ public class CopiarArtefatos extends Thread{
 		try {
 			fos = new FileOutputStream(destino);			
 			zos = new ZipOutputStream(fos);
+			this.cont++;
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -100,13 +115,11 @@ public class CopiarArtefatos extends Thread{
 	                  zos.write(buffer, 0, len);
 	                  zos.flush();
 	               }
-	            }
-	            catch ( ZipException e)
-	            {
-	            	
+	               this.copiados.add(new Artefato(item.getCaminhoCompleto(),Long.toString((new File(item.getCaminhoCompleto())).lastModified())));
 	            }
 	            catch ( IOException e)
 	            {
+	            	this.cont++;
 	            	e.printStackTrace();
 	            }
 	            finally
@@ -116,6 +129,7 @@ public class CopiarArtefatos extends Thread{
             }
             catch (IOException e) {
 				// TODO Auto-generated catch block
+            	this.cont++;
 				e.printStackTrace();
 			}
         }
@@ -127,6 +141,17 @@ public class CopiarArtefatos extends Thread{
 			e.printStackTrace();
 		}
         if ( this.parar )	new File(destino).delete();
+        if ( this.cont == 0 && relacao.size() > 0 )
+        {
+        	this.resultado = Status.FALHATOTAL;
+        	return;
+        }
+        if ( this.cont < relacao.size())
+        {
+        	this.resultado = Status.FALHAPARCIAL;
+        	return;
+        }
+        this.resultado = Status.SUCESSO;
 	}
 	private void salvarAvulso(ArrayList<Item> relacao, String destino)
 	{
@@ -162,6 +187,7 @@ public class CopiarArtefatos extends Thread{
 	            }
 	            catch ( IOException e)
 	            {
+	            	this.cont++;
 	            	e.printStackTrace();
 	            }
 	            finally
@@ -172,8 +198,20 @@ public class CopiarArtefatos extends Thread{
             }
             catch (IOException e) {
 				// TODO Auto-generated catch block
+            	this.cont++;
 				e.printStackTrace();
 			}
         }
+        if ( this.cont == 0 && relacao.size() > 0 )
+        {
+        	this.resultado = Status.FALHATOTAL;
+        	return;
+        }
+        if ( this.cont < relacao.size())
+        {
+        	this.resultado = Status.FALHAPARCIAL;
+        	return;
+        }
+        this.resultado = Status.SUCESSO;
 	}	
 }

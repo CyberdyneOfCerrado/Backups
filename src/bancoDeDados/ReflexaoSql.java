@@ -141,8 +141,11 @@ public class ReflexaoSql {
 						case"SUCESSO":
 							s = Status.SUCESSO;
 							break;
-						case"FALHA":
-							s = Status.FALHA;
+						case"FALHAPARCIAL":
+							s = Status.FALHAPARCIAL;
+							break;
+						case"FALHATOTAL":
+							s = Status.FALHATOTAL;
 							break;
 						}
 						arl.add( new Versao(result.getInt(1),result.getString(2),s));
