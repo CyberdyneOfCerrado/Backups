@@ -40,7 +40,7 @@ public class RegraBackup {
 		
 		if(isZip)ca.setZip(nomeZip);
 		ca.start();
-		SingleGuiMain.getInstance().iniCarregamento();
+		
 		while(ca.isRodando()){
 			if(SingleGuiMain.getInstance().isCancelado) ca.parar();
 			latencia(100);
