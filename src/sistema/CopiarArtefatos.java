@@ -111,6 +111,7 @@ public class CopiarArtefatos extends Thread{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			System.out.println("Falhou.");
+			this.parar = true;
 			return;
 		}
 	        
