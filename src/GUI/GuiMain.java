@@ -402,26 +402,38 @@ public class GuiMain extends JFrame {
             procura = new TJlabel("Insira o caminho do diretório a ser consultado",0,0,0,0);
             procura.setFont(new Font("Microsoft Yi Baiti",Font.PLAIN,30));
             procura.setForeground(Color.BLACK);
-            Runnable t1p=new AcaoMovimentoDeObjetos(50,250,700,30,procura,fundo);
+            Runnable t1p=new AcaoMovimentoDeObjetos(60,225,700,30,procura,fundo);
             new Thread(t1p).start();
             //campo
             dirp = new TJtextField(0,0,0,0);
             dirp.setFont(new Font("Microsoft Yi Baiti",Font.PLAIN,30));
             dirp.setForeground(Color.BLACK);
             dirp.setEditable(false);
-            Runnable campo=new AcaoMovimentoDeObjetos(50,285,600,30,dirp,fundo);
+            Runnable campo=new AcaoMovimentoDeObjetos(60,260,600,30,dirp,fundo);
             new Thread(campo).start();
             //botão pesquisa
             SearchDic=new TJbutton("",0,0,0,0);
             ImageIcon i1 = new ImageIcon(getClass().getResource("/GUI/Imagens/sea.jpg"));
             SearchDic.setIcon(i1);
             SearchDic.addActionListener(new AcaoChooserProcura(this));//backup
-            Runnable sea1=new AcaoMovimentoDeObjetos(655,285,32,32,SearchDic,fundo);
+            Runnable sea1=new AcaoMovimentoDeObjetos(665,260,32,32,SearchDic,fundo);
             new Thread(sea1).start();
             buscaDuplicado=new TJbutton("Busca",0,0,0,255);
             buscaDuplicado.setForeground(Color.white);
-            Runnable botaoBusca=new AcaoMovimentoDeObjetos(310,320,100,30,buscaDuplicado,fundo);
+            buscaDuplicado.addActionListener(new BuscaArquivos(dirp.getText()));
+            Runnable botaoBusca=new AcaoMovimentoDeObjetos(310,295,100,30,buscaDuplicado,fundo);
             new Thread(botaoBusca).start();
+        }
+        class BuscaArquivos implements ActionListener{
+        	String t;
+        	BuscaArquivos(String t){
+        		this.t=t;
+        	}
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				
+			}
+        	
         }
         private void escondeBuscaCopia(){
             Runnable voltar= new AcaoRecolherObjetos(50,6,22,22,tlv,fundo);
@@ -434,6 +446,8 @@ public class GuiMain extends JFrame {
             new Thread(campo).start();
             Runnable t1p=new AcaoRecolherObjetos(50,250,700,30,procura,fundo);
             new Thread(t1p).start();
+            Runnable botaoBusca=new AcaoRecolherObjetos(310,320,100,30,buscaDuplicado,fundo);
+            new Thread(botaoBusca).start();
         }
         class AcaoBuscaToMenu implements MouseListener{
 			@Override
@@ -1517,7 +1531,7 @@ public class GuiMain extends JFrame {
     		corigem.setText(b.getRegra().getDestino());
     		TJbutton rodar = new TJbutton("Rodar regra",0,0,0,255);
     		rodar.setForeground(Color.white);
-    		TJbutton versao = new TJbutton("Verções",0,0,0,255);
+    		TJbutton versao = new TJbutton("Versões",0,0,0,255);
     		TJcheck checkzip=new TJcheck("Salvar saída em Zip.",0,0,0,0);
     		checkzip.setFont(new Font("Microsoft Yi Baiti",Font.BOLD,20));
     		checkzip.setForeground(Color.BLACK); 
@@ -1557,7 +1571,6 @@ public class GuiMain extends JFrame {
     		int cont=0;
     		IteradorBackups ib=core.resgatarBackups();
 			while(cont<=num && ib.hasNext()){
-				b=null;
 			     b=ib.next();
 			     cont++;
 			    }
@@ -1572,6 +1585,7 @@ public class GuiMain extends JFrame {
             infov.setForeground(Color.black);
             infov.setLineWrap(true);
             infov.setWrapStyleWord(true);
+            infov.setEditable(false);
     		scrollVersao = new JScrollPane(infov);
     		scrollVersao.setBorder(null);
     		scrollVersao.setOpaque(false);//
@@ -1579,10 +1593,20 @@ public class GuiMain extends JFrame {
     		scrollVersao.getViewport().setOpaque(false);
             Runnable sv = new AcaoMovimentoDeObjetos(50,140,700,333,scrollVersao,fundo);
             new Thread(sv).start();
-            infov.setText("Versões do backup \n\n\n"+b.nomeBackup);
+            String str="Versões do backup "+b.nomeBackup+"\n\n\n";
+            Versao versao;
     		while(ver.hasNext()){
-    			Versao versao = ver.next();
-                infov.setText("Versão "+cont+"!\n"+"Ultima modificação: "+versao.dataInicio+"\n"+"Estado do backup: "+versao.getEstado()+"\n"+"_____________________________________________________________________________\n");
+    			versao = null;
+    		    versao = ver.next();
+    			str+="Versão "+cont+"!\n";
+    			str+="Ultima modificação: "+versao.dataInicio+"\n";
+    			str+="Estado do backup: "+versao.getEstado()+"\n";
+    			str+="_____________________________________________________________________________\n";
+        		infov.setText(str);
+    		}
+    		if(ver.hasNext()==false){
+    			str+="Não há nenhuma versão deste backup ainda!";
+    			infov.setText(str);
     		}
     	}
     	class voltaRegra implements MouseListener{
