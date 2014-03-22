@@ -21,6 +21,7 @@ import java.awt.event.AdjustmentListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -44,10 +45,12 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollBar;
 
 import enuns.DiasSemana;
+import objetos.Artefato;
 import objetos.Backup;
 import objetos.Dias;
 import objetos.RegraBackup;
 import objetos.Versao;
+import sistema.BuscarClone;
 import nucleo.Core;
 import bancoDeDados.CarregaBanco;
 
@@ -214,6 +217,9 @@ public class GuiMain extends JFrame {
 		private TJbutton SearchDic;
 		private TJlabel procura;
 		private TJbutton buscaDuplicado;
+		private TJlabel procuraa;
+		private TJtextField dirpa;
+		private TJbutton SearchArc;
     
     GuiMain()
     {
@@ -404,6 +410,12 @@ public class GuiMain extends JFrame {
             procura.setForeground(Color.BLACK);
             Runnable t1p=new AcaoMovimentoDeObjetos(60,225,700,30,procura,fundo);
             new Thread(t1p).start();
+            procuraa = new TJlabel("Insira o arquivo para verificação",0,0,0,0);
+            procuraa.setFont(new Font("Microsoft Yi Baiti",Font.PLAIN,30));
+            procuraa.setForeground(Color.BLACK);
+            Runnable a=new AcaoMovimentoDeObjetos(60,305,700,30,procuraa,fundo);
+            new Thread(a).start();
+            //setBounds (horizontal,vertical,largura,altura);
             //campo
             dirp = new TJtextField(0,0,0,0);
             dirp.setFont(new Font("Microsoft Yi Baiti",Font.PLAIN,30));
@@ -411,6 +423,12 @@ public class GuiMain extends JFrame {
             dirp.setEditable(false);
             Runnable campo=new AcaoMovimentoDeObjetos(60,260,600,30,dirp,fundo);
             new Thread(campo).start();
+            dirpa = new TJtextField(0,0,0,0);
+            dirpa.setFont(new Font("Microsoft Yi Baiti",Font.PLAIN,30));
+            dirpa.setForeground(Color.BLACK);
+            dirpa.setEditable(false);
+            Runnable campoa=new AcaoMovimentoDeObjetos(60,340,600,30,dirpa,fundo);
+            new Thread(campoa).start();
             //botão pesquisa
             SearchDic=new TJbutton("",0,0,0,0);
             ImageIcon i1 = new ImageIcon(getClass().getResource("/GUI/Imagens/sea.jpg"));
@@ -418,20 +436,42 @@ public class GuiMain extends JFrame {
             SearchDic.addActionListener(new AcaoChooserProcura(this));//backup
             Runnable sea1=new AcaoMovimentoDeObjetos(665,260,32,32,SearchDic,fundo);
             new Thread(sea1).start();
+            SearchArc=new TJbutton("",0,0,0,0);
+            ImageIcon i1a = new ImageIcon(getClass().getResource("/GUI/Imagens/sea.jpg"));
+            SearchArc.setIcon(i1a);
+            SearchArc.addActionListener(new AcaoChooserCompara(this));//backup
+            Runnable sea1a=new AcaoMovimentoDeObjetos(665,340,32,32,SearchArc,fundo);
+            new Thread(sea1a).start();
             buscaDuplicado=new TJbutton("Busca",0,0,0,255);
             buscaDuplicado.setForeground(Color.white);
-            buscaDuplicado.addActionListener(new BuscaArquivos(dirp.getText()));
-            Runnable botaoBusca=new AcaoMovimentoDeObjetos(310,295,100,30,buscaDuplicado,fundo);
+            buscaDuplicado.addActionListener(new BuscaArquivos(dirp.getText(),dirpa.getText()));
+            Runnable botaoBusca=new AcaoMovimentoDeObjetos(310,400,100,30,buscaDuplicado,fundo);
             new Thread(botaoBusca).start();
         }
         class BuscaArquivos implements ActionListener{
-        	String t;
-        	BuscaArquivos(String t){
+        	String t,nome;
+        	BuscaArquivos(String t,String nome){
         		this.t=t;
+        		this.nome=nome;
         	}
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				
+				iniCarregamentoBusca();
+				Runnable bus = new BuscaClone(t,nome);
+				new Thread(bus).start();
+			}
+        	
+        }
+        class BuscaClone implements Runnable{
+        	String t,nome;
+			public ArrayList<Artefato> listFound;
+        	BuscaClone(String t,String nome){
+        		this.t=t;
+        		this.nome=nome;
+        	}
+			@Override
+			public void run() {
+				listFound=core.buscarClones(t,nome);
 			}
         	
         }
@@ -448,6 +488,12 @@ public class GuiMain extends JFrame {
             new Thread(t1p).start();
             Runnable botaoBusca=new AcaoRecolherObjetos(310,320,100,30,buscaDuplicado,fundo);
             new Thread(botaoBusca).start();
+            Runnable campoa=new AcaoRecolherObjetos(60,340,600,30,dirpa,fundo);
+            new Thread(campoa).start();
+            Runnable a=new AcaoRecolherObjetos(60,305,700,30,procuraa,fundo);
+            new Thread(a).start();
+            Runnable sea1a=new AcaoRecolherObjetos(665,340,32,32,SearchArc,fundo);
+            new Thread(sea1a).start();
         }
         class AcaoBuscaToMenu implements MouseListener{
 			@Override
@@ -672,6 +718,30 @@ public class GuiMain extends JFrame {
                 File file=chooserb.getSelectedFile(); 
                 try{
                         dirp.setText(file.getAbsolutePath());
+                }catch (Exception erro){
+                    JOptionPane.showMessageDialog(j,"Erro ao carregar o caminho!");
+                }
+            }
+        }
+            
+        }
+        class AcaoChooserCompara implements ActionListener{
+        private JFrame j;
+        private JFileChooser chooserb;
+        public AcaoChooserCompara(JFrame j){
+            this.j=j;
+        }
+        String caminho="";
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            chooserb = new JFileChooser();
+            chooserb.setFileSelectionMode(JFileChooser.FILES_ONLY);  
+            chooserb.setMultiSelectionEnabled(false);
+            int r=chooserb.showOpenDialog(j);
+            if (r == JFileChooser.APPROVE_OPTION){
+                File file=chooserb.getSelectedFile(); 
+                try{
+                        dirpa.setText(file.getName());
                 }catch (Exception erro){
                     JOptionPane.showMessageDialog(j,"Erro ao carregar o caminho!");
                 }
@@ -1455,6 +1525,23 @@ public class GuiMain extends JFrame {
             Runnable cancel = new AcaoMovimentoDeObjetos(304,384,168,57,cancela,fundo);
             new Thread(cancel).start();
         }
+        public void iniCarregamentoBusca()
+        {
+            escondeBuscaCopia();
+    		//setBounds (horizontal,vertical,largura,altura);
+            Runnable escondeX = new AcaoRecolherObjetos(767,6,16,25,fechar,fundo);
+            new Thread(escondeX).start();
+            ImageIcon tl1i = new ImageIcon(getClass().getResource("/GUI/Imagens/load3.gif"));
+            Image temp= tl1i.getImage();
+            imgci = new FundoJpane(temp,0,0,0,0);
+            Runnable gifLoad = new AcaoMovimentoDeObjetos(286,121,219,190,imgci,fundo);
+            new Thread(gifLoad).start();
+            cancela = new TJbutton("Cancelar",0,0,0,255);
+            cancela.setForeground(Color.white);
+            cancela.addActionListener(new BotaoCancela());
+            Runnable cancel = new AcaoMovimentoDeObjetos(304,384,168,57,cancela,fundo);
+            new Thread(cancel).start();
+        }
         class BotaoCancela implements ActionListener{
 
 			@Override
@@ -1475,7 +1562,7 @@ public class GuiMain extends JFrame {
             new Thread(escondeX).start();
             concluido();
         }
-    	private JPanel criarInfo(Backup b,int p,int h, int v, int l,int a){
+    	private FundoJpane criarInfo(Backup b,int p,int h, int v, int l,int a){
     		//tamanho da letra 18
     		//setBounds (horizontal,vertical,largura,altura);
     		Integer i = new Integer(p);
@@ -1571,6 +1658,7 @@ public class GuiMain extends JFrame {
     		int cont=0;
     		IteradorBackups ib=core.resgatarBackups();
 			while(cont<=num && ib.hasNext()){
+				 b=null;
 			     b=ib.next();
 			     cont++;
 			    }
