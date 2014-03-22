@@ -20,7 +20,7 @@ public class RegraBackup {
 		this.destino = destino;
 		this.origem = origem;
 		hd = new HistoricoDias();
-		ca = new CopiarArtefatos(origem, destino, false);
+		ca = null;
 	};
 	
 	public RegraBackup(int primaryKey, String destino, String origem){
@@ -28,7 +28,7 @@ public class RegraBackup {
 		this.destino = destino;
 		this.origem = origem;
 		hd = new HistoricoDias();
-		ca = new CopiarArtefatos(origem, destino, false);
+		ca = null;
 	};
 	
 	public String getDestino(){
@@ -37,7 +37,7 @@ public class RegraBackup {
 	};
 	
 	public Object[] rodarRegra( boolean isZip, String nomeZip ){
-		
+		ca = new CopiarArtefatos(origem, destino, false);
 		if(isZip)ca.setZip(nomeZip);
 		ca.start();
 		

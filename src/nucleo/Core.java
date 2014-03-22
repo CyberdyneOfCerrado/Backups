@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import GUI.SingleGuiMain;
 import enuns.Status;
 import iteradores.IteradorArtefatos;
 import iteradores.IteradorBackups;
@@ -14,6 +15,7 @@ import objetos.Backup;
 import objetos.Dias;
 import objetos.RegraBackup;
 import objetos.Versao;
+import sistema.BuscarClone;
 import historicos.HistoricoBackups;
 
 public class Core implements Runnable {
@@ -62,8 +64,17 @@ public class Core implements Runnable {
 		return hb.obterHistorico();
 	};
 	
-	public IteradorArtefatos buscarClones(String caminho ){//não funcional, falta a classe do Luiz. ( Só para precavêêeer)
-		return new IteradorArtefatos(null);
+	public ArrayList<Artefato> buscarClones(String caminho, String nome ){//não funcional, falta a classe do Luiz. ( Só para precavêêeer)
+		BuscarClone c = new BuscarClone(caminho,nome);
+		
+		c.start();
+		SingleGuiMain.getInstance().iniCarregamento();
+		while(c.isRodando()){
+			sleep(100);
+		}
+		
+		
+		return c.getDuplicados();
 	};
 
 	//Verificar se há algum Backup agendado.
