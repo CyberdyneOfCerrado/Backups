@@ -210,6 +210,10 @@ public class GuiMain extends JFrame {
 		private JScrollPane scrollVersao;
 		private JLabel tlvRegra;
 		private JLabel tp1Regra;
+		private TJtextField dirp;
+		private TJbutton SearchDic;
+		private TJlabel procura;
+		private TJbutton buscaDuplicado;
     
     GuiMain()
     {
@@ -294,6 +298,7 @@ public class GuiMain extends JFrame {
             ImageIcon tl4 = new ImageIcon(getClass().getResource("/GUI/Imagens/duplicata.png"));
             tile4=new TJbutton("",0,0,0,0);  
             tile4.setIcon(tl4);
+            tile4.addActionListener(new AcaoBuscaDuplicada());
             textoTile4=new TJlabel("Buscar arquivos duplicados",0,0,0,0);
             textoTile4.setFont(new Font("Microsoft Yi Baiti",Font.PLAIN,31));
             textoTile4.setForeground(Color.BLACK);            
@@ -330,6 +335,15 @@ public class GuiMain extends JFrame {
                     new Thread(rtt4).start(); 
         }
         //listeners da tela de inicio
+        class AcaoBuscaDuplicada implements ActionListener{
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				esconderInicio();
+				telaBuscaCopia();
+			}
+        	
+        }
         class AcaoNovoCadastro implements ActionListener{          
 
             @Override
@@ -371,6 +385,73 @@ public class GuiMain extends JFrame {
 			new Thread(icone).start();
             Runnable text = new AcaoRecolherObjetos(300,180,799,114,t1,fundo);
 			new Thread(text).start();
+        }
+        //busca backup
+        
+        private void telaBuscaCopia(){
+            ImageIcon v1 = new ImageIcon(getClass().getResource("/GUI/Imagens/back.png"));
+            tlv=new JLabel(v1);
+            tlv.addMouseListener(new AcaoBuscaToMenu());
+            Runnable voltar= new AcaoMovimentoDeObjetos(50,6,22,22,tlv,fundo);
+            new Thread(voltar).start();
+            t1=new TJlabel("Busca de arquivos duplicados",0,0,0,0);
+            t1.setFont(new Font("CordiaUPC",Font.PLAIN,83));
+            t1.setForeground(Color.BLACK);
+            Runnable text = new AcaoMovimentoDeObjetos(40,25,799,114,t1,fundo);
+            new Thread(text).start();
+            procura = new TJlabel("Insira o caminho do diretório a ser consultado",0,0,0,0);
+            procura.setFont(new Font("Microsoft Yi Baiti",Font.PLAIN,30));
+            procura.setForeground(Color.BLACK);
+            Runnable t1p=new AcaoMovimentoDeObjetos(50,250,700,30,procura,fundo);
+            new Thread(t1p).start();
+            //campo
+            dirp = new TJtextField(0,0,0,0);
+            dirp.setFont(new Font("Microsoft Yi Baiti",Font.PLAIN,30));
+            dirp.setForeground(Color.BLACK);
+            dirp.setEditable(false);
+            Runnable campo=new AcaoMovimentoDeObjetos(50,285,600,30,dirp,fundo);
+            new Thread(campo).start();
+            //botão pesquisa
+            SearchDic=new TJbutton("",0,0,0,0);
+            ImageIcon i1 = new ImageIcon(getClass().getResource("/GUI/Imagens/sea.jpg"));
+            SearchDic.setIcon(i1);
+            SearchDic.addActionListener(new AcaoChooserProcura(this));//backup
+            Runnable sea1=new AcaoMovimentoDeObjetos(655,285,32,32,SearchDic,fundo);
+            new Thread(sea1).start();
+            buscaDuplicado=new TJbutton("Busca",0,0,0,255);
+            buscaDuplicado.setForeground(Color.white);
+            Runnable botaoBusca=new AcaoMovimentoDeObjetos(310,320,100,30,buscaDuplicado,fundo);
+            new Thread(botaoBusca).start();
+        }
+        private void escondeBuscaCopia(){
+            Runnable voltar= new AcaoRecolherObjetos(50,6,22,22,tlv,fundo);
+            new Thread(voltar).start();
+            Runnable text = new AcaoRecolherObjetos(50,25,799,114,t1,fundo);
+            new Thread(text).start();
+            Runnable sea1=new AcaoRecolherObjetos(655,285,32,32,SearchDic,fundo);
+            new Thread(sea1).start();
+            Runnable campo=new AcaoRecolherObjetos(50,285,600,30,dirp,fundo);
+            new Thread(campo).start();
+            Runnable t1p=new AcaoRecolherObjetos(50,250,700,30,procura,fundo);
+            new Thread(t1p).start();
+        }
+        class AcaoBuscaToMenu implements MouseListener{
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				escondeBuscaCopia();
+				telaInicio();
+			}
+			@Override
+			public void mouseEntered(MouseEvent arg0) {}
+
+			@Override
+			public void mouseExited(MouseEvent arg0) {}
+
+			@Override
+			public void mousePressed(MouseEvent arg0) {}
+
+			@Override
+			public void mouseReleased(MouseEvent arg0) {}
         }
 // tela de cadastro
         private void telaCadastro()
@@ -553,6 +634,30 @@ public class GuiMain extends JFrame {
                 File file=chooserb.getSelectedFile(); 
                 try{
                         cbac.setText(file.getAbsolutePath()+"|");
+                }catch (Exception erro){
+                    JOptionPane.showMessageDialog(j,"Erro ao carregar o caminho!");
+                }
+            }
+        }
+            
+        }
+        class AcaoChooserProcura implements ActionListener{
+        private JFrame j;
+        private JFileChooser chooserb;
+        public AcaoChooserProcura(JFrame j){
+            this.j=j;
+        }
+        String caminho="";
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            chooserb = new JFileChooser();
+            chooserb.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);  
+            chooserb.setMultiSelectionEnabled(false);
+            int r=chooserb.showOpenDialog(j);
+            if (r == JFileChooser.APPROVE_OPTION){
+                File file=chooserb.getSelectedFile(); 
+                try{
+                        dirp.setText(file.getAbsolutePath());
                 }catch (Exception erro){
                     JOptionPane.showMessageDialog(j,"Erro ao carregar o caminho!");
                 }
