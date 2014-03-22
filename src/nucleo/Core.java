@@ -68,11 +68,10 @@ public class Core implements Runnable {
 		BuscarClone c = new BuscarClone(caminho,nome);
 		
 		c.start();
-		SingleGuiMain.getInstance().iniCarregamento();
+		
 		while(c.isRodando()){
 			sleep(100);
 		}
-		
 		
 		return c.getDuplicados();
 	};
