@@ -14,7 +14,7 @@ public class CopiarArtefatos extends Thread{
 	private boolean isZip = false, parar = false;
 	private ArrayList<Artefato> copiados;
 	private long cont=0;
-	private Status resultado;
+	private Status resultado = Status.FALHATOTAL;
 
 	public CopiarArtefatos(String origem, String destino, boolean desligar)
 	{
