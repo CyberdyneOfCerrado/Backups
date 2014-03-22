@@ -31,7 +31,11 @@ public class CopiarArtefatos extends Thread{
 		for(String path : paths)
 		{
 			if ( path == null || path.length() == 0 )	continue;
-			if ( this.parar )	return;
+			if ( this.parar )
+			{
+				SingleGuiMain.getInstance().stopCarregamento();
+				return;
+			}
 			path = path.replaceAll("\n", "");
 			System.out.println(path);
 			try
@@ -53,6 +57,7 @@ public class CopiarArtefatos extends Thread{
 			{
 				System.out.println("Inválido!");
 				this.parar = true;
+				SingleGuiMain.getInstance().stopCarregamento();
 				return;
 			}
 			salvarZip(relacao, this.destino);
@@ -63,6 +68,7 @@ public class CopiarArtefatos extends Thread{
 			{
 				System.out.println("Inválido!");
 				this.parar = true;
+				SingleGuiMain.getInstance().stopCarregamento();
 				return;
 			}
 			if ( !new File(this.destino).exists())	new File(this.destino).mkdir();

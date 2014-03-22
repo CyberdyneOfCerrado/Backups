@@ -34,7 +34,11 @@ public class BuscarClone extends Thread{
 		ArrayList<Item> relacao;
 
 		relacao = new ObterItens(this.path, this.nome).getList();
-		if ( this.parar)	return;
+		if ( this.parar)
+		{
+			SingleGuiMain.getInstance().stopCarregamento();
+			return;
+		}
 		
 		int x=0, y, z, cont;
 		Item aux;
@@ -51,7 +55,11 @@ public class BuscarClone extends Thread{
 			
 			for (y=x+1;y<relacao.size();y++)
 			{
-				if ( this.parar )	return;
+				if ( this.parar )
+				{
+					SingleGuiMain.getInstance().stopCarregamento();
+					return;
+				}
 				if ( relacao.get(y).isFile() && aux.getNomeArquivo().compareTo(relacao.get(y).getNomeArquivo()) == 0 )
 				{
 					cont++;
