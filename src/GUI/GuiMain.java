@@ -7,6 +7,7 @@
 
 package GUI;
 import iteradores.IteradorBackups;
+import iteradores.IteradorVersoes;
 
 import java.awt.Color;
 import java.awt.FlowLayout;
@@ -26,6 +27,7 @@ import java.util.logging.Logger;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -45,6 +47,7 @@ import enuns.DiasSemana;
 import objetos.Backup;
 import objetos.Dias;
 import objetos.RegraBackup;
+import objetos.Versao;
 import nucleo.Core;
 import bancoDeDados.CarregaBanco;
 
@@ -204,6 +207,9 @@ public class GuiMain extends JFrame {
 		private TJbutton cancela;
 		private TJbutton fechar;
 		private FundoJpane imgci;
+		private JScrollPane scrollVersao;
+		private JLabel tlvRegra;
+		private JLabel tp1Regra;
     
     GuiMain()
     {
@@ -1406,6 +1412,7 @@ public class GuiMain extends JFrame {
     		corigem.setText(b.getRegra().getDestino());
     		TJbutton rodar = new TJbutton("Rodar regra",0,0,0,255);
     		rodar.setForeground(Color.white);
+    		TJbutton versao = new TJbutton("Verções",0,0,0,255);
     		TJcheck checkzip=new TJcheck("Salvar saída em Zip.",0,0,0,0);
     		checkzip.setFont(new Font("Microsoft Yi Baiti",Font.BOLD,20));
     		checkzip.setForeground(Color.BLACK); 
@@ -1413,14 +1420,101 @@ public class GuiMain extends JFrame {
     		checkzip.setBounds(0,65,230,18);
     		celula.add(checkzip);
     		//setBounds (horizontal,vertical,largura,altura);
+    		versao.setForeground(Color.white);
+    		versao.setBounds(400,65,134,30);
     		rodar.setBounds(231,65,134,30);
     		rodar.addActionListener(new ExecutarRegra(i,checkzip));
+    		versao.addActionListener(new Acaoversao(i));
     		celula.add(rodar);
+    		celula.add(versao);
     		celula.setBounds(h,v,l,a);
     		return celula;
     	}
-    	
-    	class ExecutarRegra implements ActionListener{
+    	class Acaoversao implements ActionListener{
+    	    int num;
+			Acaoversao(int num){
+    			this.num=num;
+    		}
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				telaVersao(num);
+			}
+    		
+    	}
+    	private void telaVersao(int num){
+            ImageIcon v1 = new ImageIcon(getClass().getResource("/GUI/Imagens/back.png"));
+            tlvRegra=new JLabel(v1);
+            tlvRegra.addMouseListener(new voltaRegra());
+            Runnable voltar= new AcaoMovimentoDeObjetos(50,6,22,22,tlvRegra,fundo);
+            new Thread(voltar).start();
+    		escondeRegra();
+    		Backup b=null;
+    		int cont=0;
+    		IteradorBackups ib=core.resgatarBackups();
+			while(cont<=num && ib.hasNext()){
+				b=null;
+			     b=ib.next();
+			     cont++;
+			    }
+    		IteradorVersoes ver=b.resgatarVersoes();
+            tp1Regra=new TJlabel("Informação da versão",0,0,0,0);
+            tp1Regra.setFont(new Font("CordiaUPC",Font.PLAIN,83));
+            tp1Regra.setForeground(Color.BLACK);
+            Runnable text = new AcaoMovimentoDeObjetos(50,25,799,114,tp1Regra,fundo);
+            new Thread(text).start();
+            TJtextArea infov = new TJtextArea(0,0,0,0);
+            infov.setFont(new Font("Microsoft Yi Baiti",Font.BOLD,20));
+            infov.setForeground(Color.black);
+            infov.setLineWrap(true);
+            infov.setWrapStyleWord(true);
+    		scrollVersao = new JScrollPane(infov);
+    		scrollVersao.setBorder(null);
+    		scrollVersao.setOpaque(false);//
+    		scrollVersao.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+    		scrollVersao.getViewport().setOpaque(false);
+            Runnable sv = new AcaoMovimentoDeObjetos(50,140,700,333,scrollVersao,fundo);
+            new Thread(sv).start();
+            infov.setText("Versões do backup \n\n\n"+b.nomeBackup);
+    		while(ver.hasNext()){
+    			Versao versao = ver.next();
+                infov.setText("Versão "+cont+"!\n"+"Ultima modificação: "+versao.dataInicio+"\n"+"Estado do backup: "+versao.getEstado()+"\n"+"_____________________________________________________________________________\n");
+    		}
+    	}
+    	class voltaRegra implements MouseListener{
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				escondeVersao();
+	            Runnable voltar= new AcaoMovimentoDeObjetos(50,6,22,22,tlv,fundo);
+	            new Thread(voltar).start();	
+	            Runnable text = new AcaoMovimentoDeObjetos(50,25,799,114,tp1,fundo);
+	            new Thread(text).start();
+	            Runnable sr = new AcaoMovimentoDeObjetos(50,140,715,333,scrollRegra,fundo);
+	            new Thread(sr).start();	
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {}
+
+			@Override
+			public void mouseExited(MouseEvent e) {}
+
+			@Override
+			public void mousePressed(MouseEvent e) {}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {}    
+    		
+    	}
+		private void escondeVersao() {
+            Runnable voltar= new AcaoRecolherObjetos(50,6,22,22,tlvRegra,fundo);
+            new Thread(voltar).start();
+            Runnable text = new AcaoRecolherObjetos(50,25,799,114,tp1Regra,fundo);
+            new Thread(text).start();
+            Runnable sv = new AcaoRecolherObjetos(50,140,700,333,scrollVersao,fundo);
+            new Thread(sv).start();
+		}
+    	class ExecutarRegra implements ActionListener{ 
     		int num,cont=0;
     		TJcheck zip;
     		Backup ba;
