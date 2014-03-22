@@ -188,6 +188,7 @@ public class CopiarArtefatos extends Thread{
         
         for ( Item item : relacao )
         {
+        	cont = 0;
         	if ( this.parar )	break;
         	
         	if ( !item.isFile())
@@ -207,7 +208,16 @@ public class CopiarArtefatos extends Thread{
 	                  fos.write(buffer, 0, len);
 	                  fos.flush();
 	               }
-	               if (new File(item.getCaminhoCompleto()).length() > new File(destino + File.separator + item.getCaminhoRelativo()).length() )
+	               try
+	               {
+	            	   in.close();
+	            	   fos.close();
+	               }
+	               catch ( Exception e)
+	               {
+	            	   
+	               }
+	               if (this.parar && item.getTam() > new File(destino + File.separator + item.getCaminhoRelativo()).length() )
 	               {
 	            	   new File(destino + File.separator + item.getCaminhoRelativo()).delete();
 	               }
@@ -216,11 +226,6 @@ public class CopiarArtefatos extends Thread{
 	            catch ( IOException e)
 	            {
 	            	e.printStackTrace();
-	            }
-	            finally
-	            {
-	               in.close();
-	               fos.close();
 	            }
             }
             catch (IOException e) {
