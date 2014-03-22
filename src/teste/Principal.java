@@ -14,7 +14,7 @@ import GUI.SingleGuiMain;
 
 public class Principal {
 	public static void main (String [] args ){
-		//new SingleGuiMain();
+		new SingleGuiMain();
 		
 		HistoricoBackups hb = new HistoricoBackups();
 		
