@@ -12,7 +12,7 @@ import objetos.Artefato;
 public class CopiarArtefatos extends Thread{
 	private String origem = null, destino = null, nomezip = null;
 	private boolean isZip = false, parar = false;
-	private ArrayList<Artefato> copiados = new ArrayList<Artefato>();
+	private ArrayList<Artefato> copiados;
 	private long cont=0;
 	private Status resultado = Status.FALHATOTAL;
 
@@ -21,6 +21,11 @@ public class CopiarArtefatos extends Thread{
 		this.copiados = new ArrayList<Artefato>();
 		this.origem = origem;
 		this.destino = destino.replaceAll("\\|", "");
+		this.isZip = false;
+		this.parar = false;
+		this.cont = 0;
+		this.resultado = Status.FALHATOTAL;
+		this.nomezip = null;
 	}	
 	public void run()
 	{
