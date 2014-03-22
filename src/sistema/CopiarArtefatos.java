@@ -21,11 +21,6 @@ public class CopiarArtefatos extends Thread{
 		this.copiados = new ArrayList<Artefato>();
 		this.origem = origem;
 		this.destino = destino.replaceAll("\\|", "");
-		this.isZip = false;
-		this.parar = false;
-		this.cont = 0;
-		this.resultado = Status.FALHATOTAL;
-		this.nomezip = null;
 	}	
 	public void run()
 	{
