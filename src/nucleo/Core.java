@@ -65,8 +65,9 @@ public class Core implements Runnable {
 	};
 	
 	public ArrayList<Artefato> buscarClones(String caminho, String nome ){//não funcional, falta a classe do Luiz. ( Só para precavêêeer)
-		BuscarClone c = new BuscarClone(caminho,nome);
 		
+		System.out.println(caminho+nome);
+		BuscarClone c = new BuscarClone(caminho,nome);
 		c.start();
 		
 		while(c.isRodando()){
