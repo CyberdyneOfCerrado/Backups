@@ -444,36 +444,26 @@ public class GuiMain extends JFrame {
             new Thread(sea1a).start();
             buscaDuplicado=new TJbutton("Busca",0,0,0,255);
             buscaDuplicado.setForeground(Color.white);
-            buscaDuplicado.addActionListener(new BuscaArquivos(dirp.getText(),dirpa.getText()));
+            buscaDuplicado.addActionListener(new BuscaArquivos());
             Runnable botaoBusca=new AcaoMovimentoDeObjetos(310,400,100,30,buscaDuplicado,fundo);
             new Thread(botaoBusca).start();
         }
         class BuscaArquivos implements ActionListener{
-        	String t,nome;
-        	BuscaArquivos(String t,String nome){
-        		this.t=t;
-        		this.nome=nome;
-        	}
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				iniCarregamentoBusca();
-				Runnable bus = new BuscaClone(t,nome);
+				System.out.println(dirp.getText());
+				Runnable bus = new BuscaClone();
 				new Thread(bus).start();
 			}
         	
         }
         class BuscaClone implements Runnable{
-        	String t,nome;
 			public ArrayList<Artefato> listFound;
-        	BuscaClone(String t,String nome){
-        		this.t=t;
-        		this.nome=nome;
-        	}
 			@Override
 			public void run() {
-				BuscarClone clones =  new BuscarClone(t,nome);
-				clones.start();
-				listFound=clones.getDuplicados();
+				if(dirp.getText()==null && dirpa.getText()==null)System.out.println("Alguem ta nulo");
+				else listFound=core.buscarClones(dirp.getText(),dirpa.getText());
 			}
         	
         }
@@ -1510,12 +1500,11 @@ public class GuiMain extends JFrame {
     		//motor de apresentação
     		
     	}
-        @SuppressWarnings("deprecation")
+
 		public void iniCarregamento()
         {
             escondeRegra();
     		//setBounds (horizontal,vertical,largura,altura);
-            fechar.disable();
             ImageIcon tl1i = new ImageIcon(getClass().getResource("/GUI/Imagens/load3.gif"));
             Image temp= tl1i.getImage();
             imgci = new FundoJpane(temp,0,0,0,0);
@@ -1527,12 +1516,11 @@ public class GuiMain extends JFrame {
             Runnable cancel = new AcaoMovimentoDeObjetos(304,384,168,57,cancela,fundo);
             new Thread(cancel).start();
         }
-        @SuppressWarnings("deprecation")
+
 		public void iniCarregamentoBusca()
         {
             escondeBuscaCopia();
     		//setBounds (horizontal,vertical,largura,altura);
-            fechar.disable();
             ImageIcon tl1i = new ImageIcon(getClass().getResource("/GUI/Imagens/load3.gif"));
             Image temp= tl1i.getImage();
             imgci = new FundoJpane(temp,0,0,0,0);
@@ -1546,22 +1534,18 @@ public class GuiMain extends JFrame {
         }
         class BotaoCancela implements ActionListener{
 
-			@SuppressWarnings("deprecation")
-			@Override
+
 			public void actionPerformed(ActionEvent arg0) {
-	            fechar.enable();
 				isCancelado=true;	
 			}
         	
         }
-        @SuppressWarnings("deprecation")
 		public void stopCarregamento(){
     		//setBounds (horizontal,vertical,largura,altura);
             Runnable text = new AcaoRecolherObjetos(199,88,380,269,imgci,fundo);
             new Thread(text).start();
             Runnable cancel = new AcaoRecolherObjetos(304,384,168,57,cancela,fundo);
             new Thread(cancel).start();
-            fechar.enable();
             concluido();
         }
     	private FundoJpane criarInfo(Backup b,int p,int h, int v, int l,int a){
