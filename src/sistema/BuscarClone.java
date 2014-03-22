@@ -9,7 +9,7 @@ import objetos.Artefato;
 public class BuscarClone extends Thread{
 	private ArrayList<Artefato> duplicados = null;
 	private String path, nome;
-	private boolean parar = true;
+	private boolean parar = false;
 	
 	public BuscarClone(String path, String nome)
 	{
@@ -34,10 +34,15 @@ public class BuscarClone extends Thread{
 		ArrayList<Item> relacao;
 
 		relacao = new ObterItens(this.path, this.nome).getList();
+		if ( this.parar)
+		{
+			SingleGuiMain.getInstance().stopCarregamento();
+			return;
+		}
 		
 		int x=0, y, z, cont;
 		Item aux;
-		while ( x < relacao.size() )
+		while ( x < relacao.size() && !this.parar)
 		{
 			if ( this.parar )	return;
 			cont = 0;
@@ -50,7 +55,11 @@ public class BuscarClone extends Thread{
 			
 			for (y=x+1;y<relacao.size();y++)
 			{
-				if ( this.parar )	return;
+				if ( this.parar )
+				{
+					SingleGuiMain.getInstance().stopCarregamento();
+					return;
+				}
 				if ( relacao.get(y).isFile() && aux.getNomeArquivo().compareTo(relacao.get(y).getNomeArquivo()) == 0 )
 				{
 					cont++;
@@ -59,9 +68,8 @@ public class BuscarClone extends Thread{
 			if ( cont > 0 )
 			{
 				z = x;
-				while ( z < relacao.size() )
+				while ( z < relacao.size() && !this.parar)
 				{
-					if ( this.parar )	return;
 					if ( relacao.get(z).isFile() && relacao.get(z).getNomeArquivo().compareTo(aux.getNomeArquivo()) == 0 )
 					{
 						this.duplicados.add(new Artefato(relacao.get(z).getCaminhoCompleto(), Long.toString(relacao.get(z).getTam())));

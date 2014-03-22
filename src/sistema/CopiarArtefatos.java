@@ -31,7 +31,11 @@ public class CopiarArtefatos extends Thread{
 		for(String path : paths)
 		{
 			if ( path == null || path.length() == 0 )	continue;
-			if ( this.parar )	return;
+			if ( this.parar )
+			{
+				SingleGuiMain.getInstance().stopCarregamento();
+				return;
+			}
 			path = path.replaceAll("\n", "");
 			System.out.println(path);
 			try
@@ -53,6 +57,7 @@ public class CopiarArtefatos extends Thread{
 			{
 				System.out.println("Inválido!");
 				this.parar = true;
+				SingleGuiMain.getInstance().stopCarregamento();
 				return;
 			}
 			salvarZip(relacao, this.destino);
@@ -63,6 +68,7 @@ public class CopiarArtefatos extends Thread{
 			{
 				System.out.println("Inválido!");
 				this.parar = true;
+				SingleGuiMain.getInstance().stopCarregamento();
 				return;
 			}
 			if ( !new File(this.destino).exists())	new File(this.destino).mkdir();
@@ -182,6 +188,7 @@ public class CopiarArtefatos extends Thread{
         
         for ( Item item : relacao )
         {
+        	cont = 0;
         	if ( this.parar )	break;
         	
         	if ( !item.isFile())
@@ -201,7 +208,16 @@ public class CopiarArtefatos extends Thread{
 	                  fos.write(buffer, 0, len);
 	                  fos.flush();
 	               }
-	               if (new File(item.getCaminhoCompleto()).length() > new File(destino + File.separator + item.getCaminhoRelativo()).length() )
+	               try
+	               {
+	            	   in.close();
+	            	   fos.close();
+	               }
+	               catch ( Exception e)
+	               {
+	            	   
+	               }
+	               if (this.parar && item.getTam() > new File(destino + File.separator + item.getCaminhoRelativo()).length() )
 	               {
 	            	   new File(destino + File.separator + item.getCaminhoRelativo()).delete();
 	               }
@@ -210,11 +226,6 @@ public class CopiarArtefatos extends Thread{
 	            catch ( IOException e)
 	            {
 	            	e.printStackTrace();
-	            }
-	            finally
-	            {
-	               in.close();
-	               fos.close();
 	            }
             }
             catch (IOException e) {
