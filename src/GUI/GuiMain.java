@@ -471,7 +471,9 @@ public class GuiMain extends JFrame {
         	}
 			@Override
 			public void run() {
-				listFound=core.buscarClones(t,nome);
+				BuscarClone clones =  new BuscarClone(t,nome);
+				clones.start();
+				listFound=clones.getDuplicados();
 			}
         	
         }
@@ -1508,12 +1510,12 @@ public class GuiMain extends JFrame {
     		//motor de apresentação
     		
     	}
-        public void iniCarregamento()
+        @SuppressWarnings("deprecation")
+		public void iniCarregamento()
         {
             escondeRegra();
     		//setBounds (horizontal,vertical,largura,altura);
-            Runnable escondeX = new AcaoRecolherObjetos(767,6,16,25,fechar,fundo);
-            new Thread(escondeX).start();
+            fechar.disable();
             ImageIcon tl1i = new ImageIcon(getClass().getResource("/GUI/Imagens/load3.gif"));
             Image temp= tl1i.getImage();
             imgci = new FundoJpane(temp,0,0,0,0);
@@ -1525,12 +1527,12 @@ public class GuiMain extends JFrame {
             Runnable cancel = new AcaoMovimentoDeObjetos(304,384,168,57,cancela,fundo);
             new Thread(cancel).start();
         }
-        public void iniCarregamentoBusca()
+        @SuppressWarnings("deprecation")
+		public void iniCarregamentoBusca()
         {
             escondeBuscaCopia();
     		//setBounds (horizontal,vertical,largura,altura);
-            Runnable escondeX = new AcaoRecolherObjetos(767,6,16,25,fechar,fundo);
-            new Thread(escondeX).start();
+            fechar.disable();
             ImageIcon tl1i = new ImageIcon(getClass().getResource("/GUI/Imagens/load3.gif"));
             Image temp= tl1i.getImage();
             imgci = new FundoJpane(temp,0,0,0,0);
@@ -1544,22 +1546,22 @@ public class GuiMain extends JFrame {
         }
         class BotaoCancela implements ActionListener{
 
+			@SuppressWarnings("deprecation")
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-	            Runnable escondeX = new AcaoMovimentoDeObjetos(767,6,16,25,fechar,fundo);
-	            new Thread(escondeX).start();
+	            fechar.enable();
 				isCancelado=true;	
 			}
         	
         }
-        public void stopCarregamento(){
+        @SuppressWarnings("deprecation")
+		public void stopCarregamento(){
     		//setBounds (horizontal,vertical,largura,altura);
             Runnable text = new AcaoRecolherObjetos(199,88,380,269,imgci,fundo);
             new Thread(text).start();
             Runnable cancel = new AcaoRecolherObjetos(304,384,168,57,cancela,fundo);
             new Thread(cancel).start();
-            Runnable escondeX = new AcaoMovimentoDeObjetos(767,6,16,25,fechar,fundo);
-            new Thread(escondeX).start();
+            fechar.enable();
             concluido();
         }
     	private FundoJpane criarInfo(Backup b,int p,int h, int v, int l,int a){
@@ -1681,21 +1683,22 @@ public class GuiMain extends JFrame {
     		scrollVersao.getViewport().setOpaque(false);
             Runnable sv = new AcaoMovimentoDeObjetos(50,140,700,333,scrollVersao,fundo);
             new Thread(sv).start();
+            cont=1;
             String str="Versões do backup "+b.nomeBackup+"\n\n\n";
+    		if(ver.hasNext()==false){
+    			str+="Não há nenhuma versão deste backup ainda!";
+    			infov.setText(str);
+    		}            
             Versao versao;
     		while(ver.hasNext()){
-    			versao = null;
     		    versao = ver.next();
     			str+="Versão "+cont+"!\n";
     			str+="Ultima modificação: "+versao.dataInicio+"\n";
     			str+="Estado do backup: "+versao.getEstado()+"\n";
-    			str+="_____________________________________________________________________________\n";
-        		infov.setText(str);
+    			str+="___________________________________________________________________________\n";
+    			cont++;
     		}
-    		if(ver.hasNext()==false){
-    			str+="Não há nenhuma versão deste backup ainda!";
-    			infov.setText(str);
-    		}
+    		infov.setText(str);
     	}
     	class voltaRegra implements MouseListener{
 
