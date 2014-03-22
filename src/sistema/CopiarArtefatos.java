@@ -12,7 +12,7 @@ import objetos.Artefato;
 public class CopiarArtefatos extends Thread{
 	private String origem = null, destino = null, nomezip = null;
 	private boolean isZip = false, parar = false;
-	private ArrayList<Artefato> copiados;
+	private ArrayList<Artefato> copiados = new ArrayList<Artefato>();
 	private long cont=0;
 	private Status resultado = Status.FALHATOTAL;
 

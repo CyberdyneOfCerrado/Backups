@@ -3,6 +3,8 @@ package sistema;
 import java.io.*;
 import java.util.ArrayList;
 
+import GUI.SingleGuiMain;
+
 public class ObterItens {
 	private ArrayList<Item> resul;
 	
@@ -14,6 +16,7 @@ public class ObterItens {
 			resul.add(new Item(res.getAbsolutePath(), res.getName(), res.isFile(), res.length()));
 			if ( !res.isFile())
 			{
+				if ( SingleGuiMain.getInstance().isCancelado )	return;
 				resul.addAll(subpastas(raiz + (raiz.endsWith(File.separator) ? "" : File.separator ), res));
 			}
 		}
@@ -40,6 +43,7 @@ public class ObterItens {
 	private ArrayList<Item> subpastas(String raiz, File f)
 	{
 		ArrayList<Item> sub = new ArrayList<Item>();
+		if ( SingleGuiMain.getInstance().isCancelado ) return sub;
 		
 		for(File aux : f.listFiles())
 		{
